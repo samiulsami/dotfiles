@@ -1,0 +1,42 @@
+set clipboard+=unnamedplus
+map Q gq
+let mapleader = " "
+let maplocalleader = " "
+
+set scrolloff=5
+set hls is
+set smartindent
+set autoindent
+set expandtab
+set number
+set relativenumber
+set ignorecase
+set smartcase
+
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+map <ESC> :noh<CR>
+map <Leader>sf <action>(com.mituuz.fuzzier.Fuzzier)
+
+Plug 'machakann/vim-highlightedyank'
+Plug 'tpope/vim-commentary'
+
+nmap <M-1> <action>(HarpoonerOpenFile0)
+nmap <M-2> <action>(HarpoonerOpenFile1)
+nmap <M-3> <action>(HarpoonerOpenFile2)
+nmap <M-4> <action>(HarpoonerOpenFile3)
+nmap <M-4> <action>(HarpoonerOpenFile4)
+nmap <M-5> <action>(HarpoonerOpenFile5)
+nmap <M-e> <action>(HarpoonerQuickMenu)
+nmap <leader>a <action>(HarpoonerAddFile)
+
+vmap J <action>(MoveLineDown)
+vmap K <action>(MoveLineUp)
+
+nmap <Leader><M-e> :vsplit<CR>
+nmap <Leader><M-o> :split<CR>
