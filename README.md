@@ -19,18 +19,23 @@ connect MAC_ADDRESS
 echo "options hid_apple fnmode=0" | sudo tee -a /etc/modprobe.d/hid_apple.conf
 sudo update-initramfs -u
 ```
-### i3wm
-
-```bash
-sudo apt update
-sudo apt install i3 rofi pavucontrol blueman dunst flameshot brightnessctl
-cp ./i3wm/config ~/.config/i3/config
-```
-#### Fix chrome passwords/cookies [persistence issue](https://askubuntu.com/a/1502211)
+### Fix chrome passwords/cookies [persistence issue](https://askubuntu.com/a/1502211)
 ```
 cd /usr/share/applications
 sudo su
 nvim google-chrome.desktop
+```
+### i3wm
+
+```bash
+sudo apt update
+sudo apt install i3 picom rofi pavucontrol blueman dunst flameshot brightnessctl
+cp ./i3wm/config ~/.config/i3/config
+```
+
+### Picom
+```bash
+cp picom.conf ~/.config/picom/picom.conf
 ```
 Then add <b><i>-chrome --password-store=gnome-libsecret</i></b> after every <b><i>Exec</i></b> line
 
@@ -82,7 +87,6 @@ ssh-add ~/.ssh/id_rsa
 ```bash
 cat ~/.ssh/id_rsa.pub
 ```
-
 * <i>Install it here</i>: [https://github.com/settings/ssh/new](https://github.com/settings/ssh/new)
 
 ### Ghostty
