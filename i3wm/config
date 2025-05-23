@@ -163,13 +163,13 @@ bindsym $mod+shift+b exec brightnessctl set 5%+ && notify-send -h string:x-dunst
 bindsym $mod+b exec brightnessctl set 5%- && notify-send -h string:x-dunst-stack-tag:brightness "Brightness: -5%" && $refresh_i3status
 
 bindsym $mod+shift+v exec --no-startup-id sh -c '\
-pactl set-sink-volume @DEFAULT_SINK@ +10% && \
+pactl set-sink-volume @DEFAULT_SINK@ +5% && \
 volume=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -oP "[0-9]+(?=%)" | head -1) && \
 notify-send -h string:x-dunst-stack-tag:audio "🔊 Volume: ${volume}%" && \
 $refresh_i3status'
 
 bindsym $mod+v exec --no-startup-id sh -c '\
-pactl set-sink-volume @DEFAULT_SINK@ -10% && \
+pactl set-sink-volume @DEFAULT_SINK@ -5% && \
 volume=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -oP "[0-9]+(?=%)" | head -1) && \
 notify-send -h string:x-dunst-stack-tag:audio "🔉 Volume: ${volume}%" && \
 $refresh_i3status'
