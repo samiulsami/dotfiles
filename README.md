@@ -35,7 +35,7 @@ cp ./i3wm/config ~/.config/i3/config
 
 ### Picom
 ```bash
-cp picom.conf ~/.config/picom/picom.conf
+cp ./picom/picom.conf ~/.config/picom/picom.conf
 ```
 Then add <b><i>-chrome --password-store=gnome-libsecret</i></b> after every <b><i>Exec</i></b> line
 
