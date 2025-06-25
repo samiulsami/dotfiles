@@ -5,7 +5,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-WORDCHARS='*?[]~=\ -_&;!#$%^(){}<>/|'
+WORDCHARS='*?[]~=\@. -_&;!#$%^(){}<>/|'
 
 autoload -Uz compinit
 compinit
@@ -86,7 +86,7 @@ ZVM_CURSOR_STYLE_ENABLED=false
 function my_init() {
   [ -f $HOME/.fzf.zsh ] && source ~/.fzf.zsh
   export FZF_DEFAULT_COMMAND='fd --hidden --color=always'
-  export FZF_DEFAULT_OPTS="--ansi ${FZF_DEFAULT_OPTS} --multi"
+  export FZF_DEFAULT_OPTS="--ansi ${FZF_DEFAULT_OPTS} --multi --cycle --tiebreak=length,begin,end"
   export FZF_DEFAULT_OPTS="--bind='ctrl-y:accept' ${FZF_DEFAULT_OPTS}"
   export FZF_PREVIEW_FILE_CMD='bat --color=always --style=numbers --line-range=:500'
 
@@ -111,64 +111,6 @@ alias i3l="i3lock -uc 000000"
 alias ls='ls --color=always'
 alias gl="git log --oneline -5"
 alias kc="kubectl"
-
-dockerclean() {
-  docker kill $(docker ps -aq)
-  docker system prune --all
-}
-
-dockerrmi() {
-  if (($# == 0)); then
-    echo "Usage: dockerrmi <pattern1> <pattern2> or dockerrmi <pattern1,pattern2,...>"
-    echo "Patterns are case-insensitive and matched against the full image name."
-    return 1
-  fi
-
-  local patterns_array=()
-  for arg in "$@"; do
-    patterns_array+=( "${arg//,/|}" )
-  done
-
-  local final_pattern
-  IFS='|' final_pattern="${patterns_array[*]}"
-
-  docker images | awk -v pattern="$final_pattern" '
-    BEGIN { IGNORECASE = 1 }
-    $1 ~ pattern || $2 ~ pattern { print $3 }
-  ' | xargs -r docker rmi -f
-}
-
-pskill() {
-  if (($# == 0)); then
-    echo "Usage: pskill <pattern1> <pattern2> or pskill <pattern1,pattern2,...>"
-    echo "Patterns are case-insensitive and matched against the full command line."
-    return 1
-  fi
-
-  local patterns_array=()
-  for arg in "$@"; do
-    patterns_array+=( "${arg//,/|}" )
-  done
-
-  local final_pattern
-  IFS='|' final_pattern="${patterns_array[*]}"
-
-  ps aux | awk -v pat="$final_pattern" '
-    BEGIN { IGNORECASE = 1 }
-    $11 ~ pat { print $2 }
-  ' | xargs -r sudo kill -9
-}
-
-killports() {
-  if (($# == 0)); then
-    echo "Usage: killports <pattern1> <pattern2> or killports <pattern1,pattern2,...>"
-    echo "Patterns are case-insensitive and matched against the full image name."
-    return 1
-  fi
-  local ports=$(IFS=, ; echo "$*")
-  echo "Killing ports $ports"
-  sudo kill -9 $(sudo lsof -ti :"$ports")
-}
 
 PATH=$PATH:$HOME/.local/bin
 

@@ -94,9 +94,9 @@ sudo ln -s $HOME/dotfiles/dunst/dunstrc $HOME/.config/dunst/dunstrc
 ```bash
 sudo apt update
 sudo apt install i3 pavucontrol blueman flameshot brightnessctl
-cp $HOME/dotfiles/i3wm/config $HOME/.config/i3/config
-monitor1=$(xrandr | grep " connected primary" | awk '{print $1}' | head -n 1) && sed -i "s|__MONITOR1__|$monitor1|g" "$HOME/.config/i3/config"
-monitor2=$(xrandr | grep " connected" | grep -v " connected primary " awk '{print $1}' | head -n 1) && sed -i "s|__MONITOR2__|$monitor2|g" "$HOME/.config/i3/config"
+sudo ln -s $HOME/dotfiles/i3wm/config $HOME/.config/i3/config
+sed -i "s|^set \$monitor1 .*|set \$monitor1 $(xrandr | grep ' connected primary' | awk '{print $1}')|" "$HOME/.config/i3/config"
+sed -i "s|^set \$monitor2 .*|set \$monitor2 $(xrandr | grep ' connected' | grep -v ' connected primary ' | awk '{print $1}')|" "$HOME/.config/i3/config"
 ```
 
 ### Git
@@ -275,7 +275,7 @@ mvn -version
 
 ### Golang
 ```bash
-go_version=1.24.4
+go_version=1.24.3
 sudo rm -rf /usr/local/go
 mkdir -p $HOME/Downloads
 cd $HOME/Downloads
