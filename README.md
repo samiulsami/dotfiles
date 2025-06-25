@@ -154,6 +154,7 @@ git clone https://github.com/romkatv/powerlevel10k.git $HOME/.zsh/powerlevel10k
 git clone https://github.com/Aloxaf/fzf-tab.git $HOME/.zsh/fzf-tab
 git clone https://github.com/zsh-users/zsh-completions.git $HOME/.zsh/zsh-completions
 sudo ln -s $HOME/dotfiles/zsh/.zshrc $HOME/.zshrc
+sudo ln -s $HOME/dotfiles/zsh/.zsh_functions_and_widgets $HOME/.zsh_functions_and_widgets
 sudo ln -s $HOME/dotfiles/zsh/.p10k.zsh $HOME/.p10k.zsh
 source $HOME/.zshrc
 ```
@@ -161,7 +162,7 @@ source $HOME/.zshrc
 ### restore zsh-shell history
 
 - Follow the steps here:
-[https://github.com/samiulsami/fish-shell-history](https://github.com/samiulsami/fish-shell-history)
+[https://github.com/samiulsami/shell-history-backup](https://github.com/samiulsami/shell-history-backup)
 
 ### Zoxide
 ```bash
@@ -265,7 +266,7 @@ mvn -version
 
 ### Golang
 ```bash
-go_version=1.24.1
+go_version=1.24.4
 sudo rm -rf /usr/local/go
 mkdir -p $HOME/Downloads
 cd $HOME/Downloads
