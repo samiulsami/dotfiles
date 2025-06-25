@@ -186,14 +186,15 @@ bindsym $mod+c exec --no-startup-id dunstctl close-all
 
 for_window [class=".*"] border none
 
-set $monitor1 HDMI-1
-set $monitor2 eDP-1
+exec --no-startup-id picom -b --blur-method=dual_kawase --blur-strength=3
+
+set $monitor1 __MONITOR1__
+set $monitor2 __MONITOR2__
 workspace $ws1 output $monitor1
 workspace $ws4 output $monitor2
 
 exec xrandr --output $monitor2 --right-of $monitor1
-exec --no-startup-id picom -b --blur-method=dual_kawase --blur-strength=3
 
-# FIXME: unshittify this ugly hack for disabling mouse acceleration
+# FIXME: unshittify this ugly hack for disabling mouse accelaration
 exec --no-startup-id xinput list | sed -n 's/.*mouse.*\s\+id=\([0-9]*\).*slave\s\+pointer.*/\1/Ip' | xargs -I {} xinput --set-prop {} "libinput Accel Profile Enabled" 0 1
 exec --no-startup-id xinput list | sed -n 's/.*mouse.*\s\+id=\([0-9]*\).*slave\s\+pointer.*/\1/Ip' | xargs -I {} xinput --set-prop {} "Coordinate Transformation Matrix" 1 0 0 0 1 0 0 0 1
