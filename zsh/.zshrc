@@ -11,7 +11,7 @@ autoload -Uz compinit
 compinit
 
 source ~/.zsh/fzf-tab/fzf-tab.plugin.zsh
-zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+# zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 zstyle ':fzf-tab:*' use-fzf-default-opts yes
 
 zstyle ':completion:*:git-checkout:*' sort false
@@ -19,15 +19,19 @@ zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' menu no
 
+setopt NO_CASE_GLOB
+setopt NO_CASE_MATCH
+zstyle ':completion:*' completer _complete _approximate
+zstyle ':completion:*:approximate:*' max-errors 1 numeric
+
 zstyle ':completion:*' matcher-list '' \
   'm:{a-z\-}={A-Z\_}' \
   'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
   'r:|?=** m:{a-z\-}={A-Z\_}'
 
+
 zmodload zsh/complist
 bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -a "k" .up-line-or-history
 bindkey -a "j" .down-line-or-history
@@ -35,6 +39,23 @@ bindkey -a "j" .down-line-or-history
 bindkey -M menuselect '\e' send-break
 bindkey -M menuselect '^N' down-line-or-history
 bindkey -M menuselect '^P' up-line-or-history
+
+function vi-history-up-and-highlight() {
+  zle vi-up-line-or-history
+  zle zle-line-init
+  zle end-of-line
+}
+zle -N vi-history-up-and-highlight
+
+function vi-history-down-and-highlight() {
+  zle vi-down-line-or-history
+  zle zle-line-init
+  zle end-of-line
+}
+zle -N vi-history-down-and-highlight
+
+bindkey -M vicmd 'k' vi-history-up-and-highlight
+bindkey -M vicmd 'j' vi-history-down-and-highlight
 
 source <(kubectl completion zsh)
 
@@ -50,12 +71,16 @@ setopt AUTO_MENU
 setopt ALWAYS_TO_END
 setopt AUTO_PARAM_SLASH
 setopt LIST_PACKED
+setopt EXTENDEDGLOB
+setopt NOTIFY
+setopt NOMATCH
 
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=999999999
 SAVEHIST=$HISTSIZE
 setopt BANG_HIST                 # Treat the '!' character specially during expansion.
 setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
+setopt APPEND_HISTORY            # Add new commands to the history file, instead of overwriting it.
 setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
 setopt SHARE_HISTORY             # Share history between all sessions.
 setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
@@ -67,6 +92,8 @@ setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history 
 setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
 setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
 setopt HIST_BEEP                 # Beep when accessing nonexistent history.
+
+unsetopt BEEP
 
 # To customize prompt, run `p10k configure` or edit $HOME/.p10k.zsh.
 [[ ! -f $HOME/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -118,6 +145,12 @@ export REGISTRY=sami7786
 
 export EDITOR='nvim -f'
 export KUBE_EDITOR='nvim -f'
+
+if command -v nvim >/dev/null; then
+  export MANPAGER="nvim +Man!"
+elif command -v bat >/dev/null; then
+  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+fi
 
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:/usr/local/go/bin:$PATH

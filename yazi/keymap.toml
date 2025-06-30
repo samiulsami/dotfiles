@@ -3,6 +3,10 @@ on  = "M"
 run = "plugin mount"
 
 [[mgr.prepend_keymap]]
+on  = "<Tab>"
+run = "toggle"
+
+[[mgr.prepend_keymap]]
 on  = "<Enter>"
 run = "plugin smart-enter"
 
