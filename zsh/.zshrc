@@ -26,7 +26,7 @@ zstyle ':completion:*' matcher-list '' \
 
 zmodload zsh/complist
 bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-historykk
+bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -a "k" .up-line-or-history
@@ -71,7 +71,6 @@ setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 # To customize prompt, run `p10k configure` or edit $HOME/.p10k.zsh.
 [[ ! -f $HOME/.p10k.zsh ]] || source ~/.p10k.zsh
 
-source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $HOME/.zsh/powerlevel10k/powerlevel10k.zsh-theme
 
 ZSH_AUTOSUGGEST_STRATEGY=(history completion match_prev_cmd)
@@ -79,6 +78,7 @@ ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=100
 bindkey '^o' autosuggest-accept
 
 source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $HOME/.zsh/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
 source $HOME/.zsh/.zsh-vi-mode/zsh-vi-mode.plugin.zsh
 ZVM_CURSOR_STYLE_ENABLED=false
