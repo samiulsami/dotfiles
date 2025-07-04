@@ -138,6 +138,7 @@ alias i3l="i3lock -uc 000000"
 alias ls='ls --color=always'
 alias gl="git log --oneline -5"
 alias kc="kubectl"
+alias kcai="kubectl-ai"
 
 PATH=$PATH:$HOME/.local/bin
 
