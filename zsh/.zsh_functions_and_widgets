@@ -1,7 +1,7 @@
 # kill all containers and prune all images
 dockerclean() {
         docker kill $(docker ps -aq)
-        docker system prune --all
+        yes | docker system prune --all
 }
 
 # remove all images matching the patterns

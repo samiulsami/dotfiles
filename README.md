@@ -99,14 +99,6 @@ sed -i "s|^set \$monitor1 .*|set \$monitor1 $(xrandr | grep ' connected primary'
 sed -i "s|^set \$monitor2 .*|set \$monitor2 $(xrandr | grep ' connected' | grep -v ' connected primary ' | awk '{print $1}')|" "$HOME/.config/i3/config"
 ```
 
-### Git
-```bash
-sudo apt install git git-gui
-git config --global user.name <your-name>
-git config --global user.email <your-email@domain.com>`
-git config --global --add url."git@github.com:".insteadOf "https://github.com/"
-```
-
 ### SSH Keys
 ```bash
 ssh -v
@@ -138,6 +130,30 @@ ssh-add $HOME/.ssh/id_rsa
 cat $HOME/.ssh/id_rsa.pub
 ```
 * <i>Install it here</i>: [https://github.com/settings/ssh/new](https://github.com/settings/ssh/new)
+
+### Git & GitHub
+```bash
+sudo apt install git git-gui
+gh extension install yusukebe/gh-markdown-preview
+git config --global user.name <your-name>
+git config --global user.email <your-email@domain.com>`
+git config --global --add url."git@github.com:".insteadOf "https://github.com/"
+```
+
+### GitHub CLI
+```bash
+(type -p wget >/dev/null || (sudo apt update && sudo apt install wget -y)) \
+	&& sudo mkdir -p -m 755 /etc/apt/keyrings \
+	&& out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+	&& cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
+	&& sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
+	&& sudo mkdir -p -m 755 /etc/apt/sources.list.d \
+	&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+	&& sudo apt update \
+	&& sudo apt install gh -y
+
+gh extension install yusukebe/gh-markdown-preview
+```
 
 ### Ghostty
 ```bash

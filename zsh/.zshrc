@@ -114,7 +114,7 @@ function my_init() {
   [ -f $HOME/.fzf.zsh ] && source ~/.fzf.zsh
   export FZF_DEFAULT_COMMAND='fd --hidden --color=always'
   export FZF_DEFAULT_OPTS="--ansi ${FZF_DEFAULT_OPTS} --multi --cycle --tiebreak=length,begin,end"
-  export FZF_DEFAULT_OPTS="--bind='ctrl-y:accept' ${FZF_DEFAULT_OPTS}"
+  export FZF_DEFAULT_OPTS="--bind='ctrl-y:accept,ctrl-a:select-all,ctrl-d:deselect-all' ${FZF_DEFAULT_OPTS}"
   export FZF_PREVIEW_FILE_CMD='bat --color=always --style=numbers --line-range=:500'
 
   bindkey -a '\er' fzf-history-widget
