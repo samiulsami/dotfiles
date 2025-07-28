@@ -105,7 +105,7 @@ ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=100
 bindkey '^o' autosuggest-accept
 
 source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $HOME/.zsh/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 source $HOME/.zsh/.zsh-vi-mode/zsh-vi-mode.plugin.zsh
 ZVM_CURSOR_STYLE_ENABLED=false

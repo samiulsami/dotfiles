@@ -174,7 +174,7 @@ sudo apt install zsh
 mkdir -p $HOME/.zsh/
 git clone https://github.com/jeffreytse/zsh-vi-mode.git $HOME/.zsh/.zsh-vi-mode
 git clone https://github.com/zsh-users/zsh-autosuggestions.git $HOME/.zsh/zsh-autosuggestions
-git clone https://github.com/zdharma-continuum/fast-syntax-highlighting ~/.zsh/fast-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.zsh/zsh-syntax-highlighting
 git clone https://github.com/romkatv/powerlevel10k.git $HOME/.zsh/powerlevel10k
 git clone https://github.com/Aloxaf/fzf-tab.git $HOME/.zsh/fzf-tab
 git clone https://github.com/zsh-users/zsh-completions.git $HOME/.zsh/zsh-completions
