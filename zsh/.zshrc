@@ -133,7 +133,6 @@ my_init
 alias fp='fzf -m --preview "batcat --color=always --style=numbers --line-range=:500 {}"'
 alias zp='z $(zoxide query -l | fzf)'
 alias cd='z'
-alias i3l="i3lock -uc 000000"
 alias ls='ls --color=always'
 alias gl="git log --oneline -5"
 alias kc="kubectl"

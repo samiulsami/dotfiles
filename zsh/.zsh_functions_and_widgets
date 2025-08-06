@@ -92,6 +92,14 @@ gb() {
         fi
 }
 
+# lock the screen with i3lock
+# pause dunst while locked
+i3l() {
+        dunstctl set-paused true
+        i3lock -unc 000000
+        dunstctl set-paused false
+}
+
 # create and switch to a new tmux session from the current directory
 # works inside tmux sessions
 tns() {
