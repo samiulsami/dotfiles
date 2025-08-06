@@ -130,7 +130,6 @@ zvm_after_init_commands+=(my_init)
 my_init
 #################################################################################
 
-alias tns='tmux new -t'
 alias fp='fzf -m --preview "batcat --color=always --style=numbers --line-range=:500 {}"'
 alias zp='z $(zoxide query -l | fzf)'
 alias cd='z'
