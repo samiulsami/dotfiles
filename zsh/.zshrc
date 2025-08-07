@@ -7,6 +7,7 @@ fi
 
 WORDCHARS='*?[]~=\@. -_&;!#$%^(){}<>/|'
 
+fpath=($HOME/.zsh/zsh-completions/src $fpath)
 autoload -Uz compinit
 compinit
 
@@ -28,7 +29,6 @@ zstyle ':completion:*' matcher-list '' \
   'm:{a-z\-}={A-Z\_}' \
   'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
   'r:|?=** m:{a-z\-}={A-Z\_}'
-
 
 zmodload zsh/complist
 bindkey -M menuselect 'h' vi-backward-char
@@ -57,13 +57,9 @@ zle -N vi-history-down-and-highlight
 bindkey -M vicmd 'k' vi-history-up-and-highlight
 bindkey -M vicmd 'j' vi-history-down-and-highlight
 
-source <(kubectl completion zsh)
-
 bindkey -v
 
 KEYTIMEOUT=1
-
-fpath=($HOME/.zsh/zsh-completions/src $fpath)
 
 setopt AUTO_CD
 setopt AUTO_PUSHD
@@ -165,5 +161,10 @@ if [ -d "$FNM_PATH" ]; then
   export PATH="$FNM_PATH:$PATH"
   eval "$(fnm env)"
 fi
+
+source <(fnm completions)
+source <(kubectl completion zsh)
+source <(helm completion zsh)
+source <(crush completion zsh)
 
 eval "$(zoxide init zsh)"
