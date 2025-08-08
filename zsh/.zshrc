@@ -2,7 +2,7 @@
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+        source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 WORDCHARS='*?[]~=\@. -_&;!#$%^(){}<>/|'
@@ -10,10 +10,6 @@ WORDCHARS='*?[]~=\@. -_&;!#$%^(){}<>/|'
 fpath=($HOME/.zsh/zsh-completions/src $fpath)
 autoload -Uz compinit
 compinit
-
-source ~/.zsh/fzf-tab/fzf-tab.plugin.zsh
-# zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
-zstyle ':fzf-tab:*' use-fzf-default-opts yes
 
 zstyle ':completion:*:git-checkout:*' sort false
 zstyle ':completion:*:descriptions' format '[%d]'
@@ -26,9 +22,9 @@ zstyle ':completion:*' completer _complete _approximate
 zstyle ':completion:*:approximate:*' max-errors 1 numeric
 
 zstyle ':completion:*' matcher-list '' \
-  'm:{a-z\-}={A-Z\_}' \
-  'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
-  'r:|?=** m:{a-z\-}={A-Z\_}'
+        'm:{a-z\-}={A-Z\_}' \
+        'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
+        'r:|?=** m:{a-z\-}={A-Z\_}'
 
 zmodload zsh/complist
 bindkey -M menuselect 'h' vi-backward-char
@@ -41,16 +37,16 @@ bindkey -M menuselect '^N' down-line-or-history
 bindkey -M menuselect '^P' up-line-or-history
 
 function vi-history-up-and-highlight() {
-  zle vi-up-line-or-history
-  zle zle-line-init
-  zle end-of-line
+        zle vi-up-line-or-history
+        zle zle-line-init
+        zle end-of-line
 }
 zle -N vi-history-up-and-highlight
 
 function vi-history-down-and-highlight() {
-  zle vi-down-line-or-history
-  zle zle-line-init
-  zle end-of-line
+        zle vi-down-line-or-history
+        zle zle-line-init
+        zle end-of-line
 }
 zle -N vi-history-down-and-highlight
 
@@ -107,19 +103,23 @@ source $HOME/.zsh/.zsh-vi-mode/zsh-vi-mode.plugin.zsh
 ZVM_CURSOR_STYLE_ENABLED=false
 
 function my_init() {
-  [ -f $HOME/.fzf.zsh ] && source ~/.fzf.zsh
-  export FZF_DEFAULT_COMMAND='fd --hidden --color=always'
-  export FZF_DEFAULT_OPTS="--ansi ${FZF_DEFAULT_OPTS} --multi --cycle --tiebreak=length,begin,end"
-  export FZF_DEFAULT_OPTS="--bind='ctrl-y:accept,ctrl-a:select-all,ctrl-d:deselect-all' ${FZF_DEFAULT_OPTS}"
-  export FZF_PREVIEW_FILE_CMD='bat --color=always --style=numbers --line-range=:500'
+        [ -f $HOME/.fzf.zsh ] && source ~/.fzf.zsh
+        export FZF_DEFAULT_COMMAND='fd --hidden --color=always'
+        export FZF_DEFAULT_OPTS="--ansi ${FZF_DEFAULT_OPTS} --multi --cycle --tiebreak=length,begin,end"
+        export FZF_DEFAULT_OPTS="--bind='ctrl-y:accept,ctrl-a:select-all,ctrl-d:deselect-all' ${FZF_DEFAULT_OPTS}"
+        export FZF_PREVIEW_FILE_CMD='bat --color=always --style=numbers --line-range=:500'
 
-  bindkey -a '\er' fzf-history-widget
-  bindkey '\er' fzf-history-widget
+        bindkey -a '\er' fzf-history-widget
+        bindkey '\er' fzf-history-widget
 
-  bindkey -a '\ef' fzf-file-widget
-  bindkey '\ef' fzf-file-widget
+        bindkey -a '\ef' fzf-file-widget
+        bindkey '\ef' fzf-file-widget
 
-  source $HOME/.zsh_functions_and_widgets
+        source $HOME/.zsh/fzf-tab/fzf-tab.plugin.zsh
+        # zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+        zstyle ':fzf-tab:*' use-fzf-default-opts yes
+
+        source $HOME/.zsh_functions_and_widgets
 }
 
 zvm_after_init_commands+=(my_init)
@@ -138,13 +138,17 @@ PATH=$PATH:$HOME/.local/bin
 
 export REGISTRY=sami7786
 
-export EDITOR='nvim -f'
-export KUBE_EDITOR='nvim -f'
+if command -v nvim >/dev/null; then
+        export EDITOR='nvim -f'
+        export KUBE_EDITOR='nvim -f'
+else
+        echo "nvim not found"
+fi
 
 if command -v nvim >/dev/null; then
-  export MANPAGER="nvim +Man!"
+        export MANPAGER="nvim +Man!"
 elif command -v bat >/dev/null; then
-  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+        export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 fi
 
 export GOPATH=$HOME/go
@@ -158,13 +162,25 @@ export PATH=$MAVEN_HOME/bin:$PATH
 
 FNM_PATH="$HOME/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
-  export PATH="$FNM_PATH:$PATH"
-  eval "$(fnm env)"
+        export PATH="$FNM_PATH:$PATH"
+        eval "$(fnm env)"
 fi
 
-source <(fnm completions)
-source <(kubectl completion zsh)
-source <(helm completion zsh)
-source <(crush completion zsh)
+if command -v fnm >/dev/null; then
+        source <(fnm completions)
+fi
+if command -v kubectl >/dev/null; then
+        source <(kubectl completion zsh)
+fi
+if command -v helm >/dev/null; then
+        source <(helm completion zsh)
+fi
+if command -v crush >/dev/null; then
+        source <(crush completion zsh)
+fi
 
-eval "$(zoxide init zsh)"
+if command -v zoxide >/dev/null; then
+        eval "$(zoxide init zsh)"
+else
+        echo "zoxide not found"
+fi

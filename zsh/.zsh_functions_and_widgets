@@ -1,11 +1,20 @@
 # kill all containers and prune all images
 dockerclean() {
+        if ! command -v docker >/dev/null; then
+                echo "docker not found"
+                return 1
+        fi
         docker kill $(docker ps -aq)
         yes | docker system prune --all
 }
 
 # remove all images matching the patterns
 dockerrmi() {
+        if ! command -v docker >/dev/null; then
+                echo "docker not found"
+                return 1
+        fi
+
         if (($# == 0)); then
                 echo "Usage: dockerrmi <pattern1> <pattern2> or dockerrmi <pattern1,pattern2,...>"
                 echo "Patterns are case-insensitive and matched against the full image name."
@@ -95,6 +104,16 @@ gb() {
 # lock the screen with i3lock
 # pause dunst while locked
 i3l() {
+        if ! command -v dunstctl >/dev/null; then
+                echo "dunst not found"
+                return 1
+        fi
+
+        if ! command -v i3lock >/dev/null; then
+                echo "i3lock not found"
+                return 1
+        fi
+
         dunstctl set-paused true
         i3lock -unc 000000
         dunstctl set-paused false
@@ -122,6 +141,16 @@ tns() {
 
 # fuzzy search and paste path to dir
 fzf-dir-widget() {
+        if ! command -v fd >/dev/null; then
+                echo "fd not found"
+                return 1
+        fi
+
+        if ! command -v fzf >/dev/null; then
+                echo "fzf not found"
+                return 1
+        fi
+
         local dir
         dir=$(fd --type d --hidden --exclude .git | fzf --ansi --preview 'ls -l {}' --preview-window=right:40%) || return
         LBUFFER+="$dir"
@@ -133,6 +162,16 @@ bindkey '\ed' fzf-dir-widget
 
 # search for a string in all files in the current directory
 exactgrep() {
+        if ! command -v rg >/dev/null; then
+                echo "ripgrep not found"
+                return 1
+        fi
+
+        if ! command -v fzf >/dev/null; then
+                echo "fzf not found"
+                return 1
+        fi
+
         RG_PREFIX="rg --hidden --column --line-number --no-heading --color=always --smart-case "
         INITIAL_QUERY="${*:-}"
         fzf --ansi --disabled --query "$INITIAL_QUERY" \
@@ -151,6 +190,16 @@ bindkey '\eg' exactgrep
 # fuzzy search for a string in all files in the current directory
 # WARNING: might eat up all your memory
 fuzzygrep() {
+        if ! command -v rg >/dev/null; then
+                echo "ripgrep not found"
+                return 1
+        fi
+
+        if ! command -v fzf >/dev/null; then
+                echo "fzf not found"
+                return 1
+        fi
+
         local dir="${1:-.}"
         local source_cmd
 
@@ -164,7 +213,7 @@ fuzzygrep() {
                 --preview 'filename={1}; lineno={2}; start=$(( lineno > 10 ? lineno - 10 : 1 )); end=$(( lineno + 10 )); bat --color=always --highlight-line "$lineno" --line-range "${start}:${end}" "$filename"' \
                 --preview-window right:50% \
                 --bind 'ctrl-y,enter:become(nvim {1} +{2})'
-        }
+}
 
 zle -N fuzzygrep
 bindkey -a '^G' fuzzygrep

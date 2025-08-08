@@ -341,5 +341,6 @@ chmod 700 get_helm.sh
 - [https://mikeshade.com/posts/keychron-linux-function-keys/](https://mikeshade.com/posts/keychron-linux-function-keys/)
 - [https://unix.stackexchange.com/a/530226/732495](https://unix.stackexchange.com/a/530226/732495)
 
-## TODO ![Danger Zone](https://img.shields.io/badge/DANGER-ZONE-red?style=for-the-badge&logo=github)
-- 🚨 continue resisting the urge to automate these
+## TODO
+- [ ] Automate with Ansible
+- [ ] Split this document into multiple files
