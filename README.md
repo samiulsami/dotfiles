@@ -311,6 +311,14 @@ go version
 go install golang.org/x/tools/gopls@latest
 ```
 
+### Crush
+```bash
+go install github.com/charmbracelet/crush@latest
+mkdir -p $HOME/.config/crush
+# npx kubernetes-mcp-server@latest --port 37244
+sudo ln -s $HOME/dotfiles/crush/crush.json $HOME/.config/crush/crush.json
+```
+
 ### Kind
 ```bash
 kind_version=v0.29.0
