@@ -311,14 +311,6 @@ go version
 go install golang.org/x/tools/gopls@latest
 ```
 
-### Crush
-```bash
-go install github.com/charmbracelet/crush@latest
-mkdir -p $HOME/.config/crush
-# npx kubernetes-mcp-server@latest --port 37244
-sudo ln -s $HOME/dotfiles/crush/crush.json $HOME/.config/crush/crush.json
-```
-
 ### Kind
 ```bash
 kind_version=v0.29.0
@@ -342,6 +334,22 @@ source $HOME/.zshrc
  curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh
 ./get_helm.sh
+```
+
+### Crush
+```bash
+go install github.com/charmbracelet/crush@latest
+mkdir -p $HOME/.config/crush
+# npx kubernetes-mcp-server@latest --port 37244
+sudo ln -s $HOME/dotfiles/crush/crush.json $HOME/.config/crush/crush.json
+```
+
+### Gemini-cli
+```bash
+npm install -g @google/gemini-cli
+mkdir -p $HOME/.gemini/
+# npx kubernetes-mcp-server@latest --port 37244
+sudo ln -s $HOME/dotfiles/gemini/settings.json $HOME/.gemini/settings.json
 ```
 
 ### References
