@@ -25,6 +25,7 @@
     - dotfiles_config
     - neovim
     - claude
+    - opencode
 
   post_tasks:
     - name: Set zsh as default shell

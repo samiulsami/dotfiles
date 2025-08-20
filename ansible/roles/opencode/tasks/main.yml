@@ -1,0 +1,37 @@
+---
+- name: Install OpenCode
+  when: install_opencode | default(true)
+  block:
+    - name: Install OpenCode via npm
+      shell: "{{ home }}/.local/share/fnm/aliases/default/bin/npm i -g opencode-ai@latest"
+      args:
+        creates: "{{ home }}/.local/share/fnm/aliases/default/bin/opencode"
+      become_user: "{{ user }}"
+
+    - name: Verify OpenCode installation
+      shell: "{{ home }}/.local/share/fnm/aliases/default/bin/opencode --version"
+      register: opencode_version
+      changed_when: false
+      become_user: "{{ user }}"
+      ignore_errors: yes
+
+    - name: Display OpenCode version
+      debug:
+        msg: "OpenCode installed successfully: {{ opencode_version.stdout if opencode_version.rc == 0 else 'Version check failed but installation completed' }}"
+
+    - name: Create opencode config directory
+      file:
+        path: "{{ home }}/.config/opencode"
+        state: directory
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: '0755'
+      become_user: "{{ user }}"
+
+    - name: Create symlink for OpenCode configuration
+      file:
+        src: "{{ home }}/dotfiles/opencode/opencode.json"
+        dest: "{{ home }}/.config/opencode/opencode.json"
+        state: link
+        force: yes
+      become_user: "{{ user }}"

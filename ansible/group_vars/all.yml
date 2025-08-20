@@ -9,6 +9,7 @@ dotfiles_dir: "{{ ansible_env.HOME }}/dotfiles"
 # Optional installations (set to true to enable)
 install_cloudflare_warp: true
 install_claude_code: true
+install_opencode: true
 configure_git_defaults: true
 
 # Tool versions

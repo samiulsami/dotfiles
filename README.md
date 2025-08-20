@@ -379,6 +379,13 @@ sudo ln -s $HOME/dotfiles/claude/.claude.json $HOME/.claude.json
 claude --version
 ```
 
+### OpenCode
+```bash
+npm i -g opencode-ai@latest
+mkdir -p $HOME/.config/opencode
+sudo ln -s $HOME/dotfiles/opencode/opencode.json $HOME/.config/opencode/opencode.json
+```
+
 ### References
 - [https://github.com/sysdevbd/sysdevbd.github.io/tree/master](https://github.com/sysdevbd/sysdevbd.github.io/tree/master)
 - [https://mikeshade.com/posts/keychron-linux-function-keys/](https://mikeshade.com/posts/keychron-linux-function-keys/)

@@ -152,7 +152,7 @@ fzf-dir-widget() {
         fi
 
         local dir
-        dir=$(fd --type d --hidden --exclude .git | fzf --ansi --preview 'ls -l {}' --preview-window=right:40%) || return
+        dir=$(fd --type d --hidden --exclude .git | fzf -- --preview 'ls -l {}' --preview-window=right:40%) || return
         LBUFFER+="$dir"
         zle reset-prompt
 }
