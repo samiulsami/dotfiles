@@ -29,7 +29,6 @@
     - { src: 'picom/picom.conf', dest: 'picom/picom.conf' }
     - { src: 'dunst/dunstrc', dest: 'dunst/dunstrc' }
     - { src: 'ghostty/config', dest: 'ghostty/config' }
-    - { src: 'gemini/settings.json', dest: 'gemini/settings.json' }
 
 - name: Create symlink for i3 config
   file:

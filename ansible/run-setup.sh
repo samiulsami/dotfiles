@@ -3,7 +3,7 @@
 # Dotfiles Ansible Setup Script
 # Run this from the ansible directory to install the complete development environment
 
-set -e
+set -euxo
 
 # Colors for output
 RED='\033[0;31m'
@@ -147,8 +147,6 @@ if [[ $? -eq 0 ]]; then
     print_status "   git config --global user.email 'your@email.com'"
     print_status "3. Generate SSH keys if needed:"
     print_status "   ssh-keygen -t rsa -C 'your@email.com'"
-    print_status "4. Optional: Install Neovim config"
-    print_status "   git clone https://github.com/samiulsami/nvimconfig ~/.config/nvim"
 else
     print_error "Ansible playbook failed!"
     exit 1

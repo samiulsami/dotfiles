@@ -179,24 +179,3 @@
     /tmp/get_helm.sh
   args:
     creates: /usr/local/bin/helm
-
-
-- name: Check if Gemini CLI is already installed
-  stat:
-    path: "{{ home }}/.local/share/fnm/aliases/default/bin/gemini"
-  register: gemini_installed
-  become_user: "{{ user }}"
-
-- name: Install gemini-cli globally
-  shell: "{{ home }}/.local/share/fnm/aliases/default/bin/npm install -g @google/gemini-cli"
-  become_user: "{{ user }}"
-  when: not gemini_installed.stat.exists
-
-- name: Create gemini config directory
-  file:
-    path: "{{ home }}/.gemini"
-    state: directory
-    owner: "{{ user }}"
-    group: "{{ user }}"
-    mode: '0755'
-  become_user: "{{ user }}"

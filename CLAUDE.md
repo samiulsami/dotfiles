@@ -17,7 +17,6 @@ This is a personal dotfiles repository containing configuration files for a Linu
 - `rofi/` - Rofi application launcher configuration
 - `picom/` - Picom compositor configuration
 - `dunst/` - Dunst notification daemon configuration
-- `gemini/` - Gemini CLI configuration with MCP servers
 
 ## Key Shell Functions and Tools
 
@@ -56,7 +55,6 @@ The repository includes comprehensive setup instructions in the README.md. Key i
 ### Development Tools
 - **Languages**: Go, Java, Node.js, Docker
 - **Kubernetes**: kubectl, helm, kind
-- **AI Tools**: Gemini CLI
 - **Editor**: Neovim (referenced but config in separate repo)
 
 ### Tmux Configuration
@@ -64,12 +62,6 @@ The repository includes comprehensive setup instructions in the README.md. Key i
 - **Session Management**: Plugin-based with session wizard
 - **Navigation**: Vim-style pane navigation with Neovim integration
 - **Plugins**: tmux-resurrect, tmux-session-wizard, tmux-fzf
-
-## MCP Server Configuration
-
-Gemini is configured with MCP (Model Context Protocol) servers:
-- **Context7**: `https://mcp.context7.com/mcp` - Library documentation
-- **Kubernetes**: `http://127.0.0.1:37244/mcp` - Kubernetes cluster interaction
 
 ## Key Bindings
 

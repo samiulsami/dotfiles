@@ -364,14 +364,6 @@ chmod 700 get_helm.sh
 ./get_helm.sh
 ```
 
-### Gemini-cli
-```bash
-npm install -g @google/gemini-cli
-mkdir -p $HOME/.gemini/
-# npx kubernetes-mcp-server@latest --port 37244
-sudo ln -s $HOME/dotfiles/gemini/settings.json $HOME/.gemini/settings.json
-```
-
 ### Claude Code
 ```bash
 npm install -g @anthropic-ai/claude-code
