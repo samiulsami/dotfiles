@@ -1,0 +1,49 @@
+---
+- name: Setup Development Environment
+  hosts: localhost
+  connection: local
+  become: yes
+  become_user: root
+
+  vars:
+    user: "{{ ansible_user_id }}"
+    home: "{{ ansible_env.HOME }}"
+    dotfiles_dir: "{{ ansible_env.HOME }}/dotfiles"
+
+  pre_tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+      tags: always
+
+  roles:
+    - system_packages
+    - desktop_environment  
+    - shell_config
+    - ssh_config
+    - development_tools
+    - dotfiles_config
+    - neovim
+    - claude
+
+  post_tasks:
+    - name: Set zsh as default shell
+      user:
+        name: "{{ user }}"
+        shell: /bin/zsh
+      become: yes
+
+    - name: Display completion message
+      debug:
+        msg: |
+          🎉 Dotfiles installation complete!
+          
+          Next steps:
+          1. Reboot or logout/login to apply all changes
+          2. Open a new terminal and run 'source ~/.zshrc'
+          3. Configure your git credentials: git config --global user.name "Your Name"
+          4. Configure your git email: git config --global user.email "your@email.com"
+          5. Set up SSH keys if needed
+          
+          Optional:
+          - Set up shell history backup: https://github.com/samiulsami/shell-history-backup

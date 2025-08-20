@@ -1,0 +1,39 @@
+---
+# Global configuration variables for dotfiles installation
+
+# User configuration
+user: "{{ ansible_user_id }}"
+home: "{{ ansible_env.HOME }}"
+dotfiles_dir: "{{ ansible_env.HOME }}/dotfiles"
+
+# Optional installations (set to true to enable)
+install_cloudflare_warp: true
+install_claude_code: true
+configure_git_defaults: true
+
+# Tool versions
+java_version: "jdk-24"
+maven_version: "3.9.10"
+go_version: "1.25.0"
+kind_version: "v0.29.0"
+node_version: "24"
+
+# Git configuration
+git_name: "sami7786"  # Set your git name here
+git_email: ""  # Set your git email here
+
+# Docker registry (for environment variables)
+docker_registry: "sami7786"
+
+# Monitor configuration (will be auto-detected if not set)
+monitor1: ""  # Primary monitor
+monitor2: ""  # Secondary monitor
+
+# Package installation options
+install_development_tools: true
+install_desktop_environment: true
+install_shell_config: true
+install_dotfiles: true
+
+# Shell configuration
+default_shell: "zsh"

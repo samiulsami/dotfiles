@@ -1,1 +1,18 @@
 /.crush
+
+# Ansible
+*.retry
+ansible.log
+
+# Temporary files
+*.tmp
+*.bak
+.DS_Store
+
+# Local customizations
+group_vars/local.yml
+host_vars/
+
+# Secrets (if any)
+vault.yml
+.vault_pass

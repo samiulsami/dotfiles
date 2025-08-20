@@ -1,3 +1,32 @@
+## Automated Installation using Ansible
+### Tested in Ubuntu 24.04 LTS
+
+```bash
+git clone https://github.com/samiulsami/dotfiles.git $HOME/dotfiles
+cd $HOME/dotfiles
+./setup.sh
+```
+
+See [README-ANSIBLE.md](README-ANSIBLE.md) for full automation documentation.
+
+### Customizing Tool Versions
+
+To use different versions of development tools, edit `ansible/group_vars/all.yml`:
+
+```yaml
+java_version: "jdk-24"        # Change Java version
+maven_version: "3.9.10"       # Change Maven version  
+go_version: "1.25.0"          # Change Go version
+kind_version: "v0.29.0"       # Change Kind version
+node_version: "24"            # Change Node.js version
+```
+
+You can also enable/disable components by changing the install flags in the same file.
+
+---
+
+## Manual Installation (Original)
+
 ### Disable Mouse Acceleration (GNOME)
 ```bash
 gsettings set org.gnome.desktop.peripherals.mouse accel-profile 'flat'
@@ -41,7 +70,7 @@ OR
 
 run
 ```bash
-mv ~/.config/google-chrome/ ~/.config/google-chrome-old
+mv $HOME/.config/google-chrome/ $HOME/.config/google-chrome-old
 ```
 and import saved passwords
 
@@ -329,19 +358,10 @@ source $HOME/.zshrc
 ```
 
 ### Helm
-
 ```bash
  curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh
 ./get_helm.sh
-```
-
-### Crush
-```bash
-go install github.com/charmbracelet/crush@latest
-mkdir -p $HOME/.config/crush
-# npx kubernetes-mcp-server@latest --port 37244
-sudo ln -s $HOME/dotfiles/crush/crush.json $HOME/.config/crush/crush.json
 ```
 
 ### Gemini-cli
@@ -352,11 +372,14 @@ mkdir -p $HOME/.gemini/
 sudo ln -s $HOME/dotfiles/gemini/settings.json $HOME/.gemini/settings.json
 ```
 
+### Claude Code
+```bash
+npm install -g @anthropic-ai/claude-code
+sudo ln -s $HOME/dotfiles/claude/.claude.json $HOME/.claude.json
+claude --version
+```
+
 ### References
 - [https://github.com/sysdevbd/sysdevbd.github.io/tree/master](https://github.com/sysdevbd/sysdevbd.github.io/tree/master)
 - [https://mikeshade.com/posts/keychron-linux-function-keys/](https://mikeshade.com/posts/keychron-linux-function-keys/)
 - [https://unix.stackexchange.com/a/530226/732495](https://unix.stackexchange.com/a/530226/732495)
-
-## TODO
-- [ ] Automate with Ansible
-- [ ] Split this document into multiple files

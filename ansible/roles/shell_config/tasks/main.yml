@@ -1,0 +1,154 @@
+---
+- name: Install zsh
+  apt:
+    name: zsh
+    state: present
+
+- name: Create .zsh directory
+  file:
+    path: "{{ home }}/.zsh"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    mode: '0755'
+  become_user: "{{ user }}"
+
+- name: Clone zsh plugins
+  git:
+    repo: "{{ item.repo }}"
+    dest: "{{ item.dest }}"
+    depth: 1
+    force: yes
+  become_user: "{{ user }}"
+  loop:
+    - { repo: 'https://github.com/jeffreytse/zsh-vi-mode.git', dest: '{{ home }}/.zsh/.zsh-vi-mode' }
+    - { repo: 'https://github.com/zsh-users/zsh-autosuggestions.git', dest: '{{ home }}/.zsh/zsh-autosuggestions' }
+    - { repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git', dest: '{{ home }}/.zsh/zsh-syntax-highlighting' }
+    - { repo: 'https://github.com/romkatv/powerlevel10k.git', dest: '{{ home }}/.zsh/powerlevel10k' }
+    - { repo: 'https://github.com/Aloxaf/fzf-tab.git', dest: '{{ home }}/.zsh/fzf-tab' }
+    - { repo: 'https://github.com/zsh-users/zsh-completions.git', dest: '{{ home }}/.zsh/zsh-completions' }
+
+- name: Install zoxide
+  shell: |
+    curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+  args:
+    creates: "{{ home }}/.local/bin/zoxide"
+  become_user: "{{ user }}"
+
+- name: Install fnm (Node.js version manager)
+  shell: |
+    curl -fsSL https://fnm.vercel.app/install | bash
+  args:
+    creates: "{{ home }}/.local/share/fnm"
+  become_user: "{{ user }}"
+
+- name: Install Node.js via fnm
+  shell: "{{ home }}/.local/share/fnm/fnm install {{ node_version }}"
+  args:
+    creates: "{{ home }}/.local/share/fnm/node-versions"
+  become_user: "{{ user }}"
+  ignore_errors: yes
+
+- name: Install fzf
+  git:
+    repo: https://github.com/junegunn/fzf.git
+    dest: "{{ home }}/.fzf"
+    depth: 1
+    force: yes
+  become_user: "{{ user }}"
+
+- name: Install fzf binaries
+  shell: |
+    cd {{ home }}/.fzf && ./install --all
+  args:
+    creates: "{{ home }}/.fzf/bin/fzf"
+  become_user: "{{ user }}"
+
+- name: Install tmux
+  apt:
+    name: tmux
+    state: present
+
+- name: Create tmux plugin directory
+  file:
+    path: "{{ home }}/.tmux/plugins"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    mode: '0755'
+  become_user: "{{ user }}"
+
+- name: Clone tmux plugin manager
+  git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: "{{ home }}/.tmux/plugins/tpm"
+    depth: 1
+    force: yes
+  become_user: "{{ user }}"
+
+- name: Install Rust for yazi
+  shell: |
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+  args:
+    creates: "{{ home }}/.cargo/bin/rustc"
+  become_user: "{{ user }}"
+
+- name: Update Rust
+  shell: |
+    source {{ home }}/.cargo/env && rustup update
+  args:
+    executable: /bin/zsh
+  become_user: "{{ user }}"
+  ignore_errors: yes
+
+- name: Clone and build yazi
+  block:
+    - name: Clone yazi repository
+      git:
+        repo: https://github.com/sxyazi/yazi.git
+        dest: "{{ home }}/yazitmp"
+        force: yes
+      become_user: "{{ user }}"
+    
+    - name: Build yazi
+      shell: |
+        source {{ home }}/.cargo/env && cargo build --release --locked
+      args:
+        chdir: "{{ home }}/yazitmp"
+        executable: /bin/zsh
+      become_user: "{{ user }}"
+    
+    - name: Install yazi binaries
+      copy:
+        src: "{{ home }}/yazitmp/target/release/{{ item }}"
+        dest: "/usr/local/bin/{{ item }}"
+        mode: '0755'
+        remote_src: yes
+      loop:
+        - yazi
+        - ya
+    
+    - name: Remove yazi build directory
+      file:
+        path: "{{ home }}/yazitmp"
+        state: absent
+      become_user: "{{ user }}"
+
+- name: Install yazi plugins
+  shell: |
+    ya pkg add yazi-rs/plugins:mount
+    ya pkg add yazi-rs/flavors:catppuccin-frappe
+    ya pkg add yazi-rs/plugins:smart-enter
+    ya pkg add yazi-rs/plugins:no-status
+    ya pkg add dedukun/relative-motions
+  become_user: "{{ user }}"
+  ignore_errors: yes
+
+- name: Create yazi config directory
+  file:
+    path: "{{ home }}/.config/yazi"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    mode: '0755'
+  become_user: "{{ user }}"

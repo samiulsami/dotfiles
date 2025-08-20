@@ -1,0 +1,27 @@
+---
+- name: Install Claude Code
+  when: install_claude_code | default(true)
+  block:
+    - name: Install Claude Code via npm
+      shell: "{{ home }}/.local/share/fnm/aliases/default/bin/npm install -g @anthropic-ai/claude-code"
+      args:
+        creates: "{{ home }}/.local/share/fnm/aliases/default/bin/claude"
+      become_user: "{{ user }}"
+
+    - name: Verify Claude Code installation
+      shell: "{{ home }}/.local/share/fnm/aliases/default/bin/claude --version"
+      register: claude_version
+      changed_when: false
+      become_user: "{{ user }}"
+
+    - name: Display Claude Code version
+      debug:
+        msg: "Claude Code installed successfully: {{ claude_version.stdout }}"
+
+    - name: Create symlink for Claude configuration
+      file:
+        src: "{{ home }}/dotfiles/claude/.claude.json"
+        dest: "{{ home }}/.claude.json"
+        state: link
+        force: yes
+      become_user: "{{ user }}"

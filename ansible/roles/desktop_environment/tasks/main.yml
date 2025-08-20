@@ -1,0 +1,93 @@
+---
+- name: Install i3wm and utilities
+  apt:
+    name:
+      - i3
+      - pavucontrol
+      - blueman
+      - flameshot
+      - brightnessctl
+      - rofi
+      - picom
+      - dunst
+    state: present
+
+- name: Create i3 config directory
+  file:
+    path: "{{ home }}/.config/i3"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    mode: '0755'
+  become_user: "{{ user }}"
+
+- name: Create rofi config directory
+  file:
+    path: "{{ home }}/.config/rofi"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    mode: '0755'
+  become_user: "{{ user }}"
+
+- name: Create picom config directory
+  file:
+    path: "{{ home }}/.config/picom"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    mode: '0755'
+  become_user: "{{ user }}"
+
+- name: Create dunst config directory
+  file:
+    path: "{{ home }}/.config/dunst"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    mode: '0755'
+  become_user: "{{ user }}"
+
+- name: Install Ghostty terminal
+  shell: |
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)"
+  args:
+    creates: /usr/bin/ghostty
+
+- name: Set Ghostty as alternative terminal emulator
+  alternatives:
+    name: x-terminal-emulator
+    path: /usr/bin/ghostty
+    priority: 50
+
+- name: Create Ghostty config directory
+  file:
+    path: "{{ home }}/.config/ghostty"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    mode: '0755'
+  become_user: "{{ user }}"
+
+- name: Get primary monitor for i3 config
+  shell: "xrandr | grep ' connected primary' | awk '{print $1}'"
+  register: primary_monitor
+  become_user: "{{ user }}"
+  ignore_errors: yes
+
+- name: Get secondary monitor for i3 config
+  shell: "xrandr | grep ' connected' | grep -v ' connected primary ' | awk '{print $1}'"
+  register: secondary_monitor
+  become_user: "{{ user }}"
+  ignore_errors: yes
+
+- name: Set monitor variables for i3 config
+  set_fact:
+    monitor1: "{{ primary_monitor.stdout | default('eDP-1') }}"
+    monitor2: "{{ secondary_monitor.stdout | default('HDMI-1') }}"
+
+- name: Install GitHub CLI extensions
+  shell: |
+    gh extension install yusukebe/gh-markdown-preview
+  become_user: "{{ user }}"
+  ignore_errors: yes

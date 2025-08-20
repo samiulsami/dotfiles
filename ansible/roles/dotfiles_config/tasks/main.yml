@@ -1,0 +1,128 @@
+---
+- name: Create symlinks for shell configuration files
+  file:
+    src: "{{ dotfiles_dir }}/{{ item.src }}"
+    dest: "{{ home }}/{{ item.dest }}"
+    state: link
+    force: yes
+    owner: "{{ user }}"
+    group: "{{ user }}"
+  become_user: "{{ user }}"
+  loop:
+    - { src: 'zsh/.zshrc', dest: '.zshrc' }
+    - { src: 'zsh/.zsh_functions_and_widgets', dest: '.zsh_functions_and_widgets' }
+    - { src: 'zsh/.p10k.zsh', dest: '.p10k.zsh' }
+    - { src: 'tmux/.tmux.conf', dest: '.tmux.conf' }
+    - { src: 'fish/config.fish', dest: '.config/fish/config.fish' }
+
+- name: Create config directory symlinks
+  file:
+    src: "{{ dotfiles_dir }}/{{ item.src }}"
+    dest: "{{ home }}/.config/{{ item.dest }}"
+    state: link
+    force: yes
+    owner: "{{ user }}"
+    group: "{{ user }}"
+  become_user: "{{ user }}"
+  loop:
+    - { src: 'rofi/config.rasi', dest: 'rofi/config.rasi' }
+    - { src: 'picom/picom.conf', dest: 'picom/picom.conf' }
+    - { src: 'dunst/dunstrc', dest: 'dunst/dunstrc' }
+    - { src: 'ghostty/config', dest: 'ghostty/config' }
+    - { src: 'gemini/settings.json', dest: 'gemini/settings.json' }
+
+- name: Create symlink for i3 config
+  file:
+    src: "{{ dotfiles_dir }}/i3wm/config"
+    dest: "{{ home }}/.config/i3/config"
+    state: link
+    force: yes
+    owner: "{{ user }}"
+    group: "{{ user }}"
+  become_user: "{{ user }}"
+
+- name: Update i3 config with detected monitors
+  replace:
+    path: "{{ dotfiles_dir }}/i3wm/config"
+    regexp: "^set \\$monitor1 .*"
+    replace: "set $monitor1 {{ monitor1 }}"
+  become_user: "{{ user }}"
+
+- name: Update i3 config with detected secondary monitor
+  replace:
+    path: "{{ dotfiles_dir }}/i3wm/config"
+    regexp: "^set \\$monitor2 .*"
+    replace: "set $monitor2 {{ monitor2 }}"
+  become_user: "{{ user }}"
+
+- name: Create symlinks for yazi configuration
+  file:
+    src: "{{ dotfiles_dir }}/yazi/{{ item }}"
+    dest: "{{ home }}/.config/yazi/{{ item }}"
+    state: link
+    force: yes
+    owner: "{{ user }}"
+    group: "{{ user }}"
+  become_user: "{{ user }}"
+  loop:
+    - init.lua
+    - keymap.toml
+    - theme.toml
+    - yazi.toml
+
+- name: Create fish config directory
+  file:
+    path: "{{ home }}/.config/fish"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    mode: '0755'
+  become_user: "{{ user }}"
+
+- name: Source shell configurations  
+  shell: |
+    source {{ home }}/.zshrc
+  args:
+    executable: /bin/zsh
+  become_user: "{{ user }}"
+  ignore_errors: yes
+
+- name: Install tmux plugins
+  shell: |
+    {{ home }}/.tmux/plugins/tpm/scripts/install_plugins.sh
+  become_user: "{{ user }}"
+  ignore_errors: yes
+
+- name: Check if environment variables block exists in .zshrc
+  command: grep -q "ANSIBLE MANAGED BLOCK - Environment Variables" "{{ home }}/.zshrc"
+  register: env_vars_exist
+  changed_when: false
+  failed_when: false
+  become_user: "{{ user }}"
+
+- name: Add environment variables to .zshrc
+  blockinfile:
+    path: "{{ home }}/.zshrc"
+    block: |
+      # Environment variables (added by Ansible)
+      export GOPATH=$HOME/go
+      export PATH=$GOPATH/bin:/usr/local/go/bin:$PATH
+      export JAVA_HOME=/usr/lib/jvm/jdk
+      export PATH=$JAVA_HOME/bin:$PATH
+      export MAVEN_HOME=/usr/lib/mvn/maven
+      export PATH=$MAVEN_HOME/bin:$PATH
+      export REGISTRY={{ docker_registry | default('sami7786') }}
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - Environment Variables"
+    insertbefore: EOF
+  become_user: "{{ user }}"
+  when: env_vars_exist.rc != 0
+
+- name: Set git configuration defaults
+  git_config:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    scope: global
+  become_user: "{{ user }}"
+  loop:
+    - { name: 'url.git@github.com:.insteadOf', value: 'https://github.com/' }
+  when: configure_git_defaults | default(true)

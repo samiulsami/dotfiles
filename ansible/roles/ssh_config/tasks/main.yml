@@ -1,0 +1,89 @@
+---
+- name: SSH Configuration
+  when: setup_ssh | default(true)
+  block:
+    - name: Check if SSH key already exists
+      stat:
+        path: "{{ home }}/.ssh/id_rsa"
+      register: ssh_key_exists
+
+    - name: Generate SSH key pair
+      openssh_keypair:
+        path: "{{ home }}/.ssh/id_rsa"
+        type: rsa
+        size: 4096
+        comment: "{{ user }}@{{ ansible_hostname }}"
+      become_user: "{{ user }}"
+      when: not ssh_key_exists.stat.exists
+
+    - name: Ensure correct permissions on SSH directory
+      file:
+        path: "{{ home }}/.ssh"
+        state: directory
+        mode: '0700'
+        owner: "{{ user }}"
+        group: "{{ user }}"
+
+    - name: Ensure correct permissions on SSH private key
+      file:
+        path: "{{ home }}/.ssh/id_rsa"
+        mode: '0600'
+        owner: "{{ user }}"
+        group: "{{ user }}"
+      when: ssh_key_exists.stat.exists or not ssh_key_exists.stat.exists
+
+    - name: Ensure correct permissions on SSH public key
+      file:
+        path: "{{ home }}/.ssh/id_rsa.pub"
+        mode: '0644'
+        owner: "{{ user }}"
+        group: "{{ user }}"
+      when: ssh_key_exists.stat.exists or not ssh_key_exists.stat.exists
+
+    - name: Check if ssh-agent is running
+      command: pgrep -f ssh-agent
+      register: ssh_agent_check
+      failed_when: false
+      changed_when: false
+      become_user: "{{ user }}"
+
+    - name: Display SSH public key for GitHub setup
+      command: cat {{ home }}/.ssh/id_rsa.pub
+      register: ssh_public_key
+      become_user: "{{ user }}"
+      changed_when: false
+
+    - name: Display SSH public key
+      debug:
+        msg: |
+          SSH public key generated successfully. 
+          Add this key to your GitHub account at: https://github.com/settings/ssh/new
+          
+          {{ ssh_public_key.stdout }}
+
+    - name: Check if SSH agent auto-start block exists in .zshrc
+      command: grep -q "SSH agent auto-start" "{{ home }}/.zshrc"
+      register: ssh_agent_block_exists
+      changed_when: false
+      failed_when: false
+      become_user: "{{ user }}"
+
+    - name: Add SSH key to agent automatically on login
+      blockinfile:
+        path: "{{ home }}/.zshrc"
+        marker: "# {mark} SSH agent auto-start"
+        block: |
+          # Start SSH agent if not running
+          if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+              ssh-agent -t 1h > "$XDG_RUNTIME_DIR/ssh-agent.env"
+          fi
+          if [[ ! -f "$SSH_AUTH_SOCK" ]]; then
+              source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
+          fi
+          # Add SSH key if not already added
+          if ! ssh-add -l >/dev/null 2>&1; then
+              ssh-add {{ home }}/.ssh/id_rsa 2>/dev/null || true
+          fi
+        create: yes
+      become_user: "{{ user }}"
+      when: ssh_agent_block_exists.rc != 0
