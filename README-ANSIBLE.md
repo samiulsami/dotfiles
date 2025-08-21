@@ -102,7 +102,7 @@ cd ansible
 - Java (Oracle JDK 24) and Maven
 - Go with gopls language server
 - Kubernetes tools (kubectl, kind, helm)
-- AI tools (crush, claude-code)
+- AI tools (claude-code)
 
 ### desktop_environment
 - i3 window manager and utilities

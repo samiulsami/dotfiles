@@ -55,23 +55,6 @@
       become_user: "{{ user }}"
       when: not nvim_config_exists.stat.exists
 
-    - name: Create mcphub config directory
-      file:
-        path: "{{ home }}/.config/mcphub"
-        state: directory
-        owner: "{{ user }}"
-        group: "{{ user }}"
-        mode: '0755'
-
-    - name: Create symlink for mcphub servers configuration
-      file:
-        src: "{{ home }}/.config/nvim/mcphub_servers.json"
-        dest: "{{ home }}/.config/mcphub/servers.json"
-        state: link
-        force: yes
-      become_user: "{{ user }}"
-      ignore_errors: yes
-
     - name: Set Neovim as default editor in .zshrc
       lineinfile:
         path: "{{ home }}/.zshrc"

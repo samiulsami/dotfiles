@@ -71,6 +71,17 @@
     state: present
     update_cache: yes
 
+- name: Add OBS Studio repository
+  apt_repository:
+    repo: "ppa:obsproject/obs-studio"
+    state: present
+    update_cache: yes
+
+- name: Install OBS Studio
+  apt:
+    name: obs-studio
+    state: present
+
 - name: Add Cloudflare Warp repository (optional)
   shell: |
     curl -fsSL https://pkg.cloudflareclient.com/pubkey.gpg | gpg --yes --dearmor --output /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg

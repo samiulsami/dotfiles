@@ -384,6 +384,12 @@ asdf plugin add yq
 asdf install yq 4.2.0
 ```
 
+### OBS
+```bash
+sudo add-apt-repository ppa:obsproject/obs-studio
+sudo apt install obs-studio
+```
+
 ### References
 - [https://github.com/sysdevbd/sysdevbd.github.io/tree/master](https://github.com/sysdevbd/sysdevbd.github.io/tree/master)
 - [https://mikeshade.com/posts/keychron-linux-function-keys/](https://mikeshade.com/posts/keychron-linux-function-keys/)
