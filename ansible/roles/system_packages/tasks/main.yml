@@ -33,11 +33,6 @@
     - { src: '/usr/bin/fdfind', dest: '/usr/bin/fd' }
     - { src: '/usr/bin/batcat', dest: '/usr/bin/bat' }
 
-- name: Install yq via pip
-  pip:
-    name: yq
-    break_system_packages: yes
-
 - name: Configure GNOME settings
   become_user: "{{ user }}"
   shell: |

@@ -10,6 +10,7 @@ dotfiles_dir: "{{ ansible_env.HOME }}/dotfiles"
 install_cloudflare_warp: true
 install_claude_code: true
 install_opencode: true
+install_asdf: true
 configure_git_defaults: true
 
 # Tool versions
@@ -38,3 +39,8 @@ install_dotfiles: true
 
 # Shell configuration
 default_shell: "zsh"
+
+# asdf configuration
+asdf_data_dir: "{{ ansible_env.HOME }}/.asdf"
+yq_versions:
+  - "4.2.0"

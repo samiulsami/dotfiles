@@ -262,12 +262,10 @@ tmux source $HOME/.tmux.conf
 ### Neovim
 - <b>Follow the steps here</b>: [https://github.com/samiulsami/nvimconfig](https://github.com/samiulsami/nvimconfig)
 
-### jq & yq
+### python3-pip and jq
 ```bash
 sudo apt update
-sudo apt install python3-pip
-sudo apt-get install jq
-pip install yq --break-system-packages
+sudo apt install python3-pip jq
 ```
 
 ### Docker
@@ -367,7 +365,6 @@ chmod 700 get_helm.sh
 ### Claude Code
 ```bash
 npm install -g @anthropic-ai/claude-code
-sudo ln -s $HOME/dotfiles/claude/.claude.json $HOME/.claude.json
 claude --version
 ```
 
@@ -376,6 +373,15 @@ claude --version
 npm i -g opencode-ai@latest
 mkdir -p $HOME/.config/opencode
 sudo ln -s $HOME/dotfiles/opencode/opencode.json $HOME/.config/opencode/opencode.json
+```
+
+### asdf
+```bash
+go install github.com/asdf-vm/asdf/cmd/asdf@latest
+mkdir -p "${ASDF_DATA_DIR:-$HOME/.asdf}/completions"
+asdf completion zsh > "${ASDF_DATA_DIR:-$HOME/.asdf}/completions/_asdf"
+asdf plugin add yq
+asdf install yq 4.2.0
 ```
 
 ### References

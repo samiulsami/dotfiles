@@ -8,6 +8,7 @@ fi
 WORDCHARS='*?[]~=\@. -_&;!#$%^(){}<>/|'
 
 fpath=($HOME/.zsh/zsh-completions/src $fpath)
+fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
 autoload -Uz compinit
 compinit
 
@@ -159,6 +160,8 @@ export PATH=$JAVA_HOME/bin:$PATH
 
 export MAVEN_HOME=/usr/lib/mvn/maven
 export PATH=$MAVEN_HOME/bin:$PATH
+
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 FNM_PATH="$HOME/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then

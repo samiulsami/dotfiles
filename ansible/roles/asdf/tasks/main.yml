@@ -1,0 +1,56 @@
+---
+- name: Install asdf
+  when: install_asdf | default(true)
+  block:
+    - name: Install asdf via go
+      shell: "{{ home }}/go/bin/go install github.com/asdf-vm/asdf/cmd/asdf@latest"
+      args:
+        creates: "{{ home }}/go/bin/asdf"
+      become_user: "{{ user }}"
+      environment:
+        GOPATH: "{{ home }}/go"
+        PATH: "{{ home }}/go/bin:/usr/local/go/bin:{{ ansible_env.PATH }}"
+
+    - name: Create asdf completions directory
+      file:
+        path: "{{ asdf_data_dir }}/completions"
+        state: directory
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: '0755'
+      become_user: "{{ user }}"
+
+    - name: Generate asdf completions for zsh
+      shell: "{{ home }}/go/bin/asdf completion zsh > {{ asdf_data_dir }}/completions/_asdf"
+      args:
+        creates: "{{ asdf_data_dir }}/completions/_asdf"
+      become_user: "{{ user }}"
+      environment:
+        PATH: "{{ home }}/go/bin:{{ ansible_env.PATH }}"
+
+    - name: Add yq plugin to asdf
+      shell: "{{ home }}/go/bin/asdf plugin add yq"
+      become_user: "{{ user }}"
+      environment:
+        PATH: "{{ home }}/go/bin:{{ ansible_env.PATH }}"
+        ASDF_DATA_DIR: "{{ asdf_data_dir }}"
+      failed_when: false
+      changed_when: false
+
+    - name: Install yq versions
+      shell: "{{ home }}/go/bin/asdf install yq {{ item }}"
+      loop: "{{ yq_versions }}"
+      become_user: "{{ user }}"
+      environment:
+        PATH: "{{ home }}/go/bin:{{ ansible_env.PATH }}"
+        ASDF_DATA_DIR: "{{ asdf_data_dir }}"
+      args:
+        creates: "{{ asdf_data_dir }}/installs/yq/{{ item }}"
+
+    - name: Set global yq version
+      shell: "{{ home }}/go/bin/asdf global yq {{ yq_versions[0] }}"
+      become_user: "{{ user }}"
+      environment:
+        PATH: "{{ home }}/go/bin:{{ ansible_env.PATH }}"
+        ASDF_DATA_DIR: "{{ asdf_data_dir }}"
+      changed_when: false

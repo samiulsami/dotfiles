@@ -17,11 +17,3 @@
     - name: Display Claude Code version
       debug:
         msg: "Claude Code installed successfully: {{ claude_version.stdout }}"
-
-    - name: Create symlink for Claude configuration
-      file:
-        src: "{{ home }}/dotfiles/claude/.claude.json"
-        dest: "{{ home }}/.claude.json"
-        state: link
-        force: yes
-      become_user: "{{ user }}"
