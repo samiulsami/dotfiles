@@ -47,7 +47,6 @@
                         "git config --list": "allow",
                         "git blame": "allow",
                         "git ls-files": "allow",
-                        "git reflog": "allow",
 
                         "kubectl get": "allow",
                         "kubectl describe": "allow",
@@ -95,6 +94,14 @@
                         "helm get": "allow",
                         "helm history": "allow",
                         "helm version": "allow"
+                }
+        },
+
+        "mcp": {
+                "deepwiki": {
+                        "type": "remote",
+                        "url": "https://mcp.deepwiki.com/sse",
+                        "enabled": true
                 }
         }
 }
