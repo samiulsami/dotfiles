@@ -1,5 +1,7 @@
 /.crush
 
+.serena/
+
 # Ansible
 *.retry
 ansible.log

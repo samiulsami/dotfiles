@@ -1,5 +1,4 @@
-## Automated Installation using Ansible
-### Tested in Ubuntu 24.04 LTS
+## Automated Installation using Ansible in Ubuntu 24.04 LTS
 
 ```bash
 git clone https://github.com/samiulsami/dotfiles.git $HOME/dotfiles
@@ -15,7 +14,7 @@ To use different versions of development tools, edit `ansible/group_vars/all.yml
 
 ```yaml
 java_version: "jdk-24"        # Change Java version
-maven_version: "3.9.10"       # Change Maven version  
+maven_version: "3.9.10"       # Change Maven version
 go_version: "1.25.0"          # Change Go version
 kind_version: "v0.29.0"       # Change Kind version
 node_version: "24"            # Change Node.js version
@@ -25,7 +24,7 @@ You can also enable/disable components by changing the install flags in the same
 
 ---
 
-## Manual Installation (Original)
+## Manual Installation
 
 ### Disable Mouse Acceleration (GNOME)
 ```bash
@@ -84,25 +83,6 @@ echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo s
 sudo apt install rofi
 mkdir -p $HOME/.config/rofi/
 sudo ln -s  $HOME/dotfiles/rofi/config.rasi $HOME/.config/rofi/config.rasi
-```
-
-### yazi
-```bash
-sudo apt install ffmpeg 7zip jq imagemagick
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-rustup update
-git clone https://github.com/sxyazi/yazi.git yazitmp
-cd yazitmp
-cargo build --release --locked
-sudo mv target/release/yazi target/release/ya /usr/local/bin/
-ya pkg add yazi-rs/plugins:mount
-ya pkg add yazi-rs/flavors:catppuccin-frappe
-ya pkg add yazi-rs/plugins:smart-enter
-ya pkg add yazi-rs/plugins:no-status
-ya pkg add dedukun/relative-motions
-mkdir -p "$HOME/.config/yazi" && for f in "$HOME/dotfiles/yazi/"*; do sudo ln -sf "$(realpath "$f")" "$HOME/.config/yazi/$(basename "$f")"; done
-cd ..
-rm -rf yazitmp
 ```
 
 ### Picom
@@ -203,7 +183,7 @@ export TERM=xterm-256color
 ```bash
 sudo apt install zsh
 mkdir -p $HOME/.zsh/
-git clone https://github.com/jeffreytse/zsh-vi-mode.git $HOME/.zsh/.zsh-vi-mode
+git clone https://github.com/jeffreytse/zsh-vi-mode.git $HOME/.zsh/zsh-vi-mode
 git clone https://github.com/zsh-users/zsh-autosuggestions.git $HOME/.zsh/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.zsh/zsh-syntax-highlighting
 git clone https://github.com/romkatv/powerlevel10k.git $HOME/.zsh/powerlevel10k
@@ -320,7 +300,7 @@ mvn -version
 
 ### Golang
 ```bash
-go_version=1.24.3
+go_version=1.25.0
 sudo rm -rf /usr/local/go
 mkdir -p $HOME/Downloads
 cd $HOME/Downloads
@@ -360,6 +340,11 @@ source $HOME/.zshrc
  curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh
 ./get_helm.sh
+```
+
+### uvx
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
 ### Claude Code

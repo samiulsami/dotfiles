@@ -115,15 +115,25 @@
     path: /usr/local/go
     state: absent
 
+- name: Create Downloads directory
+  file:
+    path: "{{ home }}/Downloads"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    mode: '0755'
+  become_user: "{{ user }}"
+
 - name: Download Go {{ go_version }}
   get_url:
     url: "https://go.dev/dl/go{{ go_version }}.linux-amd64.tar.gz"
-    dest: "/tmp/go{{ go_version }}.linux-amd64.tar.gz"
+    dest: "{{ home }}/Downloads/go{{ go_version }}.linux-amd64.tar.gz"
     mode: '0644'
+  become_user: "{{ user }}"
 
 - name: Extract Go
   unarchive:
-    src: "/tmp/go{{ go_version }}.linux-amd64.tar.gz"
+    src: "{{ home }}/Downloads/go{{ go_version }}.linux-amd64.tar.gz"
     dest: /usr/local
     remote_src: yes
 
@@ -136,8 +146,9 @@
 
 - name: Clean up Go download
   file:
-    path: "/tmp/go{{ go_version }}.linux-amd64.tar.gz"
+    path: "{{ home }}/Downloads/go{{ go_version }}.linux-amd64.tar.gz"
     state: absent
+  become_user: "{{ user }}"
 
 - name: Create user Go directory
   file:
@@ -158,13 +169,17 @@
     creates: "{{ home }}/go/bin/gopls"
 
 # Kubernetes tools
+- name: Get kubectl stable version
+  uri:
+    url: "https://dl.k8s.io/release/stable.txt"
+    return_content: yes
+  register: kubectl_stable_version
+
 - name: Download kubectl
   get_url:
-    url: "https://dl.k8s.io/release/{{ kubectl_version | default('stable') }}/bin/linux/amd64/kubectl"
+    url: "https://dl.k8s.io/release/{{ kubectl_stable_version.content.strip() }}/bin/linux/amd64/kubectl"
     dest: /usr/local/bin/kubectl
     mode: '0755'
-  vars:
-    kubectl_version: "{{ ansible_local.kubectl_version | default('v1.28.0') }}"
 
 - name: Download kind {{ kind_version }}
   get_url:
@@ -179,3 +194,11 @@
     /tmp/get_helm.sh
   args:
     creates: /usr/local/bin/helm
+
+# UV (Python package manager) installation
+- name: Install UV
+  shell: |
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+  args:
+    creates: "{{ home }}/.cargo/bin/uv"
+  become_user: "{{ user }}"

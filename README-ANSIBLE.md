@@ -94,7 +94,7 @@ cd ansible
 - Zsh with Powerlevel10k theme
 - Shell plugins (autosuggestions, syntax highlighting, vi-mode)
 - Tmux with custom configuration
-- Tools: fzf, zoxide, yazi file manager
+- Tools: fzf, zoxide
 - fnm for Node.js version management
 
 ### development_tools

@@ -5,7 +5,6 @@
                 "webfetch": "ask",
                 "bash": {
                         "*": "ask",
-
                         "ls": "allow",
                         "cat": "allow",
                         "head": "allow",
@@ -22,7 +21,6 @@
                         "df": "allow",
                         "stat": "allow",
                         "file": "allow",
-
                         "grep": "allow",
                         "egrep": "allow",
                         "fgrep": "allow",
@@ -34,7 +32,6 @@
                         "wc": "allow",
                         "cut": "allow",
                         "tr": "allow",
-
                         "git status": "allow",
                         "git diff": "allow",
                         "git log": "allow",
@@ -47,7 +44,6 @@
                         "git config --list": "allow",
                         "git blame": "allow",
                         "git ls-files": "allow",
-
                         "kubectl get": "allow",
                         "kubectl describe": "allow",
                         "kubectl logs": "allow",
@@ -58,7 +54,6 @@
                         "kubectl config get-contexts": "allow",
                         "kubectl top": "allow",
                         "kubectl api-resources": "allow",
-
                         "docker ps": "allow",
                         "docker images": "allow",
                         "docker logs": "allow",
@@ -67,7 +62,6 @@
                         "docker info": "allow",
                         "docker history": "allow",
                         "docker stats": "allow",
-
                         "ps": "allow",
                         "top": "allow",
                         "htop": "allow",
@@ -78,7 +72,6 @@
                         "uname": "allow",
                         "uptime": "allow",
                         "date": "allow",
-
                         "npm list": "allow",
                         "npm info": "allow",
                         "pip list": "allow",
@@ -88,7 +81,6 @@
                         "java -version": "allow",
                         "node --version": "allow",
                         "python --version": "allow",
-
                         "helm list": "allow",
                         "helm status": "allow",
                         "helm get": "allow",
@@ -96,7 +88,6 @@
                         "helm version": "allow"
                 }
         },
-
         "mcp": {
                 "deepwiki": {
                         "type": "remote",

@@ -54,9 +54,7 @@ zle -N vi-history-down-and-highlight
 bindkey -M vicmd 'k' vi-history-up-and-highlight
 bindkey -M vicmd 'j' vi-history-down-and-highlight
 
-bindkey -v
-
-KEYTIMEOUT=1
+KEYTIMEOUT=0
 
 setopt AUTO_CD
 setopt AUTO_PUSHD
@@ -100,8 +98,9 @@ bindkey '^o' autosuggest-accept
 source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-source $HOME/.zsh/.zsh-vi-mode/zsh-vi-mode.plugin.zsh
+source $HOME/.zsh/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 ZVM_CURSOR_STYLE_ENABLED=false
+ZVM_ESCAPE_KEYTIMEOUT=0
 
 function my_init() {
         [ -f $HOME/.fzf.zsh ] && source ~/.fzf.zsh

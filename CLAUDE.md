@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-This is a personal dotfiles repository containing configuration files for a Linux development environment. The repository includes configurations for shell environments (zsh/fish), window management (i3wm), terminal applications (tmux, ghostty), file management (yazi), and various development tools.
+This is a personal dotfiles repository containing configuration files for a Linux development environment. The repository includes configurations for shell environments (zsh/fish), window management (i3wm), terminal applications (tmux, ghostty), and various development tools.
 
 ## Directory Structure
 
@@ -13,7 +13,7 @@ This is a personal dotfiles repository containing configuration files for a Linu
 - `tmux/` - Tmux configuration with custom key bindings and plugin management
 - `ghostty/` - Ghostty terminal emulator configuration  
 - `i3wm/` - i3 window manager configuration
-- `yazi/` - Yazi file manager configuration with plugins and themes
+
 - `rofi/` - Rofi application launcher configuration
 - `picom/` - Picom compositor configuration
 - `dunst/` - Dunst notification daemon configuration
@@ -35,7 +35,7 @@ The zsh configuration includes several custom functions in `.zsh_functions_and_w
 
 ### Navigation & File Management
 - `fzf-dir-widget()` - Fuzzy search directories (Ctrl+Alt+D)
-- `yazi_widget()` - Open yazi file manager (Ctrl+Y)
+
 - `extract()` - Universal archive extraction function
 
 ## Installation Commands
@@ -49,7 +49,7 @@ The repository includes comprehensive setup instructions in the README.md. Key i
 
 ### Shell Environment
 - **Primary Shell**: Zsh with Powerlevel10k theme
-- **Key Tools**: fzf, fd, bat, ripgrep, zoxide, yazi
+- **Key Tools**: fzf, fd, bat, ripgrep, zoxide
 - **Navigation**: Extensive fzf integration for files, directories, and history
 
 ### Development Tools
@@ -72,7 +72,7 @@ The repository includes comprehensive setup instructions in the README.md. Key i
 - `Alt+D` - Directory search with fzf
 - `Alt+G` - Content search with exactgrep
 - `Ctrl+G` - Fuzzy content search
-- `Ctrl+Y` - Open yazi file manager
+
 - `Ctrl+Z` - Suspend/resume jobs
 
 ### Tmux Bindings
@@ -94,6 +94,6 @@ When working with this repository:
 Critical dependencies that must be installed for full functionality:
 - fzf, fd, bat, ripgrep (search and navigation)
 - tmux with plugin manager
-- yazi with required plugins
+
 - zoxide for directory jumping
 - Docker and Kubernetes tools (kubectl, helm, kind)

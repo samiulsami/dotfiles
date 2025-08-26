@@ -256,12 +256,7 @@ function backward-kill-word-strict() {
 zle -N backward-kill-word-strict
 bindkey '^W' backward-kill-word-strict
 
-yazi_widget() {
-        yazi </dev/tty >/dev/tty 2>&1
-}
-zle -N yazi_widget
-bindkey -a '^Y' yazi_widget
-bindkey '^Y' yazi_widget
+
 
 # control-z to or suspend/resume current job
 fg_or_suspend() {

@@ -15,6 +15,20 @@
     - { src: 'tmux/.tmux.conf', dest: '.tmux.conf' }
     - { src: 'fish/config.fish', dest: '.config/fish/config.fish' }
 
+- name: Create config directories for symlinks
+  file:
+    path: "{{ home }}/.config/{{ item }}"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    mode: '0755'
+  become_user: "{{ user }}"
+  loop:
+    - rofi
+    - picom
+    - dunst
+    - ghostty
+
 - name: Create config directory symlinks
   file:
     src: "{{ dotfiles_dir }}/{{ item.src }}"
@@ -54,20 +68,7 @@
     replace: "set $monitor2 {{ monitor2 }}"
   become_user: "{{ user }}"
 
-- name: Create symlinks for yazi configuration
-  file:
-    src: "{{ dotfiles_dir }}/yazi/{{ item }}"
-    dest: "{{ home }}/.config/yazi/{{ item }}"
-    state: link
-    force: yes
-    owner: "{{ user }}"
-    group: "{{ user }}"
-  become_user: "{{ user }}"
-  loop:
-    - init.lua
-    - keymap.toml
-    - theme.toml
-    - yazi.toml
+
 
 - name: Create fish config directory
   file:
@@ -110,6 +111,7 @@
       export PATH=$JAVA_HOME/bin:$PATH
       export MAVEN_HOME=/usr/lib/mvn/maven
       export PATH=$MAVEN_HOME/bin:$PATH
+      export PATH=$HOME/.cargo/bin:$PATH
       export REGISTRY={{ docker_registry | default('sami7786') }}
     marker: "# {mark} ANSIBLE MANAGED BLOCK - Environment Variables"
     insertbefore: EOF
