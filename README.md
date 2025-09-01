@@ -316,6 +316,7 @@ sudo echo "export PATH=\$GOPATH/bin:/usr/local/go/bin:\$PATH" >> $HOME/.zshrc
 source $HOME/.zshrc
 go version
 go install golang.org/x/tools/gopls@latest
+go install github.com/go-delve/delve/cmd/dlv@latest
 ```
 
 ### Kind

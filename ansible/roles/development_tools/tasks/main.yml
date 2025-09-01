@@ -168,6 +168,15 @@
   args:
     creates: "{{ home }}/go/bin/gopls"
 
+- name: Install Delve debugger
+  shell: |
+    export GOPATH={{ home }}/go
+    export PATH=$GOPATH/bin:/usr/local/go/bin:$PATH
+    /usr/local/go/bin/go install github.com/go-delve/delve/cmd/dlv@latest
+  become_user: "{{ user }}"
+  args:
+    creates: "{{ home }}/go/bin/dlv"
+
 # Kubernetes tools
 - name: Get kubectl stable version
   uri:
