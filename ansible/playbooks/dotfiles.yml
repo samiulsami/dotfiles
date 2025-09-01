@@ -22,8 +22,8 @@
     - shell_config
     - ssh_config
     - development_tools
-    - asdf
     - dotfiles_config
+    - asdf
     - neovim
     - claude
     - opencode

@@ -13,7 +13,6 @@
     - { src: 'zsh/.zsh_functions_and_widgets', dest: '.zsh_functions_and_widgets' }
     - { src: 'zsh/.p10k.zsh', dest: '.p10k.zsh' }
     - { src: 'tmux/.tmux.conf', dest: '.tmux.conf' }
-    - { src: 'fish/config.fish', dest: '.config/fish/config.fish' }
 
 - name: Create config directories for symlinks
   file:
@@ -70,14 +69,7 @@
 
 
 
-- name: Create fish config directory
-  file:
-    path: "{{ home }}/.config/fish"
-    state: directory
-    owner: "{{ user }}"
-    group: "{{ user }}"
-    mode: '0755'
-  become_user: "{{ user }}"
+
 
 - name: Source shell configurations  
   shell: |

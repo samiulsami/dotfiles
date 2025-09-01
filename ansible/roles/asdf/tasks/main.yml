@@ -2,8 +2,18 @@
 - name: Install asdf
   when: install_asdf | default(true)
   block:
+    - name: Verify Go installation exists
+      stat:
+        path: "/usr/local/go/bin/go"
+      register: go_binary_exists
+
+    - name: Fail if Go is not installed
+      fail:
+        msg: "Go is not installed. Please ensure the development_tools role has run successfully."
+      when: not go_binary_exists.stat.exists
+
     - name: Install asdf via go
-      shell: "{{ home }}/go/bin/go install github.com/asdf-vm/asdf/cmd/asdf@latest"
+      shell: "/usr/local/go/bin/go install github.com/asdf-vm/asdf/cmd/asdf@latest"
       args:
         creates: "{{ home }}/go/bin/asdf"
       become_user: "{{ user }}"
@@ -26,13 +36,13 @@
         creates: "{{ asdf_data_dir }}/completions/_asdf"
       become_user: "{{ user }}"
       environment:
-        PATH: "{{ home }}/go/bin:{{ ansible_env.PATH }}"
+        PATH: "{{ home }}/go/bin:/usr/local/go/bin:{{ ansible_env.PATH }}"
 
     - name: Add yq plugin to asdf
       shell: "{{ home }}/go/bin/asdf plugin add yq"
       become_user: "{{ user }}"
       environment:
-        PATH: "{{ home }}/go/bin:{{ ansible_env.PATH }}"
+        PATH: "{{ home }}/go/bin:/usr/local/go/bin:{{ ansible_env.PATH }}"
         ASDF_DATA_DIR: "{{ asdf_data_dir }}"
       failed_when: false
       changed_when: false
@@ -42,7 +52,7 @@
       loop: "{{ yq_versions }}"
       become_user: "{{ user }}"
       environment:
-        PATH: "{{ home }}/go/bin:{{ ansible_env.PATH }}"
+        PATH: "{{ home }}/go/bin:/usr/local/go/bin:{{ ansible_env.PATH }}"
         ASDF_DATA_DIR: "{{ asdf_data_dir }}"
       args:
         creates: "{{ asdf_data_dir }}/installs/yq/{{ item }}"
@@ -51,6 +61,6 @@
       shell: "{{ home }}/go/bin/asdf global yq {{ yq_versions[0] }}"
       become_user: "{{ user }}"
       environment:
-        PATH: "{{ home }}/go/bin:{{ ansible_env.PATH }}"
+        PATH: "{{ home }}/go/bin:/usr/local/go/bin:{{ ansible_env.PATH }}"
         ASDF_DATA_DIR: "{{ asdf_data_dir }}"
       changed_when: false

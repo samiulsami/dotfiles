@@ -30,7 +30,6 @@
         mode: '0600'
         owner: "{{ user }}"
         group: "{{ user }}"
-      when: ssh_key_exists.stat.exists or not ssh_key_exists.stat.exists
 
     - name: Ensure correct permissions on SSH public key
       file:
@@ -38,7 +37,6 @@
         mode: '0644'
         owner: "{{ user }}"
         group: "{{ user }}"
-      when: ssh_key_exists.stat.exists or not ssh_key_exists.stat.exists
 
     - name: Check if ssh-agent is running
       command: pgrep -f ssh-agent
@@ -77,7 +75,7 @@
           if ! pgrep -u "$USER" ssh-agent > /dev/null; then
               ssh-agent -t 1h > "$XDG_RUNTIME_DIR/ssh-agent.env"
           fi
-          if [[ ! -f "$SSH_AUTH_SOCK" ]]; then
+          if [[ -z "$SSH_AUTH_SOCK" ]]; then
               source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
           fi
           # Add SSH key if not already added
