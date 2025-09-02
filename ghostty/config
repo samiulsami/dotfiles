@@ -4,6 +4,8 @@ window-padding-x = 0
 window-padding-y = 0
 window-decoration = none
 background-opacity = 0.92
+unfocused-split-opacity = 1
+unfocused-split-fill = #000000
 font-size = 11
 font-feature = -calt,-liga,-dlig
 
@@ -23,19 +25,6 @@ keybind = alt+6=unbind
 keybind = alt+7=unbind
 keybind = alt+8=unbind
 keybind = alt+9=unbind
-keybind = alt+shift+1=goto_tab:1
-keybind = alt+shift+2=goto_tab:2
-keybind = alt+shift+3=goto_tab:3
-keybind = alt+shift+4=goto_tab:4
-keybind = alt+shift+5=goto_tab:5
-keybind = alt+shift+6=goto_tab:6
-keybind = alt+shift+7=goto_tab:7
-keybind = alt+shift+8=goto_tab:8
-keybind = alt+shift+9=goto_tab:9
-
-keybind = ctrl+shift+e=new_split:right
-keybind = ctrl+shift+o=new_split:down
-keybind = ctrl+shift+x=toggle_split_zoom
 
 keybind = ctrl+shift+j=goto_split:bottom
 keybind = ctrl+shift+k=goto_split:top
@@ -43,4 +32,4 @@ keybind = ctrl+shift+h=goto_split:left
 keybind = ctrl+shift+l=goto_split:right
 clipboard-paste-protection = false
 clipboard-trim-trailing-spaces = false
-copy-on-select = true
+copy-on-select = false
