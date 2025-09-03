@@ -44,10 +44,4 @@
         force: yes
       become_user: "{{ user }}"
 
-    - name: Create symlink for OpenCode ROBOT.txt
-      file:
-        src: "{{ home }}/dotfiles/opencode/ROBOT.txt"
-        dest: "{{ home }}/.config/opencode/ROBOT.txt"
-        state: link
-        force: yes
-      become_user: "{{ user }}"
+

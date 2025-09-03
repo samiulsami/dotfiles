@@ -359,7 +359,6 @@ claude --version
 npm i -g opencode-ai@latest
 mkdir -p $HOME/.config/opencode
 sudo ln -s $HOME/dotfiles/opencode/opencode.json $HOME/.config/opencode/opencode.json
-sudo ln -s $HOME/dotfiles/opencode/ROBOT.txt $HOME/.config/opencode/ROBOT.txt
 ```
 
 ### asdf

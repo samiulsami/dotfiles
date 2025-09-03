@@ -1,17 +1,5 @@
 {
         "$schema": "https://opencode.ai/config.json",
-        "agent": {
-                "robot": {
-                        "mode": "primary",
-                        "prompt": "{file:./ROBOT.txt}",
-                        "temperature": 0.0,
-                        "tools": {
-                                "write": true,
-                                "read": true,
-                                "bash": true
-                        }
-                }
-        },
         "permission": {
                 "edit": "ask",
                 "webfetch": "ask",
@@ -41,7 +29,6 @@
                         "which*": "allow",
                         "whereis*": "allow",
                         "pwd*": "allow",
-
                         "df*": "allow",
                         "stat*": "allow",
                         "file*": "allow",
@@ -49,13 +36,9 @@
                         "egrep*": "allow",
                         "fgrep*": "allow",
                         "rg*": "allow",
-
-
                         "sort*": "allow",
                         "uniq*": "allow",
                         "wc*": "allow",
-
-
                         "git status*": "allow",
                         "git diff*": "allow",
                         "git log*": "allow",
@@ -90,7 +73,6 @@
                         "top*": "allow",
                         "htop*": "allow",
                         "jobs*": "allow",
-
                         "whoami*": "allow",
                         "groups*": "allow",
                         "uname*": "allow",
