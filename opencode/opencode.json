@@ -3,8 +3,8 @@
         "agent": {
                 "robot": {
                         "mode": "primary",
-                        "model": "anthropic/claude-sonnet-4-20250514",
                         "prompt": "{file:./ROBOT.txt}",
+                        "temperature": 0.0,
                         "tools": {
                                 "write": true,
                                 "read": true,
