@@ -93,7 +93,6 @@ source $HOME/.zsh/powerlevel10k/powerlevel10k.zsh-theme
 
 ZSH_AUTOSUGGEST_STRATEGY=(history completion match_prev_cmd)
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=100
-bindkey '^o' autosuggest-accept
 
 source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -119,6 +118,7 @@ function my_init() {
         # zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
         zstyle ':fzf-tab:*' use-fzf-default-opts yes
 
+        bindkey '^O' autosuggest-accept
         source $HOME/.zsh_functions_and_widgets
 }
 
@@ -141,8 +141,6 @@ export REGISTRY=sami7786
 if command -v nvim >/dev/null; then
         export EDITOR='nvim -f'
         export KUBE_EDITOR='nvim -f'
-else
-        echo "nvim not found"
 fi
 
 if command -v nvim >/dev/null; then
@@ -152,7 +150,7 @@ elif command -v bat >/dev/null; then
 fi
 
 export GOPATH=$HOME/go
-export PATH=$GOPATH/bin:/usr/local/go/bin:$PATH
+export PATH=$GOPATH/bin:$PATH
 
 export JAVA_HOME=/usr/lib/jvm/jdk
 export PATH=$JAVA_HOME/bin:$PATH
@@ -161,12 +159,6 @@ export MAVEN_HOME=/usr/lib/mvn/maven
 export PATH=$MAVEN_HOME/bin:$PATH
 
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
-
-FNM_PATH="$HOME/.local/share/fnm"
-if [ -d "$FNM_PATH" ]; then
-        export PATH="$FNM_PATH:$PATH"
-        eval "$(fnm env)"
-fi
 
 if command -v fnm >/dev/null; then
         source <(fnm completions)

@@ -80,29 +80,28 @@ echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo s
 
 ### Rofi
 ```bash
-sudo apt install rofi
+sudo pacman -S rofi
 mkdir -p $HOME/.config/rofi/
 sudo ln -s  $HOME/dotfiles/rofi/config.rasi $HOME/.config/rofi/config.rasi
 ```
 
 ### Picom
 ```bash
-sudo apt install picom
+sudo pacman -S picom
 mkdir -p $HOME/.config/picom
 sudo ln -s $HOME/dotfiles/picom.conf $HOME/.config/picom/picom.conf
 ```
 
 ### Dunst
 ```bash
-sudo apt install dunst
+sudo pacman -S dunst libnotify
 mkdir -p $HOME/.config/dunst
 sudo ln -s $HOME/dotfiles/dunst/dunstrc $HOME/.config/dunst/dunstrc
 ```
 
 ### i3wm + utilities
 ```bash
-sudo apt update
-sudo apt install i3 pavucontrol blueman flameshot brightnessctl
+sudo pacman -S i3 pavucontrol blueman flameshot brightnessctl
 gsettings set org.gnome.desktop.screensaver lock-enabled false
 gsettings set org.gnome.desktop.session idle-delay 0
 sed -i "s|^set \$monitor1 .*|set \$monitor1 $(xrandr | grep ' connected primary' | awk '{print $1}')|" "$HOME/dotfiles/i3wm/config"
@@ -144,7 +143,7 @@ cat $HOME/.ssh/id_rsa.pub
 
 ### Git & GitHub
 ```bash
-sudo apt install git git-gui
+sudo pacman -S install git git-gui
 gh extension install yusukebe/gh-markdown-preview
 git config --global user.name <your-name>
 git config --global user.email <your-email@domain.com>`
@@ -153,16 +152,7 @@ git config --global --add url."git@github.com:".insteadOf "https://github.com/"
 
 ### GitHub CLI
 ```bash
-(type -p wget >/dev/null || (sudo apt update && sudo apt install wget -y)) \
-	&& sudo mkdir -p -m 755 /etc/apt/keyrings \
-	&& out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
-	&& cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
-	&& sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
-	&& sudo mkdir -p -m 755 /etc/apt/sources.list.d \
-	&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
-	&& sudo apt update \
-	&& sudo apt install gh -y
-
+#TODO:
 gh extension install yusukebe/gh-markdown-preview
 ```
 
@@ -181,7 +171,7 @@ export TERM=xterm-256color
 
 ### Zsh
 ```bash
-sudo apt install zsh
+sudo pacman -S zsh
 mkdir -p $HOME/.zsh/
 git clone https://github.com/jeffreytse/zsh-vi-mode.git $HOME/.zsh/zsh-vi-mode
 git clone https://github.com/zsh-users/zsh-autosuggestions.git $HOME/.zsh/zsh-autosuggestions
@@ -202,14 +192,12 @@ source $HOME/.zshrc
 
 ### Zoxide
 ```bash
-curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+sudo pacman -S zoxide
 ```
 
 ### Node.js
 ```bash
-curl -fsSL https://fnm.vercel.app/install | zsh
-source $HOME/.zshrc
-fnm install 24
+sudo pacman -S npm #not sure if this is good practice
 ```
 
 ### Fzf
@@ -220,19 +208,17 @@ $HOME/.fzf/install
 
 ### fd
 ```bash
-sudo apt install fd-find
-sudo ln -s $(which fdfind) /usr/bin/fd
+sudo pacman -S fd
 ```
 
 ### bat
 ```bash
-sudo apt install bat
-sudo ln -s $(which batcat) /usr/bin/bat
+sudo pacman -S bat
 ```
 
 ### tmux
 ```bash
-sudo apt install tmux
+sudo pacman -S tmux
 git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
 sudo ln -s $HOME/dotfiles/tmux/.tmux.conf $HOME/.tmux.conf
 tmux source $HOME/.tmux.conf
@@ -242,21 +228,9 @@ tmux source $HOME/.tmux.conf
 ### Neovim
 - <b>Follow the steps here</b>: [https://github.com/samiulsami/nvimconfig](https://github.com/samiulsami/nvimconfig)
 
-### python3-pip and jq
-```bash
-sudo apt update
-sudo apt install python3-pip jq
-```
-
 ### Docker
 ```bash
-sudo apt remove docker docker-engine docker.io
-sudo apt update
-sudo apt install apt-transport-https ca-certificates curl gnupg lsb-release
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt update
-sudo apt install docker-ce docker-ce-cli containerd.io
+pacman -S docker
 ```
 * <i>Manage docker as non-root user</i>:
 ```bash
@@ -284,7 +258,7 @@ java -version
 
 ### Maven
 ```bash
-mvn_version=3.9.10
+mvn_version=3.9.11
 mvn_name=maven-${mvn_version}
 sudo rm -rf /usr/lib/mvn
 curl -Lo ${mvn_name}.tar.gz https://dlcdn.apache.org/maven/maven-3/${mvn_version}/binaries/apache-${mvn_name}-bin.tar.gz
@@ -300,12 +274,11 @@ mvn -version
 
 ### Golang
 ```bash
-go_version=1.25.0
+go_version=1.25.1
 sudo rm -rf /usr/local/go
 mkdir -p $HOME/Downloads
 cd $HOME/Downloads
-sudo apt-get update
-sudo apt-get install -y build-essential git curl wget
+sudo pacman -S git curl wget
 wget https://go.dev/dl/go${go_version}.linux-amd64.tar.gz
 sudo tar -C /usr/local -xzf go${go_version}.linux-amd64.tar.gz
 sudo chown -R $(id -u):$(id -g) /usr/local/go

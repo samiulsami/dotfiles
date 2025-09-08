@@ -1,44 +1,36 @@
 ---
+- name: Update pacman package cache
+  pacman:
+    update_cache: yes
+
 - name: Install base system packages
-  apt:
+  pacman:
     name:
       - curl
       - wget
       - git
-      - git-gui
-      - build-essential
+      - tk  # git-gui equivalent
+      - base-devel
       - ca-certificates
       - gnupg
-      - lsb-release
-      - apt-transport-https
-      - software-properties-common
-      - python3-pip
+      - python-pip
       - jq
       - ffmpeg
-      - 7zip
+      - p7zip
       - imagemagick
-      - fd-find
+      - fd
       - bat
       - ripgrep
     state: present
-    update_cache: yes
 
-- name: Create symbolic links for fd and bat
-  file:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-    state: link
-    force: yes
-  loop:
-    - { src: '/usr/bin/fdfind', dest: '/usr/bin/fd' }
-    - { src: '/usr/bin/batcat', dest: '/usr/bin/bat' }
-
-- name: Configure GNOME settings
+- name: Configure GNOME settings (if available)
   become_user: "{{ user }}"
   shell: |
-    gsettings set org.gnome.desktop.peripherals.mouse accel-profile 'flat'
-    gsettings set org.gnome.desktop.screensaver lock-enabled false
-    gsettings set org.gnome.desktop.session idle-delay 0
+    if command -v gsettings >/dev/null 2>&1; then
+      gsettings set org.gnome.desktop.peripherals.mouse accel-profile 'flat'
+      gsettings set org.gnome.desktop.screensaver lock-enabled false
+      gsettings set org.gnome.desktop.session idle-delay 0
+    fi
   ignore_errors: yes
   tags: gnome
 

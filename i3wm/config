@@ -22,6 +22,9 @@ font pango:monospace 8
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
 
+# Set wallpaper
+exec --no-startup-id feh --bg-scale ~/Desktop/andreas-rocha-occultknowledge01.jpg
+
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
 
@@ -31,7 +34,7 @@ exec --no-startup-id xss-lock -- sh -c 'dunstctl set-paused true; i3lock -unc 00
 exec --no-startup-id xset s 300 300
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
+exec --no-startup-id dunst
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -44,7 +47,7 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec ghostty
 
 # kill focused window
 bindsym $mod+Shift+w kill
@@ -187,15 +190,13 @@ bindsym $mod+c exec --no-startup-id dunstctl close-all
 
 for_window [class=".*"] border none
 
-exec --no-startup-id picom -b --blur-method=dual_kawase --blur-strength=3
-
-set $monitor1 DP-1
-set $monitor2 HDMI-2
+set $monitor2 eDP-1
+set $monitor1 HDMI-1
 workspace $ws1 output $monitor1
 workspace $ws4 output $monitor2
 
 exec xrandr --output $monitor2 --right-of $monitor1
 
 # FIXME: unshittify this ugly hack for disabling mouse accelaration
-exec --no-startup-id xinput list | sed -n 's/.*mouse.*\s\+id=\([0-9]*\).*slave\s\+pointer.*/\1/Ip' | xargs -I {} xinput --set-prop {} "libinput Accel Profile Enabled" 0 1
-exec --no-startup-id xinput list | sed -n 's/.*mouse.*\s\+id=\([0-9]*\).*slave\s\+pointer.*/\1/Ip' | xargs -I {} xinput --set-prop {} "Coordinate Transformation Matrix" 1 0 0 0 1 0 0 0 1
+# exec --no-startup-id xinput list | sed -n 's/.*mouse.*\s\+id=\([0-9]*\).*slave\s\+pointer.*/\1/Ip' | xargs -I {} xinput --set-prop {} "libinput Accel Profile Enabled" 0 1
+# exec --no-startup-id xinput list | sed -n 's/.*mouse.*\s\+id=\([0-9]*\).*slave\s\+pointer.*/\1/Ip' | xargs -I {} xinput --set-prop {} "Coordinate Transformation Matrix" 1 0 0 0 1 0 0 0 1
