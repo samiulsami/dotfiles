@@ -15,14 +15,13 @@ configure_git_defaults: true
 
 # Tool versions
 java_version: "jdk-24"
-maven_version: "3.9.10"
-go_version: "1.25.0"
-kind_version: "v0.29.0"
+maven_version: "3.9.11"
+go_version: "1.25.1"
 node_version: "24"
 
 # Git configuration
 git_name: "sami7786"  # Set your git name here
-git_email: ""  # Set your git email here
+git_email: "samiulsami7786@gmail.com"  # Set your git email here
 
 # Docker registry (for environment variables)
 docker_registry: "sami7786"

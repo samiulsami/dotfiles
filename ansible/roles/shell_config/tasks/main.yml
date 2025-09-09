@@ -1,6 +1,6 @@
 ---
 - name: Install zsh
-  apt:
+  pacman:
     name: zsh
     state: present
 
@@ -29,11 +29,9 @@
     - { repo: 'https://github.com/zsh-users/zsh-completions.git', dest: '{{ home }}/.zsh/zsh-completions' }
 
 - name: Install zoxide
-  shell: |
-    curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
-  args:
-    creates: "{{ home }}/.local/bin/zoxide"
-  become_user: "{{ user }}"
+  pacman:
+    name: zoxide
+    state: present
 
 - name: Install fnm (Node.js version manager)
   shell: |
@@ -65,7 +63,7 @@
   become_user: "{{ user }}"
 
 - name: Install tmux
-  apt:
+  pacman:
     name: tmux
     state: present
 

@@ -50,8 +50,7 @@ fi
 # Check if Ansible is installed
 if ! command -v ansible-playbook &> /dev/null; then
     print_status "Installing Ansible..."
-    sudo apt update
-    sudo apt install -y ansible
+    sudo pacman -Sy --noconfirm ansible
 fi
 
 # Get the dotfiles directory (parent of ansible directory)

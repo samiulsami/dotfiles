@@ -11,13 +11,14 @@
     dotfiles_dir: "{{ ansible_env.HOME }}/dotfiles"
 
   pre_tasks:
-    - name: Update apt cache
-      apt:
+    - name: Update pacman cache
+      pacman:
         update_cache: yes
       tags: always
 
   roles:
     - system_packages
+    - aur_helper
     - desktop_environment  
     - shell_config
     - ssh_config

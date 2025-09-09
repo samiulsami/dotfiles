@@ -3,4 +3,4 @@
   shell: sysctl -p
 
 - name: update initramfs
-  shell: update-initramfs -u
+  shell: mkinitcpio -P

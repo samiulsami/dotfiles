@@ -9,7 +9,7 @@
       - curl
       - wget
       - git
-      - tk  # git-gui equivalent
+      - git-gui
       - base-devel
       - ca-certificates
       - gnupg
@@ -21,6 +21,11 @@
       - fd
       - bat
       - ripgrep
+      - zoxide
+      - tmux
+      - zsh
+      - npm
+      - libnotify
     state: present
 
 - name: Configure GNOME settings (if available)
@@ -48,43 +53,18 @@
     create: yes
   notify: update initramfs
 
-- name: Add GitHub CLI repository
-  shell: |
-    mkdir -p -m 755 /etc/apt/keyrings
-    wget -nv -O- https://cli.github.com/packages/githubcli-archive-keyring.gpg | tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null
-    chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-  args:
-    creates: /etc/apt/sources.list.d/github-cli.list
-
 - name: Install GitHub CLI
-  apt:
-    name: gh
+  pacman:
+    name: github-cli
     state: present
-    update_cache: yes
-
-- name: Add OBS Studio repository
-  apt_repository:
-    repo: "ppa:obsproject/obs-studio"
-    state: present
-    update_cache: yes
 
 - name: Install OBS Studio
-  apt:
+  pacman:
     name: obs-studio
     state: present
 
-- name: Add Cloudflare Warp repository (optional)
-  shell: |
-    curl -fsSL https://pkg.cloudflareclient.com/pubkey.gpg | gpg --yes --dearmor --output /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg
-    echo "deb [signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/cloudflare-client.list
-  args:
-    creates: /etc/apt/sources.list.d/cloudflare-client.list
+- name: Install Cloudflare Warp from AUR (optional)
+  shell: yay -S --noconfirm cloudflare-warp-bin
+  become_user: "{{ user }}"
   when: install_cloudflare_warp | default(false)
-
-- name: Install Cloudflare Warp (optional)
-  apt:
-    name: cloudflare-warp
-    state: present
-    update_cache: yes
-  when: install_cloudflare_warp | default(false)
+  ignore_errors: yes

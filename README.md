@@ -1,30 +1,28 @@
-## Automated Installation using Ansible in Ubuntu 24.04 LTS
+## Automated Installation using Ansible (Arch Linux)
 
+<b>[ ! ] Change the vars in ./ansible/group_vars/all.yml</b>
 ```bash
 git clone https://github.com/samiulsami/dotfiles.git $HOME/dotfiles
 cd $HOME/dotfiles
 ./setup.sh
 ```
-
 See [README-ANSIBLE.md](README-ANSIBLE.md) for full automation documentation.
 
-### Customizing Tool Versions
+---
+## Manual Installation
 
-To use different versions of development tools, edit `ansible/group_vars/all.yml`:
-
-```yaml
-java_version: "jdk-24"        # Change Java version
-maven_version: "3.9.10"       # Change Maven version
-go_version: "1.25.0"          # Change Go version
-kind_version: "v0.29.0"       # Change Kind version
-node_version: "24"            # Change Node.js version
+### Essential Packages (Install first)
+```bash
+sudo pacman -S base-devel git curl wget zsh tmux fd bat ripgrep zoxide npm github-cli libnotify obs-studio
 ```
 
-You can also enable/disable components by changing the install flags in the same file.
-
----
-
-## Manual Installation
+### AUR Helper (yay)
+```bash
+git clone https://aur.archlinux.org/yay.git /tmp/yay
+cd /tmp/yay
+makepkg -si --noconfirm
+cd && rm -rf /tmp/yay
+```
 
 ### Disable Mouse Acceleration (GNOME)
 ```bash
@@ -33,9 +31,7 @@ gsettings set org.gnome.desktop.peripherals.mouse accel-profile 'flat'
 
 ### Warp
 ```bash
-curl -fsSL https://pkg.cloudflareclient.com/pubkey.gpg | sudo gpg --yes --dearmor --output /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg
-echo "deb [signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/cloudflare-client.list
-sudo apt-get update && sudo apt-get install cloudflare-warp
+yay -S cloudflare-warp-bin
 ```
 
 ### Connect to bluetooth device manually
@@ -54,7 +50,7 @@ connect MAC_ADDRESS
 ### Fix keyboard Fn keys not-registering issue
 ```bash
 echo "options hid_apple fnmode=0" | sudo tee -a /etc/modprobe.d/hid_apple.conf
-sudo update-initramfs -u
+sudo mkinitcpio -P
 ```
 
 ### Fix chrome passwords/cookies [persistence issue](https://askubuntu.com/a/1502211)
@@ -143,17 +139,11 @@ cat $HOME/.ssh/id_rsa.pub
 
 ### Git & GitHub
 ```bash
-sudo pacman -S install git git-gui
+sudo pacman -S git git-gui github-cli
 gh extension install yusukebe/gh-markdown-preview
 git config --global user.name <your-name>
-git config --global user.email <your-email@domain.com>`
+git config --global user.email <your-email@domain.com>
 git config --global --add url."git@github.com:".insteadOf "https://github.com/"
-```
-
-### GitHub CLI
-```bash
-#TODO:
-gh extension install yusukebe/gh-markdown-preview
 ```
 
 ### Ghostty
@@ -345,8 +335,7 @@ asdf install yq 4.2.0
 
 ### OBS
 ```bash
-sudo add-apt-repository ppa:obsproject/obs-studio
-sudo apt install obs-studio
+sudo pacman -S obs-studio
 ```
 
 ### References

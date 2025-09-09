@@ -27,9 +27,10 @@ cd ansible
 
 ## Prerequisites
 
-- Ubuntu/Debian-based Linux distribution
+- Arch Linux
 - User with sudo privileges
 - Git (to clone this repository)
+- Base-devel package group installed
 
 The playbook will automatically install Ansible if not present.
 

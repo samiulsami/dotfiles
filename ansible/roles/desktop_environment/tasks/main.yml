@@ -1,8 +1,8 @@
 ---
 - name: Install i3wm and utilities
-  apt:
+  pacman:
     name:
-      - i3
+      - i3-wm
       - pavucontrol
       - blueman
       - flameshot
@@ -49,16 +49,9 @@
   become_user: "{{ user }}"
 
 - name: Install Ghostty terminal
-  shell: |
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)"
-  args:
-    creates: /usr/bin/ghostty
-
-- name: Set Ghostty as alternative terminal emulator
-  alternatives:
-    name: x-terminal-emulator
-    path: /usr/bin/ghostty
-    priority: 50
+  pacman:
+    name: ghostty
+    state: present
 
 - name: Create Ghostty config directory
   file:
