@@ -5,7 +5,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
         source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-WORDCHARS='*?[]~=\@. -_&;!#$%^(){}<>/|'
+WORDCHARS='*?[]~=\@.:; -_&;!#$%^(){}<>/|'
 
 fpath=($HOME/.zsh/zsh-completions/src $fpath)
 fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
