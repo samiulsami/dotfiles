@@ -24,11 +24,6 @@ makepkg -si --noconfirm
 cd && rm -rf /tmp/yay
 ```
 
-### Disable Mouse Acceleration (GNOME)
-```bash
-gsettings set org.gnome.desktop.peripherals.mouse accel-profile 'flat'
-```
-
 ### Warp
 ```bash
 yay -S cloudflare-warp-bin
@@ -53,22 +48,6 @@ echo "options hid_apple fnmode=0" | sudo tee -a /etc/modprobe.d/hid_apple.conf
 sudo mkinitcpio -P
 ```
 
-### Fix chrome passwords/cookies [persistence issue](https://askubuntu.com/a/1502211)
-```bash
-cd /usr/share/applications
-sudo su
-nvim google-chrome.desktop
-```
-Then add <b><i>-chrome --password-store=gnome-libsecret</i></b> after every <b><i>Exec</i></b> line
-
-OR
-
-run
-```bash
-mv $HOME/.config/google-chrome/ $HOME/.config/google-chrome-old
-```
-and import saved passwords
-
 ### Increase file watch numbers
 ```bash
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
@@ -85,7 +64,7 @@ sudo ln -s  $HOME/dotfiles/rofi/config.rasi $HOME/.config/rofi/config.rasi
 ```bash
 sudo pacman -S picom
 mkdir -p $HOME/.config/picom
-sudo ln -s $HOME/dotfiles/picom.conf $HOME/.config/picom/picom.conf
+sudo ln -s $HOME/dotfiles/picom/picom.conf $HOME/.config/picom/picom.conf
 ```
 
 ### Dunst
@@ -118,7 +97,6 @@ ssh-keygen -t rsa -C "<your-email>"
 ps -e  | grep [s]sh-agent
 ```
 
-
 * <i>If it isn’t, start it manually:</i>
 ```bash
 ssh-agent /bin/bash
@@ -148,15 +126,9 @@ git config --global --add url."git@github.com:".insteadOf "https://github.com/"
 
 ### Ghostty
 ```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)"
-sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/bin/ghostty 50
-sudo update-alternatives --config x-terminal-emulator
+sudo pacman -S ghostty
+mkdir -p $HOME/.config/ghostty
 sudo ln -s $HOME/dotfiles/ghostty/config $HOME/.config/ghostty/config
-```
-
-<b>(Fix terminal not found error)</b>:
-```bash
-export TERM=xterm-256color
 ```
 
 ### Zsh
@@ -220,7 +192,7 @@ tmux source $HOME/.tmux.conf
 
 ### Docker
 ```bash
-pacman -S docker
+sudo pacman -S docker
 ```
 * <i>Manage docker as non-root user</i>:
 ```bash
