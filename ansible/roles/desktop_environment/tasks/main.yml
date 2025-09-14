@@ -11,6 +11,7 @@
       - picom
       - dunst
     state: present
+  tags: desktop
 
 - name: Create i3 config directory
   file:

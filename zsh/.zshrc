@@ -102,7 +102,7 @@ ZVM_CURSOR_STYLE_ENABLED=false
 ZVM_ESCAPE_KEYTIMEOUT=0
 
 function my_init() {
-        [ -f $HOME/.fzf.zsh ] && source ~/.fzf.zsh
+        [ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
         export FZF_DEFAULT_COMMAND='fd --hidden --color=always'
         export FZF_DEFAULT_OPTS="--ansi ${FZF_DEFAULT_OPTS} --multi --cycle --tiebreak=length,begin,end"
         export FZF_DEFAULT_OPTS="--bind='ctrl-y:accept,ctrl-a:select-all,ctrl-d:deselect-all' ${FZF_DEFAULT_OPTS}"
@@ -126,31 +126,15 @@ zvm_after_init_commands+=(my_init)
 my_init
 #################################################################################
 
-alias fp='fzf -m --preview "batcat --color=always --style=numbers --line-range=:500 {}"'
-alias zp='z $(zoxide query -l | fzf)'
-alias cd='z'
 alias ls='ls --color=always'
-alias gl="git log --oneline -5"
 alias kc="kubectl"
-alias kcai="kubectl-ai"
 
 PATH=$PATH:$HOME/.local/bin
 
 export REGISTRY=sami7786
 
-if command -v nvim >/dev/null; then
-        export EDITOR='nvim -f'
-        export KUBE_EDITOR='nvim -f'
-fi
-
-if command -v nvim >/dev/null; then
-        export MANPAGER="nvim +Man!"
-elif command -v bat >/dev/null; then
-        export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-fi
-
 export GOPATH=$HOME/go
-export PATH=$GOPATH/bin:$PATH
+export PATH=$GOPATH/bin:/usr/local/go/bin:$PATH
 
 export JAVA_HOME=/usr/lib/jvm/jdk
 export PATH=$JAVA_HOME/bin:$PATH
@@ -160,11 +144,26 @@ export PATH=$MAVEN_HOME/bin:$PATH
 
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
-if command -v fnm >/dev/null; then
-        source <(fnm completions)
+FNM_PATH="$HOME/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+        export PATH="$FNM_PATH:$PATH"
+        eval "$(fnm env)"
 fi
+
+if command -v nvim >/dev/null; then
+        export EDITOR='nvim -f'
+        export KUBE_EDITOR='nvim -f'
+        export MANPAGER="nvim +Man!"
+elif command -v bat >/dev/null; then
+        export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+fi
+
 if command -v warp-cli >/dev/null; then
         source <(warp-cli generate-completions zsh)
+fi
+
+if command -v golangci-lint >/dev/null; then
+        source <(golangci-lint completion zsh)
 fi
 if command -v dlv >/dev/null; then
         source <(dlv completion zsh)
@@ -175,11 +174,9 @@ fi
 if command -v helm >/dev/null; then
         source <(helm completion zsh)
 fi
-if command -v crush >/dev/null; then
-        source <(crush completion zsh)
-fi
 
 if command -v zoxide >/dev/null; then
+        alias cd='z'
         eval "$(zoxide init zsh)"
 else
         echo "zoxide not found"

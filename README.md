@@ -1,12 +1,14 @@
-## Automated Installation using Ansible (Arch Linux)
+# Dotfiles
 
-<b>[ ! ] Change the vars in ./ansible/group_vars/all.yml</b>
+## Automated Installation (Arch Linux)
+
 ```bash
 git clone https://github.com/samiulsami/dotfiles.git $HOME/dotfiles
 cd $HOME/dotfiles
 ./setup.sh
 ```
-See [README-ANSIBLE.md](README-ANSIBLE.md) for full automation documentation.
+
+Done. See [README-ANSIBLE.md](README-ANSIBLE.md) for details.
 
 ---
 ## Manual Installation
@@ -181,10 +183,10 @@ sudo pacman -S bat
 
 ### tmux
 ```bash
-sudo pacman -S tmux
-git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
-sudo ln -s $HOME/dotfiles/tmux/.tmux.conf $HOME/.tmux.conf
-tmux source $HOME/.tmux.conf
+mkdir -p $HOME/.config/tmux/plugins
+sudo ln -s $HOME/dotfiles/tmux/tmux.conf $HOME/.config/tmux/tmux.conf
+git clone --depth 1 https://github.com/tmux-plugins/tmux-resurrect $HOME/.config/tmux/plugins/tmux-resurrect
+tmux source $HOME/.config/tmux/tmux.conf
 ```
 - Press <b><i>`<C-b> + shift + i`</i></b>
 
@@ -289,6 +291,7 @@ claude --version
 npm i -g opencode-ai@latest
 mkdir -p $HOME/.config/opencode
 sudo ln -s $HOME/dotfiles/opencode/opencode.json $HOME/.config/opencode/opencode.json
+sudo ln -s $HOME/dotfiles/opencode/AGENTS.md $HOME/.config/opencode/AGENTS.md
 ```
 
 ### asdf

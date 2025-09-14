@@ -32,6 +32,7 @@ exec --no-startup-id feh --bg-scale ~/Desktop/andreas-rocha-occultknowledge01.jp
 # screen before suspend. Use loginctl lock-session to lock your screen.
 exec --no-startup-id xss-lock -- sh -c 'dunstctl set-paused true; i3lock -unc 000000; dunstctl set-paused false'
 exec --no-startup-id xset s 300 300
+exec --no-startup-id xset dpms 305 305 305
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id dunst
@@ -190,13 +191,13 @@ bindsym $mod+c exec --no-startup-id dunstctl close-all
 
 for_window [class=".*"] border none
 
-set $monitor2 eDP-1
-set $monitor1 HDMI-1
+set $monitor2 HDMI-2
+set $monitor1 DP-1
 workspace $ws1 output $monitor1
 workspace $ws4 output $monitor2
 
 exec xrandr --output $monitor2 --right-of $monitor1
 
 # FIXME: unshittify this ugly hack for disabling mouse accelaration
-# exec --no-startup-id xinput list | sed -n 's/.*mouse.*\s\+id=\([0-9]*\).*slave\s\+pointer.*/\1/Ip' | xargs -I {} xinput --set-prop {} "libinput Accel Profile Enabled" 0 1
-# exec --no-startup-id xinput list | sed -n 's/.*mouse.*\s\+id=\([0-9]*\).*slave\s\+pointer.*/\1/Ip' | xargs -I {} xinput --set-prop {} "Coordinate Transformation Matrix" 1 0 0 0 1 0 0 0 1
+exec --no-startup-id xinput list | sed -n 's/.*mouse.*\s\+id=\([0-9]*\).*slave\s\+pointer.*/\1/Ip' | xargs -I {} xinput --set-prop {} "libinput Accel Profile Enabled" 0 1
+exec --no-startup-id xinput list | sed -n 's/.*mouse.*\s\+id=\([0-9]*\).*slave\s\+pointer.*/\1/Ip' | xargs -I {} xinput --set-prop {} "Coordinate Transformation Matrix" 1 0 0 0 1 0 0 0 1

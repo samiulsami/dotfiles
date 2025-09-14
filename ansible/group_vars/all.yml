@@ -11,6 +11,7 @@ install_cloudflare_warp: true
 install_claude_code: true
 install_opencode: true
 install_asdf: true
+install_neovim: true
 configure_git_defaults: true
 
 # Tool versions
@@ -29,15 +30,6 @@ docker_registry: "sami7786"
 # Monitor configuration (will be auto-detected if not set)
 monitor1: ""  # Primary monitor
 monitor2: ""  # Secondary monitor
-
-# Package installation options
-install_development_tools: true
-install_desktop_environment: true
-install_shell_config: true
-install_dotfiles: true
-
-# Shell configuration
-default_shell: "zsh"
 
 # asdf configuration
 asdf_data_dir: "{{ ansible_env.HOME }}/.asdf"

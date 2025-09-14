@@ -2,6 +2,7 @@
 - name: Update pacman package cache
   pacman:
     update_cache: yes
+  tags: always
 
 - name: Install base system packages
   pacman:
@@ -27,6 +28,7 @@
       - npm
       - libnotify
     state: present
+  tags: packages
 
 - name: Configure GNOME settings (if available)
   become_user: "{{ user }}"
@@ -40,11 +42,12 @@
   tags: gnome
 
 - name: Increase file watch limits
-  lineinfile:
-    path: /etc/sysctl.conf
-    line: "fs.inotify.max_user_watches=524288"
-    create: yes
-  notify: reload sysctl
+  ansible.posix.sysctl:
+    name: fs.inotify.max_user_watches
+    value: '524288'
+    state: present
+    reload: yes
+  tags: system
 
 - name: Fix keyboard Fn keys for Apple keyboards
   lineinfile:
@@ -57,17 +60,23 @@
   pacman:
     name: github-cli
     state: present
+  tags: packages
 
 - name: Install OBS Studio
   pacman:
     name: obs-studio
     state: present
+  tags: packages
 
 - name: Install Cloudflare Warp from AUR (optional)
-  shell: yay -S --noconfirm cloudflare-warp-bin
+  community.general.pacman:
+    name: cloudflare-warp-bin
+    state: present
+    executable: yay
   become_user: "{{ user }}"
   when: install_cloudflare_warp | default(false)
   ignore_errors: yes
+  tags: aur
 
 - name: Register Cloudflare Warp (optional)
   shell: warp-cli registration new

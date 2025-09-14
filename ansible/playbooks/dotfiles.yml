@@ -23,11 +23,11 @@
     - shell_config
     - ssh_config
     - development_tools
-    - dotfiles_config
     - asdf
     - neovim
     - claude
     - opencode
+    - dotfiles_config
 
   post_tasks:
     - name: Set zsh as default shell

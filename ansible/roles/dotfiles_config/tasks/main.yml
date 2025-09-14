@@ -1,4 +1,28 @@
 ---
+- name: Verify dotfiles source directory exists
+  stat:
+    path: "{{ dotfiles_dir }}"
+  register: dotfiles_exists
+  failed_when: not dotfiles_exists.stat.exists
+  tags: validation
+
+- name: Verify required dotfiles exist
+  stat:
+    path: "{{ dotfiles_dir }}/{{ item }}"
+  register: dotfiles_check
+  failed_when: not dotfiles_check.stat.exists
+  loop:
+    - "zsh/.zshrc"
+    - "zsh/.zsh_functions_and_widgets"
+    - "zsh/.p10k.zsh"
+    - "tmux/.tmux.conf"
+    - "i3wm/config"
+    - "rofi/config.rasi"
+    - "picom/picom.conf"
+    - "dunst/dunstrc"
+    - "ghostty/config"
+  tags: validation
+
 - name: Create symlinks for shell configuration files
   file:
     src: "{{ dotfiles_dir }}/{{ item.src }}"
@@ -13,6 +37,7 @@
     - { src: 'zsh/.zsh_functions_and_widgets', dest: '.zsh_functions_and_widgets' }
     - { src: 'zsh/.p10k.zsh', dest: '.p10k.zsh' }
     - { src: 'tmux/.tmux.conf', dest: '.tmux.conf' }
+  tags: dotfiles
 
 - name: Create config directories for symlinks
   file:
@@ -42,6 +67,7 @@
     - { src: 'picom/picom.conf', dest: 'picom/picom.conf' }
     - { src: 'dunst/dunstrc', dest: 'dunst/dunstrc' }
     - { src: 'ghostty/config', dest: 'ghostty/config' }
+  tags: dotfiles
 
 - name: Create symlink for i3 config
   file:
@@ -96,6 +122,7 @@
   blockinfile:
     path: "{{ home }}/.zshrc"
     block: |
+      # {{ ansible_managed }}
       # Environment variables (added by Ansible)
       export GOPATH=$HOME/go
       export PATH=$GOPATH/bin:/usr/local/go/bin:$PATH
@@ -109,6 +136,7 @@
     insertbefore: EOF
   become_user: "{{ user }}"
   when: env_vars_exist.rc != 0
+  tags: shell
 
 - name: Set git configuration defaults
   git_config:

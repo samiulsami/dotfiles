@@ -71,6 +71,7 @@
         path: "{{ home }}/.zshrc"
         marker: "# {mark} SSH agent auto-start"
         block: |
+          # {{ ansible_managed }}
           # Start SSH agent if not running
           if ! pgrep -u "$USER" ssh-agent > /dev/null; then
               ssh-agent -t 1h > "$XDG_RUNTIME_DIR/ssh-agent.env"
@@ -85,3 +86,4 @@
         create: yes
       become_user: "{{ user }}"
       when: ssh_agent_block_exists.rc != 0
+      tags: ssh

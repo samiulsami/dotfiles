@@ -68,7 +68,7 @@ killports() {
                 echo "$*"
         )
         echo "Killing ports $ports"
-        sudo kill -9 $(sudo lsof -ti :"$ports")
+        sudo kill -9 $(sudo lsof -ti :$ports)
 }
 
 # fuzzy search and checkout git local/remote branches
@@ -104,19 +104,21 @@ gb() {
 # lock the screen with i3lock
 # pause dunst while locked
 i3l() {
-        if ! command -v dunstctl >/dev/null; then
-                echo "dunst not found"
-                return 1
-        fi
+	if ! command -v dunstctl >/dev/null; then
+		echo "dunst not found"
+		return 1
+	fi
 
-        if ! command -v i3lock >/dev/null; then
-                echo "i3lock not found"
-                return 1
-        fi
+	if ! command -v i3lock >/dev/null; then
+		echo "i3lock not found"
+		return 1
+	fi
 
-        dunstctl set-paused true
-        i3lock -unc 000000
-        dunstctl set-paused false
+	dunstctl set-paused true
+        xset dpms 1 1 1
+	i3lock -n -unc 000000
+        xset dpms 305 305 305
+	dunstctl set-paused false
 }
 
 # create and switch to a new tmux session from the current directory

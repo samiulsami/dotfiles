@@ -4,6 +4,7 @@
   pacman:
     name: docker
     state: present
+  tags: development
 
 - name: Add user to docker group
   user:
@@ -16,6 +17,7 @@
     name: docker
     state: started
     enabled: yes
+  tags: development
 
 # Java installation
 - name: Remove old Java installations
@@ -158,11 +160,16 @@
   pacman:
     name: kubectl
     state: present
+  tags: development
 
 - name: Install kind from AUR
-  shell: yay -S --noconfirm kind-bin
+  community.general.pacman:
+    name: kind-bin
+    state: present
+    executable: yay
   become_user: "{{ user }}"
   ignore_errors: yes
+  tags: aur
 
 - name: Download and install Helm
   shell: |
