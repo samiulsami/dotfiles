@@ -117,5 +117,7 @@
     scope: global
   become_user: "{{ user }}"
   loop:
+    - { name: 'user.name', value: '{{ git_name }}' }
+    - { name: 'user.email', value: '{{ git_email }}' }
     - { name: 'url.git@github.com:.insteadOf', value: 'https://github.com/' }
   when: configure_git_defaults | default(true)

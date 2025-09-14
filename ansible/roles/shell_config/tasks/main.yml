@@ -21,7 +21,7 @@
     force: yes
   become_user: "{{ user }}"
   loop:
-    - { repo: 'https://github.com/jeffreytse/zsh-vi-mode.git', dest: '{{ home }}/.zsh/.zsh-vi-mode' }
+    - { repo: 'https://github.com/jeffreytse/zsh-vi-mode.git', dest: '{{ home }}/.zsh/zsh-vi-mode' }
     - { repo: 'https://github.com/zsh-users/zsh-autosuggestions.git', dest: '{{ home }}/.zsh/zsh-autosuggestions' }
     - { repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git', dest: '{{ home }}/.zsh/zsh-syntax-highlighting' }
     - { repo: 'https://github.com/romkatv/powerlevel10k.git', dest: '{{ home }}/.zsh/powerlevel10k' }

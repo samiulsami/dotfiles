@@ -68,3 +68,8 @@
   become_user: "{{ user }}"
   when: install_cloudflare_warp | default(false)
   ignore_errors: yes
+
+- name: Register Cloudflare Warp (optional)
+  shell: warp-cli registration new
+  when: install_cloudflare_warp | default(false)
+  ignore_errors: yes

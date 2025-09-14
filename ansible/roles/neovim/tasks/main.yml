@@ -3,16 +3,14 @@
   when: install_neovim | default(true)
   block:
     - name: Install Neovim build dependencies
-      apt:
+      pacman:
         name:
-          - build-essential
-          - unzip
-          - python3.12-venv
-          - xclip
+          - base-devel
           - cmake
+          - unzip
           - gettext
+          - xclip
         state: present
-        update_cache: yes
 
     - name: Check if Neovim source directory exists
       stat:
