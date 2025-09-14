@@ -27,6 +27,7 @@ cd && rm -rf /tmp/yay
 ### Warp
 ```bash
 yay -S cloudflare-warp-bin
+sudo warp-cli registration new
 ```
 
 ### Connect to bluetooth device manually

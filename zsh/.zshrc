@@ -163,6 +163,9 @@ export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 if command -v fnm >/dev/null; then
         source <(fnm completions)
 fi
+if command -v warp-cli >/dev/null; then
+        source <(warp-cli generate-completions zsh)
+fi
 if command -v dlv >/dev/null; then
         source <(dlv completion zsh)
 fi
