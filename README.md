@@ -1,6 +1,6 @@
 # Dotfiles
 
-## Automated Installation (Arch Linux)
+## Automated Installation (Ubuntu 24.04 LTS)
 
 ```bash
 git clone https://github.com/samiulsami/dotfiles.git $HOME/dotfiles
@@ -8,202 +8,90 @@ cd $HOME/dotfiles
 ./setup.sh
 ```
 
-Done. See [README-ANSIBLE.md](README-ANSIBLE.md) for details.
+See [README-ANSIBLE.md](README-ANSIBLE.md) for details.
 
 ---
+
 ## Manual Installation
 
-### Essential Packages (Install first)
+### APT Packages
 ```bash
-sudo pacman -S base-devel git curl wget zsh tmux fd bat ripgrep zoxide npm github-cli libnotify obs-studio
+sudo apt update && sudo apt install -y \
+  build-essential git curl wget zsh tmux fd-find bat ripgrep zoxide npm \
+  libnotify-bin rofi picom dunst i3 pavucontrol \
+  blueman flameshot brightnessctl git-gui \
+  docker.io cmake gettext unzip xclip nvme-cli
+
+sudo ln -s $(which fdfind) /usr/bin/fd
+sudo ln -s $(which batcat) /usr/bin/bat
 ```
 
-### AUR Helper (yay)
+### GitHub CLI
 ```bash
-git clone https://aur.archlinux.org/yay.git /tmp/yay
-cd /tmp/yay
-makepkg -si --noconfirm
-cd && rm -rf /tmp/yay
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --yes --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list
+sudo apt update && sudo apt install gh -y
 ```
 
-### Warp
+### OBS Studio
 ```bash
-yay -S cloudflare-warp-bin
+sudo add-apt-repository ppa:obsproject/obs-studio
+sudo apt update && sudo apt install obs-studio -y
+```
+
+### Cloudflare Warp
+```bash
+curl -fsSL https://pkg.cloudflareclient.com/pubkey.gpg | sudo gpg --yes --dearmor -o /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/cloudflare-client.list
+sudo apt update && sudo apt install cloudflare-warp -y
 sudo warp-cli registration new
-```
-
-### Connect to bluetooth device manually
-```bash
-hcitool scan  # to get the MAC address of your device
-bluetoothctl
-power on  # in case the bluez controller power is off
-agent on
-scan on  # wait for your device's address to show up here
-scan off
-trust MAC_ADDRESS
-pair MAC_ADDRRESS
-connect MAC_ADDRESS
-```
-
-### Fix keyboard Fn keys not-registering issue
-```bash
-echo "options hid_apple fnmode=0" | sudo tee -a /etc/modprobe.d/hid_apple.conf
-sudo mkinitcpio -P
-```
-
-### Increase file watch numbers
-```bash
-echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
-```
-
-### Rofi
-```bash
-sudo pacman -S rofi
-mkdir -p $HOME/.config/rofi/
-sudo ln -s  $HOME/dotfiles/rofi/config.rasi $HOME/.config/rofi/config.rasi
-```
-
-### Picom
-```bash
-sudo pacman -S picom
-mkdir -p $HOME/.config/picom
-sudo ln -s $HOME/dotfiles/picom/picom.conf $HOME/.config/picom/picom.conf
-```
-
-### Dunst
-```bash
-sudo pacman -S dunst libnotify
-mkdir -p $HOME/.config/dunst
-sudo ln -s $HOME/dotfiles/dunst/dunstrc $HOME/.config/dunst/dunstrc
-```
-
-### i3wm + utilities
-```bash
-sudo pacman -S i3 pavucontrol blueman flameshot brightnessctl
-gsettings set org.gnome.desktop.screensaver lock-enabled false
-gsettings set org.gnome.desktop.session idle-delay 0
-sed -i "s|^set \$monitor1 .*|set \$monitor1 $(xrandr | grep ' connected primary' | awk '{print $1}')|" "$HOME/dotfiles/i3wm/config"
-sed -i "s|^set \$monitor2 .*|set \$monitor2 $(xrandr | grep ' connected' | grep -v ' connected primary ' | awk '{print $1}')|" "$HOME/dotfiles/i3wm/config"
-sudo ln -s $HOME/dotfiles/i3wm/config $HOME/.config/i3/config
-```
-
-### SSH Keys
-```bash
-ssh -v
-ssh-keygen -t rsa -C "<your-email>"
-```
-
-* <i>press enter 3 times</i>
-
-* <i>check if agent is running</i>
-```bash
-ps -e  | grep [s]sh-agent
-```
-
-* <i>If it isn’t, start it manually:</i>
-```bash
-ssh-agent /bin/bash
-```
-
-* <i>Load the identity into ssh-agent:</i>
-```bash
-ssh-add $HOME/.ssh/id_rsa
-```
-
-* <i>Install the public key on your Github account</i>
-
-* <i>Get the key:</i>
-```bash
-cat $HOME/.ssh/id_rsa.pub
-```
-* <i>Install it here</i>: [https://github.com/settings/ssh/new](https://github.com/settings/ssh/new)
-
-### Git & GitHub
-```bash
-sudo pacman -S git git-gui github-cli
-gh extension install yusukebe/gh-markdown-preview
-git config --global user.name <your-name>
-git config --global user.email <your-email@domain.com>
-git config --global --add url."git@github.com:".insteadOf "https://github.com/"
 ```
 
 ### Ghostty
 ```bash
-sudo pacman -S ghostty
-mkdir -p $HOME/.config/ghostty
-sudo ln -s $HOME/dotfiles/ghostty/config $HOME/.config/ghostty/config
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)"
+sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/bin/ghostty 50
+sudo update-alternatives --config x-terminal-emulator
 ```
 
-### Zsh
+### Configuration Files & Additional Applications
 ```bash
-sudo pacman -S zsh
-mkdir -p $HOME/.zsh/
-git clone https://github.com/jeffreytse/zsh-vi-mode.git $HOME/.zsh/zsh-vi-mode
-git clone https://github.com/zsh-users/zsh-autosuggestions.git $HOME/.zsh/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.zsh/zsh-syntax-highlighting
-git clone https://github.com/romkatv/powerlevel10k.git $HOME/.zsh/powerlevel10k
-git clone https://github.com/Aloxaf/fzf-tab.git $HOME/.zsh/fzf-tab
-git clone https://github.com/zsh-users/zsh-completions.git $HOME/.zsh/zsh-completions
+# create directories
+mkdir -p $HOME/.config/{rofi,picom,dunst,i3,ghostty,opencode,tmux} $HOME/.zsh/ $HOME/.config/tmux/plugins/
+
+# symlink config files for rofi, picom, dunst, ghostty, tmux, zsh, opencode
+sudo ln -s $HOME/dotfiles/rofi/config.rasi $HOME/.config/rofi/config.rasi
+sudo ln -s $HOME/dotfiles/picom/picom.conf $HOME/.config/picom/picom.conf
+sudo ln -s $HOME/dotfiles/dunst/dunstrc $HOME/.config/dunst/dunstrc
+sudo ln -s $HOME/dotfiles/ghostty/config $HOME/.config/ghostty/config
+sudo ln -s $HOME/dotfiles/tmux/tmux.conf $HOME/.config/tmux/tmux.conf
 sudo ln -s $HOME/dotfiles/zsh/.zshrc $HOME/.zshrc
 sudo ln -s $HOME/dotfiles/zsh/.zsh_functions_and_widgets $HOME/.zsh_functions_and_widgets
 sudo ln -s $HOME/dotfiles/zsh/.p10k.zsh $HOME/.p10k.zsh
-source $HOME/.zshrc
-```
+sudo ln -s $HOME/dotfiles/opencode/opencode.json $HOME/.config/opencode/opencode.json
+sudo ln -s $HOME/dotfiles/opencode/AGENTS.md $HOME/.config/opencode/AGENTS.md
 
-### restore zsh-shell history
+# zsh plugins
+git clone --depth 1 https://github.com/jeffreytse/zsh-vi-mode.git $HOME/.zsh/zsh-vi-mode
+git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions.git $HOME/.zsh/zsh-autosuggestions
+git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.zsh/zsh-syntax-highlighting
+git clone --depth 1 https://github.com/romkatv/powerlevel10k.git $HOME/.zsh/powerlevel10k
+git clone --depth 1 https://github.com/Aloxaf/fzf-tab.git $HOME/.zsh/fzf-tab
+git clone --depth 1 https://github.com/zsh-users/zsh-completions.git $HOME/.zsh/zsh-completions
 
-- Follow the steps here:
-[https://github.com/samiulsami/shell-history-backup](https://github.com/samiulsami/shell-history-backup)
-
-### Zoxide
-```bash
-sudo pacman -S zoxide
-```
-
-### Node.js
-```bash
-sudo pacman -S npm #not sure if this is good practice
-```
-
-### Fzf
-```bash
-git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
-$HOME/.fzf/install
-```
-
-### fd
-```bash
-sudo pacman -S fd
-```
-
-### bat
-```bash
-sudo pacman -S bat
-```
-
-### tmux
-```bash
-mkdir -p $HOME/.config/tmux/plugins
-sudo ln -s $HOME/dotfiles/tmux/tmux.conf $HOME/.config/tmux/tmux.conf
+# tmux plugins
 git clone --depth 1 https://github.com/tmux-plugins/tmux-resurrect $HOME/.config/tmux/plugins/tmux-resurrect
 tmux source $HOME/.config/tmux/tmux.conf
-```
-- Press <b><i>`<C-b> + shift + i`</i></b>
 
-### Neovim
-- <b>Follow the steps here</b>: [https://github.com/samiulsami/nvimconfig](https://github.com/samiulsami/nvimconfig)
+# fzf
+git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
+$HOME/.fzf/install
+source $HOME/.zshrc
 
-### Docker
-```bash
-sudo pacman -S docker
-```
-* <i>Manage docker as non-root user</i>:
-```bash
-sudo groupadd docker
-sudo usermod -aG docker $USER
-newgrp docker
-sudo systemctl start docker
-docker run hello-world
+# i3wm
+sed -i "s|^set \$monitor1 .*|set \$monitor1 $(xrandr | grep ' connected primary' | awk '{print $1}')|" "$HOME/dotfiles/i3wm/config"
+sed -i "s|^set \$monitor2 .*|set \$monitor2 $(xrandr | grep ' connected' | grep -v ' connected primary ' | awk '{print $1}')|" "$HOME/dotfiles/i3wm/config"
+sudo ln -s $HOME/dotfiles/i3wm/config $HOME/.config/i3/config
 ```
 
 ### Java
@@ -243,69 +131,140 @@ go_version=1.25.1
 sudo rm -rf /usr/local/go
 mkdir -p $HOME/Downloads
 cd $HOME/Downloads
-sudo pacman -S git curl wget
 wget https://go.dev/dl/go${go_version}.linux-amd64.tar.gz
 sudo tar -C /usr/local -xzf go${go_version}.linux-amd64.tar.gz
 sudo chown -R $(id -u):$(id -g) /usr/local/go
 rm go${go_version}.linux-amd64.tar.gz
-mkdir $HOME/go
-sudo echo "export GOPATH=$HOME/go" >> $HOME/.zshrc
-sudo echo "export PATH=\$GOPATH/bin:/usr/local/go/bin:\$PATH" >> $HOME/.zshrc
+cd $HOME/dotfiles
+mkdir -p $HOME/go
+echo "export GOPATH=$HOME/go" >> $HOME/.zshrc
+echo "export PATH=\$GOPATH/bin:/usr/local/go/bin:\$PATH" >> $HOME/.zshrc
 source $HOME/.zshrc
 go version
 go install golang.org/x/tools/gopls@latest
 go install github.com/go-delve/delve/cmd/dlv@latest
 ```
 
-### Kubectl
+### kubectl
 ```bash
-sudo pacman -S kubectl
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl
 ```
 
-### Kind
+### kind
 ```bash
-yay -S kind-bin
-kind create cluster
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.29.0/kind-linux-amd64
+chmod +x ./kind
+sudo mv ./kind /usr/local/bin/kind
 ```
 
-### Helm
+### helm
 ```bash
- curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-chmod 700 get_helm.sh
-./get_helm.sh
-```
-
-### uvx
-```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
-
-### Claude Code
-```bash
-npm install -g @anthropic-ai/claude-code
-claude --version
+curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 ```
 
 ### OpenCode
 ```bash
 npm i -g opencode-ai@latest
-mkdir -p $HOME/.config/opencode
-sudo ln -s $HOME/dotfiles/opencode/opencode.json $HOME/.config/opencode/opencode.json
-sudo ln -s $HOME/dotfiles/opencode/AGENTS.md $HOME/.config/opencode/AGENTS.md
 ```
 
-### asdf
+### Git & GitHub
 ```bash
-go install github.com/asdf-vm/asdf/cmd/asdf@latest
-mkdir -p "${ASDF_DATA_DIR:-$HOME/.asdf}/completions"
-asdf completion zsh > "${ASDF_DATA_DIR:-$HOME/.asdf}/completions/_asdf"
-asdf plugin add yq
-asdf install yq 4.2.0
+gh extension install yusukebe/gh-markdown-preview
+git config --global user.name <your-name>
+git config --global user.email <your-email@domain.com>
+git config --global --add url."git@github.com:".insteadOf "https://github.com/"
 ```
 
-### OBS
+### Docker
 ```bash
-sudo pacman -S obs-studio
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
+sudo systemctl start docker
+docker run hello-world
+```
+
+### Neovim
+```bash
+# Download and extract Eclipse JDTLS (optional for Java development)
+wget https://www.eclipse.org/downloads/download.php?file=/jdtls/snapshots/jdt-language-server-latest.tar.gz -O /tmp/jdtls.tar.gz
+mkdir -p $HOME/.eclipse_jdtls
+tar -xzf /tmp/jdtls.tar.gz -C $HOME/.eclipse_jdtls
+rm /tmp/jdtls.tar.gz
+
+# Build Neovim from source
+git clone https://github.com/neovim/neovim.git $HOME/neovim
+cd $HOME/neovim
+make CMAKE_BUILD_TYPE=RelWithDebInfo
+sudo make install
+cd $HOME/dotfiles
+
+# Clone configuration
+git clone https://github.com/samiulsami/nvimconfig.git $HOME/.config/nvim
+
+# Set as default git editor
+git config --global core.editor 'nvim -f'
+```
+
+### SSH Keys
+```bash
+ssh -v
+ssh-keygen -t rsa -C "<your-email>"
+```
+
+* <i>press enter 3 times</i>
+
+* <i>check if agent is running</i>
+```bash
+ps -e  | grep [s]sh-agent
+```
+
+* <i>If it isn't, start it manually:</i>
+```bash
+ssh-agent /bin/bash
+```
+
+* <i>Load the identity into ssh-agent:</i>
+```bash
+ssh-add $HOME/.ssh/id_rsa
+```
+
+* <i>Install the public key on your Github account</i>
+
+* <i>Get the key:</i>
+```bash
+cat $HOME/.ssh/id_rsa.pub
+```
+* <i>Install it here</i>: [https://github.com/settings/ssh/new](https://github.com/settings/ssh/new)
+
+### restore zsh-shell history
+- Follow the steps here:
+[https://github.com/samiulsami/shell-history-backup](https://github.com/samiulsami/shell-history-backup)
+
+### Connect to bluetooth device manually
+```bash
+hcitool scan  # to get the MAC address of your device
+bluetoothctl
+power on  # in case the bluez controller power is off
+agent on
+scan on  # wait for your device's address to show up here
+scan off
+trust MAC_ADDRESS
+pair MAC_ADDRRESS
+connect MAC_ADDRESS
+```
+
+### Fix keyboard Fn keys not-registering issue
+```bash
+echo "options hid_apple fnmode=0" | sudo tee -a /etc/modprobe.d/hid_apple.conf
+sudo update-initramfs -u
+```
+
+### Increase file watch numbers
+```bash
+echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 ```
 
 ### References

@@ -3,9 +3,9 @@
   when: install_neovim | default(true)
   block:
     - name: Install Neovim build dependencies
-      pacman:
+      apt:
         name:
-          - base-devel
+          - build-essential
           - cmake
           - unzip
           - gettext

@@ -2,46 +2,18 @@
 - name: Install OpenCode
   when: install_opencode | default(true)
   block:
-    - name: Get fnm node path
-      shell: "{{ home }}/.local/share/fnm/fnm env --use-on-cd | grep 'export PATH' | cut -d'=' -f2 | tr -d '\"'"
-      register: fnm_node_path
-      become_user: "{{ user }}"
-      changed_when: false
-
     - name: Install OpenCode via npm
-      shell: "{{ home }}/.local/share/fnm/fnm exec --using={{ node_version }} npm i -g opencode-ai@latest"
-      become_user: "{{ user }}"
-      environment:
-        PATH: "{{ fnm_node_path.stdout }}:{{ ansible_env.PATH }}"
+      shell: npm i -g opencode-ai@latest
+      become: yes
 
     - name: Verify OpenCode installation
-      shell: "{{ home }}/.local/share/fnm/fnm exec --using={{ node_version }} opencode --version"
+      shell: opencode --version
       register: opencode_version
       changed_when: false
-      become_user: "{{ user }}"
-      environment:
-        PATH: "{{ fnm_node_path.stdout }}:{{ ansible_env.PATH }}"
       ignore_errors: yes
 
     - name: Display OpenCode version
       debug:
         msg: "OpenCode installed successfully: {{ opencode_version.stdout if opencode_version.rc == 0 else 'Version check failed but installation completed' }}"
-
-    - name: Create opencode config directory
-      file:
-        path: "{{ home }}/.config/opencode"
-        state: directory
-        owner: "{{ user }}"
-        group: "{{ user }}"
-        mode: '0755'
-      become_user: "{{ user }}"
-
-    - name: Create symlink for OpenCode configuration
-      file:
-        src: "{{ home }}/dotfiles/opencode/opencode.json"
-        dest: "{{ home }}/.config/opencode/opencode.json"
-        state: link
-        force: yes
-      become_user: "{{ user }}"
 
 

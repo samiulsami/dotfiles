@@ -15,7 +15,7 @@
     - "zsh/.zshrc"
     - "zsh/.zsh_functions_and_widgets"
     - "zsh/.p10k.zsh"
-    - "tmux/.tmux.conf"
+    - "tmux/tmux.conf"
     - "i3wm/config"
     - "rofi/config.rasi"
     - "picom/picom.conf"
@@ -23,61 +23,108 @@
     - "ghostty/config"
   tags: validation
 
-- name: Create symlinks for shell configuration files
+- name: Create all required directories
   file:
-    src: "{{ dotfiles_dir }}/{{ item.src }}"
-    dest: "{{ home }}/{{ item.dest }}"
-    state: link
-    force: yes
-    owner: "{{ user }}"
-    group: "{{ user }}"
-  become_user: "{{ user }}"
-  loop:
-    - { src: 'zsh/.zshrc', dest: '.zshrc' }
-    - { src: 'zsh/.zsh_functions_and_widgets', dest: '.zsh_functions_and_widgets' }
-    - { src: 'zsh/.p10k.zsh', dest: '.p10k.zsh' }
-    - { src: 'tmux/.tmux.conf', dest: '.tmux.conf' }
-  tags: dotfiles
-
-- name: Create config directories for symlinks
-  file:
-    path: "{{ home }}/.config/{{ item }}"
+    path: "{{ item }}"
     state: directory
     owner: "{{ user }}"
     group: "{{ user }}"
     mode: '0755'
   become_user: "{{ user }}"
   loop:
-    - rofi
-    - picom
-    - dunst
-    - ghostty
+    - "{{ home }}/.config/rofi"
+    - "{{ home }}/.config/picom"
+    - "{{ home }}/.config/dunst"
+    - "{{ home }}/.config/i3"
+    - "{{ home }}/.config/ghostty"
+    - "{{ home }}/.config/opencode"
+    - "{{ home }}/.config/tmux"
+    - "{{ home }}/.zsh"
+    - "{{ home }}/.config/tmux/plugins"
+  tags: directories
 
-- name: Create config directory symlinks
+- name: Create all configuration symlinks
   file:
     src: "{{ dotfiles_dir }}/{{ item.src }}"
-    dest: "{{ home }}/.config/{{ item.dest }}"
+    dest: "{{ item.dest }}"
     state: link
     force: yes
     owner: "{{ user }}"
     group: "{{ user }}"
   become_user: "{{ user }}"
   loop:
-    - { src: 'rofi/config.rasi', dest: 'rofi/config.rasi' }
-    - { src: 'picom/picom.conf', dest: 'picom/picom.conf' }
-    - { src: 'dunst/dunstrc', dest: 'dunst/dunstrc' }
-    - { src: 'ghostty/config', dest: 'ghostty/config' }
+    - { src: 'rofi/config.rasi', dest: "{{ home }}/.config/rofi/config.rasi" }
+    - { src: 'picom/picom.conf', dest: "{{ home }}/.config/picom/picom.conf" }
+    - { src: 'dunst/dunstrc', dest: "{{ home }}/.config/dunst/dunstrc" }
+    - { src: 'ghostty/config', dest: "{{ home }}/.config/ghostty/config" }
+    - { src: 'tmux/tmux.conf', dest: "{{ home }}/.config/tmux/tmux.conf" }
+    - { src: 'zsh/.zshrc', dest: "{{ home }}/.zshrc" }
+    - { src: 'zsh/.zsh_functions_and_widgets', dest: "{{ home }}/.zsh_functions_and_widgets" }
+    - { src: 'zsh/.p10k.zsh', dest: "{{ home }}/.p10k.zsh" }
+    - { src: 'opencode/opencode.json', dest: "{{ home }}/.config/opencode/opencode.json" }
+    - { src: 'opencode/AGENTS.md', dest: "{{ home }}/.config/opencode/AGENTS.md" }
   tags: dotfiles
 
-- name: Create symlink for i3 config
-  file:
-    src: "{{ dotfiles_dir }}/i3wm/config"
-    dest: "{{ home }}/.config/i3/config"
-    state: link
+- name: Clone zsh plugins
+  git:
+    repo: "{{ item.repo }}"
+    dest: "{{ item.dest }}"
+    depth: 1
     force: yes
-    owner: "{{ user }}"
-    group: "{{ user }}"
   become_user: "{{ user }}"
+  loop:
+    - { repo: 'https://github.com/jeffreytse/zsh-vi-mode.git', dest: '{{ home }}/.zsh/zsh-vi-mode' }
+    - { repo: 'https://github.com/zsh-users/zsh-autosuggestions.git', dest: '{{ home }}/.zsh/zsh-autosuggestions' }
+    - { repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git', dest: '{{ home }}/.zsh/zsh-syntax-highlighting' }
+    - { repo: 'https://github.com/romkatv/powerlevel10k.git', dest: '{{ home }}/.zsh/powerlevel10k' }
+    - { repo: 'https://github.com/Aloxaf/fzf-tab.git', dest: '{{ home }}/.zsh/fzf-tab' }
+    - { repo: 'https://github.com/zsh-users/zsh-completions.git', dest: '{{ home }}/.zsh/zsh-completions' }
+  tags: git_clones
+
+- name: Clone tmux plugins
+  git:
+    repo: "{{ item.repo }}"
+    dest: "{{ item.dest }}"
+    depth: 1
+    force: yes
+  become_user: "{{ user }}"
+  loop:
+    - { repo: 'https://github.com/tmux-plugins/tmux-resurrect', dest: '{{ home }}/.config/tmux/plugins/tmux-resurrect' }
+  tags: git_clones
+
+- name: Clone fzf
+  git:
+    repo: https://github.com/junegunn/fzf.git
+    dest: "{{ home }}/.fzf"
+    depth: 1
+    force: yes
+  become_user: "{{ user }}"
+  tags: git_clones
+
+- name: Install fzf binaries
+  shell: |
+    cd {{ home }}/.fzf && ./install --all
+  args:
+    creates: "{{ home }}/.fzf/bin/fzf"
+  become_user: "{{ user }}"
+  tags: fzf
+
+- name: Get primary monitor for i3 config
+  shell: "xrandr | grep ' connected primary' | awk '{print $1}'"
+  register: primary_monitor
+  become_user: "{{ user }}"
+  ignore_errors: yes
+
+- name: Get secondary monitor for i3 config
+  shell: "xrandr | grep ' connected' | grep -v ' connected primary ' | awk '{print $1}'"
+  register: secondary_monitor
+  become_user: "{{ user }}"
+  ignore_errors: yes
+
+- name: Set monitor variables for i3 config
+  set_fact:
+    monitor1: "{{ primary_monitor.stdout | default('eDP-1') }}"
+    monitor2: "{{ secondary_monitor.stdout | default('HDMI-1') }}"
 
 - name: Update i3 config with detected monitors
   replace:
@@ -93,9 +140,22 @@
     replace: "set $monitor2 {{ monitor2 }}"
   become_user: "{{ user }}"
 
+- name: Create i3 config symlink
+  file:
+    src: "{{ dotfiles_dir }}/i3wm/config"
+    dest: "{{ home }}/.config/i3/config"
+    state: link
+    force: yes
+    owner: "{{ user }}"
+    group: "{{ user }}"
+  become_user: "{{ user }}"
+  tags: dotfiles
 
-
-
+- name: Source tmux configuration
+  shell: |
+    tmux source {{ home }}/.config/tmux/tmux.conf
+  become_user: "{{ user }}"
+  ignore_errors: yes
 
 - name: Source shell configurations  
   shell: |
@@ -105,38 +165,12 @@
   become_user: "{{ user }}"
   ignore_errors: yes
 
-- name: Install tmux plugins
+- name: Install GitHub CLI extensions
   shell: |
-    {{ home }}/.tmux/plugins/tpm/scripts/install_plugins.sh
+    gh extension install yusukebe/gh-markdown-preview
   become_user: "{{ user }}"
   ignore_errors: yes
-
-- name: Check if environment variables block exists in .zshrc
-  command: grep -q "ANSIBLE MANAGED BLOCK - Environment Variables" "{{ home }}/.zshrc"
-  register: env_vars_exist
-  changed_when: false
-  failed_when: false
-  become_user: "{{ user }}"
-
-- name: Add environment variables to .zshrc
-  blockinfile:
-    path: "{{ home }}/.zshrc"
-    block: |
-      # {{ ansible_managed }}
-      # Environment variables (added by Ansible)
-      export GOPATH=$HOME/go
-      export PATH=$GOPATH/bin:/usr/local/go/bin:$PATH
-      export JAVA_HOME=/usr/lib/jvm/jdk
-      export PATH=$JAVA_HOME/bin:$PATH
-      export MAVEN_HOME=/usr/lib/mvn/maven
-      export PATH=$MAVEN_HOME/bin:$PATH
-      export PATH=$HOME/.cargo/bin:$PATH
-      export REGISTRY={{ docker_registry | default('sami7786') }}
-    marker: "# {mark} ANSIBLE MANAGED BLOCK - Environment Variables"
-    insertbefore: EOF
-  become_user: "{{ user }}"
-  when: env_vars_exist.rc != 0
-  tags: shell
+  tags: github
 
 - name: Set git configuration defaults
   git_config:

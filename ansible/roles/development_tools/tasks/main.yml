@@ -1,10 +1,33 @@
 ---
 # Docker installation
+- name: Remove old Docker packages
+  apt:
+    name:
+      - docker
+      - docker-engine
+      - docker.io
+    state: absent
+
+- name: Add Docker GPG key
+  shell: |
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+  args:
+    creates: /usr/share/keyrings/docker-archive-keyring.gpg
+
+- name: Add Docker repository
+  shell: |
+    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+  args:
+    creates: /etc/apt/sources.list.d/docker.list
+
 - name: Install Docker
-  pacman:
-    name: docker
+  apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
     state: present
-  tags: development
+    update_cache: yes
 
 - name: Add user to docker group
   user:
@@ -17,7 +40,6 @@
     name: docker
     state: started
     enabled: yes
-  tags: development
 
 # Java installation
 - name: Remove old Java installations
@@ -156,20 +178,23 @@
     creates: "{{ home }}/go/bin/dlv"
 
 # Kubernetes tools
-- name: Install kubectl from pacman
-  pacman:
-    name: kubectl
-    state: present
-  tags: development
+- name: Get kubectl stable version
+  uri:
+    url: "https://dl.k8s.io/release/stable.txt"
+    return_content: yes
+  register: kubectl_stable_version
 
-- name: Install kind from AUR
-  community.general.pacman:
-    name: kind-bin
-    state: present
-    executable: yay
-  become_user: "{{ user }}"
-  ignore_errors: yes
-  tags: aur
+- name: Download kubectl
+  get_url:
+    url: "https://dl.k8s.io/release/{{ kubectl_stable_version.content.strip() }}/bin/linux/amd64/kubectl"
+    dest: /usr/local/bin/kubectl
+    mode: '0755'
+
+- name: Download kind {{ kind_version }}
+  get_url:
+    url: "https://kind.sigs.k8s.io/dl/{{ kind_version }}/kind-linux-amd64"
+    dest: /usr/local/bin/kind
+    mode: '0755'
 
 - name: Download and install Helm
   shell: |

@@ -11,23 +11,18 @@
     dotfiles_dir: "{{ ansible_env.HOME }}/dotfiles"
 
   pre_tasks:
-    - name: Update pacman cache
-      pacman:
+    - name: Update apt cache
+      apt:
         update_cache: yes
       tags: always
 
   roles:
     - system_packages
-    - aur_helper
-    - desktop_environment  
-    - shell_config
-    - ssh_config
-    - development_tools
-    - asdf
-    - neovim
-    - claude
-    - opencode
     - dotfiles_config
+    - development_tools
+    - opencode
+    - neovim
+    - ssh_config
 
   post_tasks:
     - name: Set zsh as default shell
