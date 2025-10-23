@@ -1,0 +1,30 @@
+set clipboard+=unnamedplus
+map Q gq
+let mapleader = " "
+let maplocalleader = " "
+
+set scrolloff=5
+set hls is
+set smartindent
+set autoindent
+set expandtab
+set number
+set relativenumber
+set ignorecase
+set smartcase
+set cursorline cursorcolumn
+
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+map <ESC> :noh<CR>
+
+vmap J <action>(MoveLineDown)
+vmap K <action>(MoveLineUp)
+
+nmap <Leader>e :vsplit<CR>
+nmap <Leader>o :split<CR>

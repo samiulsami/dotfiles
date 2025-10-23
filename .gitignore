@@ -1,0 +1,9 @@
+/.crush
+./CLAUDE.md
+
+.serena/
+
+# Temporary files
+*.tmp
+*.bak
+.DS_Store

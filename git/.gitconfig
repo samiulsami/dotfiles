@@ -1,0 +1,12 @@
+[user]
+	name = sami
+	email = your-email@example.com
+
+[includeIf "gitdir:~/work/"]
+	path = ~/.gitconfig-work
+
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+
+[core]
+	editor = nvim -f
