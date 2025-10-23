@@ -12,3 +12,6 @@ trust MAC_ADDRESS
 pair MAC_ADDRRESS
 connect MAC_ADDRESS
 ```
+
+## References
+- [https://unix.stackexchange.com/a/530226/732495](https://unix.stackexchange.com/a/530226/732495)
