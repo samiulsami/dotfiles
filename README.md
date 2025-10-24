@@ -1,4 +1,4 @@
-# Dotfiles
+# dotfiles
 
 - <b>Window Manager</b>: i3wm
 - <b>Terminal</b>: ghostty
@@ -18,7 +18,7 @@
 
 ## Package Installation
 
-### Pacman and yay
+### pacman and yay
 ```bash
 set -euo pipefail
 
@@ -39,7 +39,8 @@ sudo warp-cli registration new
 ```
 
 ## Environment Setup
-Unattended installation after providing sudo password and email(s):
+### config files, plugins and tools
+<i>Unattended installation after providing sudo password and email(s)</i>
 ```bash
 chsh -s $(readlink -f $(which zsh))
 chmod +x ./setup_env.sh ./install_dev_tools.sh
@@ -47,7 +48,7 @@ chmod +x ./setup_env.sh ./install_dev_tools.sh
 ./install_dev_tools.sh
 ```
 
-### SSH Keys
+### ssh keys
 ```bash
 set -euo pipefail
 EMAIL=$(git config user.email)
@@ -79,6 +80,7 @@ For additional configuration and troubleshooting guides, see the [notes/](notes/
 ## TODO
 
 - NOT automate this with ansible/stow/chezmoi/etc.
+- Add support for Debian based distros.
 - Remove hardcoded wallpaper.
 - Consider wrapping the ```notes``` directory using Obsidian.
 
