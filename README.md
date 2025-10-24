@@ -80,10 +80,10 @@ For additional configuration and troubleshooting guides, see the [notes/](notes/
 
 ## TODO
 
-- NOT automate this with ansible/stow/chezmoi/etc.
-- Add support for Debian based distros.
-- Remove hardcoded wallpaper.
-- Consider wrapping the ```notes``` directory using Obsidian.
+- [ ] NOT automate this with ansible/stow/chezmoi/etc.
+- [ ] Add support for Debian based distros.
+- [ ] Remove hardcoded wallpaper.
+- [ ] Consider wrapping the ```notes``` directory using Obsidian.
 
 ### References
 - [https://github.com/sysdevbd/sysdevbd.github.io/tree/master](https://github.com/sysdevbd/sysdevbd.github.io/tree/master)
