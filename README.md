@@ -40,7 +40,7 @@ sudo warp-cli registration new
 ```
 
 ## Environment Setup
-### config files, plugins and tools
+### config files, plugins, and tools
 <i>Unattended installation after providing sudo password and email(s)</i>
 ```bash
 chsh -s $(readlink -f $(which zsh))
