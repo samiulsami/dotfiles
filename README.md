@@ -1,21 +1,26 @@
 # dotfiles
 
-- <b>Window Manager</b>: i3wm
+**Core**
+- <b>WM</b>: i3wm
 - <b>Terminal</b>: ghostty
-- <b>Multiplexer</b>: tmux
+- <b>Shell</b>: zsh + tmux
 - <b>Editor</b>: Neovim
-- <b>Shell</b>: zsh
+
+**Desktop**
 - <b>Launcher</b>: rofi
 - <b>Compositor</b>: picom
-- <b>Screenshot tool</b>: flameshot
-- <b>File manager</b>: thunar
+- <b>Notifications</b>: dunst
+- <b>Screenshots</b>: flameshot
+- <b>Files</b>: thunar
+
+**System**
 - <b>Audio</b>: pavucontrol
 - <b>Bluetooth</b>: blueman
-- <b>Notifications</b>: dunst
 - <b>Network</b>: iwd
-- <b>AI</b>: OpenCode
 - <b>VPN</b>: Cloudflare Warp
-- <b>Other CLI tools</b>: lsd, fd, bat, ripgrep, zoxide, docker, kubectl, helm, etc.
+
+**Utilities**
+- fzf, fd, bat, ripgrep, zoxide, lsd, etc.
 
 ## Package Installation
 
