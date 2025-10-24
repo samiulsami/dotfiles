@@ -30,7 +30,6 @@ run_async go install golang.org/x/tools/gopls@latest
 # Build Neovim from source
 echo "[$(date '+%H:%M:%S')] ==> Cloning Neovim repository..."
 retry_git_clone --depth 1 https://github.com/neovim/neovim.git "$HOME/neovim"
-wait_err
 cd "$HOME/neovim"
 
 echo "[$(date '+%H:%M:%S')] ==> Building Neovim from source..."
@@ -38,6 +37,7 @@ make CMAKE_BUILD_TYPE=RelWithDebInfo
 sudo make install
 cd "$DOTFILES_DIR"
 
+wait_err
 echo "[$(date '+%H:%M:%S')] ==> Installing Neovim plugins..."
 nvim --headless "+Lazy! sync" +qa
 
