@@ -12,6 +12,7 @@
 - <b>Audio</b>: pavucontrol
 - <b>Bluetooth</b>: blueman
 - <b>Notifications</b>: dunst
+- <b>Network</b>: iwd
 - <b>AI</b>: OpenCode
 - <b>VPN</b>: Cloudflare Warp
 - <b>Other CLI tools</b>: lsd, fd, bat, ripgrep, zoxide, docker, kubectl, helm, etc.
