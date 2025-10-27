@@ -22,8 +22,8 @@ sudo apt update && sudo apt install -y \
   blueman flameshot brightnessctl git-gui \
   docker.io cmake gettext unzip xclip nvme-cli
 
-sudo ln -s $(which fdfind) /usr/bin/fd
-sudo ln -s $(which batcat) /usr/bin/bat
+sudo ln -sf $(which fdfind) /usr/bin/fd
+sudo ln -sf $(which batcat) /usr/bin/bat
 ```
 
 ### GitHub CLI
@@ -57,41 +57,45 @@ sudo update-alternatives --config x-terminal-emulator
 ### Configuration Files & Additional Applications
 ```bash
 # create directories
-mkdir -p $HOME/.config/{rofi,picom,dunst,i3,ghostty,opencode,tmux} $HOME/.zsh/ $HOME/.config/tmux/plugins/
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
+export ZDOTDIR=${ZDOTDIR:-$HOME/.config/zsh}
+
+mkdir -p $XDG_CONFIG_HOME/{rofi,zsh,picom,dunst,i3,ghostty,opencode,tmux} $XDG_CONFIG_HOME/tmux/plugins/
 
 # symlink config files for rofi, picom, dunst, ghostty, tmux, zsh, opencode
-sudo ln -s $HOME/dotfiles/rofi/config.rasi $HOME/.config/rofi/config.rasi
-sudo ln -s $HOME/dotfiles/picom/picom.conf $HOME/.config/picom/picom.conf
-sudo ln -s $HOME/dotfiles/dunst/dunstrc $HOME/.config/dunst/dunstrc
-sudo ln -s $HOME/dotfiles/ghostty/config $HOME/.config/ghostty/config
-sudo ln -s $HOME/dotfiles/tmux/tmux.conf $HOME/.config/tmux/tmux.conf
-sudo ln -s $HOME/dotfiles/zsh/.zshrc $HOME/.zshrc
-sudo ln -s $HOME/dotfiles/zsh/.zsh_functions_and_widgets $HOME/.zsh_functions_and_widgets
-sudo ln -s $HOME/dotfiles/zsh/.p10k.zsh $HOME/.p10k.zsh
-sudo ln -s $HOME/dotfiles/opencode/opencode.json $HOME/.config/opencode/opencode.json
-sudo ln -s $HOME/dotfiles/opencode/AGENTS.md $HOME/.config/opencode/AGENTS.md
+sudo ln -sf $HOME/dotfiles/rofi/config.rasi $XDG_CONFIG_HOME/rofi/config.rasi
+sudo ln -sf $HOME/dotfiles/picom/picom.conf $XDG_CONFIG_HOME/picom/picom.conf
+sudo ln -sf $HOME/dotfiles/dunst/dunstrc $XDG_CONFIG_HOME/dunst/dunstrc
+sudo ln -sf $HOME/dotfiles/ghostty/config $XDG_CONFIG_HOME/ghostty/config
+sudo ln -sf $HOME/dotfiles/tmux/tmux.conf $XDG_CONFIG_HOME/tmux/tmux.conf
+sudo ln -sf $HOME/dotfiles/zsh/zshenv $HOME/.zshenv
+sudo ln -sf $HOME/dotfiles/zsh/zshrc $ZDOTDIR/.zshrc
+sudo ln -sf $HOME/dotfiles/zsh/zsh_functions_and_widgets $ZDOTDIR/zsh_functions_and_widgets
+sudo ln -sf $HOME/dotfiles/zsh/p10k.zsh $ZDOTDIR/p10k.zsh
+sudo ln -sf $HOME/dotfiles/opencode/opencode.json $XDG_CONFIG_HOME/opencode/opencode.json
 
 # zsh plugins
-git clone --depth 1 https://github.com/jeffreytse/zsh-vi-mode.git $HOME/.zsh/zsh-vi-mode
-git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions.git $HOME/.zsh/zsh-autosuggestions
-git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.zsh/zsh-syntax-highlighting
-git clone --depth 1 https://github.com/romkatv/powerlevel10k.git $HOME/.zsh/powerlevel10k
-git clone --depth 1 https://github.com/Aloxaf/fzf-tab.git $HOME/.zsh/fzf-tab
-git clone --depth 1 https://github.com/zsh-users/zsh-completions.git $HOME/.zsh/zsh-completions
+git clone --depth 1 https://github.com/jeffreytse/zsh-vi-mode.git $ZDOTDIR/.zsh/zsh-vi-mode
+git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions.git $ZDOTDIR/.zsh/zsh-autosuggestions
+git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git $ZDOTDIR/.zsh/zsh-syntax-highlighting
+git clone --depth 1 https://github.com/romkatv/powerlevel10k.git $ZDOTDIR/.zsh/powerlevel10k
+git clone --depth 1 https://github.com/Aloxaf/fzf-tab.git $ZDOTDIR/.zsh/fzf-tab
+git clone --depth 1 https://github.com/zsh-users/zsh-completions.git $ZDOTDIR/.zsh/zsh-completions
 
 # tmux plugins
-git clone --depth 1 https://github.com/tmux-plugins/tmux-resurrect $HOME/.config/tmux/plugins/tmux-resurrect
-tmux source $HOME/.config/tmux/tmux.conf
+git clone --depth 1 https://github.com/tmux-plugins/tmux-resurrect $XDG_CONFIG_HOME/tmux/plugins/tmux-resurrect
+tmux source $XDG_CONFIG_HOME/tmux/tmux.conf
 
 # fzf
-git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
-$HOME/.fzf/install
-source $HOME/.zshrc
+git clone --depth 1 https://github.com/junegunn/fzf.git $XDG_DATA_HOME/.fzf
+$XDG_DATA_HOME/.fzf/install
+source $ZDOTDIR/.zshrc
 
 # i3wm
 sed -i "s|^set \$monitor1 .*|set \$monitor1 $(xrandr | grep ' connected primary' | awk '{print $1}')|" "$HOME/dotfiles/i3wm/config"
 sed -i "s|^set \$monitor2 .*|set \$monitor2 $(xrandr | grep ' connected' | grep -v ' connected primary ' | awk '{print $1}')|" "$HOME/dotfiles/i3wm/config"
-sudo ln -s $HOME/dotfiles/i3wm/config $HOME/.config/i3/config
+sudo ln -sf $HOME/dotfiles/i3wm/config $XDG_CONFIG_HOME/i3/config
 ```
 
 ### Java
