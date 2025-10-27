@@ -59,7 +59,7 @@ chmod +x ./setup_env.sh ./install_dev_tools.sh
 set -euo pipefail
 EMAIL=$(git config user.email)
 ssh-keygen -t ed25519 -C "$EMAIL"  # Press enter 3 times
-eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519
+eval "$(ssh-agent -s)" && ssh-add $HOME/.ssh/id_ed25519
 cat "$HOME/.ssh/id_ed25519.pub" | xclip -selection clipboard
 printf "Public key copied. Add it to https://github.com/settings/ssh/new\n(Press enter to open)..."
 read
@@ -68,11 +68,12 @@ xdg-open https://github.com/settings/ssh/new
 
 ### restore zsh-shell history (private repo)
 ```bash
+source $HOME/.zshrc
 set -euo pipefail
 sudo -k
 
 git clone --depth 1 git@github.com:samiulsami/shell-history-backup.git
-cp shell-history-backup/.zsh_history "$HOME/.zsh_history"
+cp shell-history-backup/.zsh_history "$ZDOTDIR/zsh_history"
 rm -rf shell-history-backup
 ```
 
@@ -89,6 +90,8 @@ For additional configuration and troubleshooting guides, see the [notes/](notes/
 - [ ] Add support for Debian based distros.
 - [ ] Remove hardcoded wallpaper.
 - [ ] Consider wrapping the ```notes``` directory using Obsidian.
+- [ ] Add XDG_CACHE_HOME and XDG_DATA_HOME exports to utils.sh
+- [ ] Move Eclipse JDTLS installation to XDG-compliant paths (use $XDG_DATA_HOME/eclipse-jdtls instead of $HOME/.eclipse_jdtls)
 
 ### References
 - [https://github.com/sysdevbd/sysdevbd.github.io/tree/master](https://github.com/sysdevbd/sysdevbd.github.io/tree/master)

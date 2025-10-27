@@ -1,14 +1,19 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of $HOME/.zshrc.
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+export ZDOTDIR="${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}"
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of $ZDOTDIR/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-        source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+
+if [[ -r "${XDG_CACHE_HOME}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+        source "${XDG_CACHE_HOME}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 WORDCHARS='*?[]~=\@.:; -_&;!#$%^(){}<>/|'
 
-fpath=($HOME/.zsh/zsh-completions/src $fpath)
-fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
+fpath=($ZDOTDIR/zsh-completions/src $fpath)
 autoload -Uz compinit
 compinit
 
@@ -67,7 +72,7 @@ setopt NOTIFY
 setopt NOMATCH
 setopt INTERACTIVE_COMMENTS
 
-HISTFILE=$HOME/.zsh_history
+HISTFILE=$ZDOTDIR/zsh_history
 HISTSIZE=999999999
 SAVEHIST=$HISTSIZE
 setopt BANG_HIST                 # Treat the '!' character specially during expansion.
@@ -86,18 +91,18 @@ setopt HIST_VERIFY               # Don't execute immediately upon history expans
 
 unsetopt BEEP
 
-# To customize prompt, run `p10k configure` or edit $HOME/.p10k.zsh.
-[[ ! -f $HOME/.p10k.zsh ]] || source ~/.p10k.zsh
+# To customize prompt, run `p10k configure` or edit $ZDOTDIR/.p10k.zsh.
+[[ ! -f $ZDOTDIR/p10k.zsh ]] || source $ZDOTDIR/p10k.zsh
 
-source $HOME/.zsh/powerlevel10k/powerlevel10k.zsh-theme
+source $ZDOTDIR/powerlevel10k/powerlevel10k.zsh-theme
 
 ZSH_AUTOSUGGEST_STRATEGY=(history completion match_prev_cmd)
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=100
 
-source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $ZDOTDIR/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-source $HOME/.zsh/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+source $ZDOTDIR/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 ZVM_CURSOR_STYLE_ENABLED=false
 ZVM_ESCAPE_KEYTIMEOUT=0
 
@@ -114,12 +119,12 @@ function my_init() {
         bindkey -a '\ef' fzf-file-widget
         bindkey '\ef' fzf-file-widget
 
-        source $HOME/.zsh/fzf-tab/fzf-tab.plugin.zsh
+        source $ZDOTDIR/fzf-tab/fzf-tab.plugin.zsh
         # zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
         zstyle ':fzf-tab:*' use-fzf-default-opts yes
 
         bindkey '^O' autosuggest-accept
-        source $HOME/.zsh_functions_and_widgets
+        source $ZDOTDIR/zsh_functions_and_widgets
 }
 
 zvm_after_init_commands+=(my_init)
