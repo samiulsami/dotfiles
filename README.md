@@ -32,7 +32,7 @@ sudo pacman -Syu --disable-download-timeout \
   base-devel git curl lsd wget zsh tmux fd bat ripgrep zoxide npm \
   libnotify obs-studio rofi picom dunst i3 pavucontrol \
   blueman flameshot brightnessctl thunar thunar-volman \
-  gvfs ghostty docker jdk-openjdk maven go golangci-lint \
+  gvfs ghostty docker jdk-openjdk maven go golangci-lint rustup \
   kubectl helm cmake gettext unzip xclip nvme-cli
 
 git clone --depth 1 https://aur.archlinux.org/yay.git /tmp/yay
