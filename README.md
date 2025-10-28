@@ -88,10 +88,7 @@ For additional configuration and troubleshooting guides, see the [notes/](notes/
 
 - [ ] NOT automate this with ansible/stow/chezmoi/etc.
 - [ ] Add support for Debian based distros.
-- [ ] Remove hardcoded wallpaper.
 - [ ] Consider wrapping the ```notes``` directory using Obsidian.
-- [ ] Add XDG_CACHE_HOME and XDG_DATA_HOME exports to utils.sh
-- [ ] Move Eclipse JDTLS installation to XDG-compliant paths (use $XDG_DATA_HOME/eclipse-jdtls instead of $HOME/.eclipse_jdtls)
 
 ### References
 - [https://github.com/sysdevbd/sysdevbd.github.io/tree/master](https://github.com/sysdevbd/sysdevbd.github.io/tree/master)

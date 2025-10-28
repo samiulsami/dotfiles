@@ -5,6 +5,11 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 echo "Requires sudo privileges for setting up the environment"
 source "$SCRIPT_DIR/utils.sh"
 
+if [ -z "$XDG_CONFIG_HOME" ] || [ -z "$XDG_DATA_HOME" ]; then
+  echo "XDG_CONFIG_HOME and/or XDG_DATA_HOME not set."
+  return 1
+fi
+
 echo "[$(date '+%H:%M:%S')] ==> Dotfiles directory detected at $DOTFILES_DIR"
 echo "[$(date '+%H:%M:%S')] ==> Using XDG_CONFIG_HOME at $XDG_CONFIG_HOME"
 echo "[$(date '+%H:%M:%S')] ==> Using ZDOTDIR at $ZDOTDIR"

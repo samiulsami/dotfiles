@@ -258,8 +258,6 @@ function backward-kill-word-strict() {
 zle -N backward-kill-word-strict
 bindkey '^W' backward-kill-word-strict
 
-
-
 # control-z to or suspend/resume current job
 fg_or_suspend() {
         if jobs % 2>/dev/null | grep -iq 'suspended'; then
