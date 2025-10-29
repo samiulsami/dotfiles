@@ -15,7 +15,7 @@ WORDCHARS='*?[]~=\@.:; -_&;!#$%^(){}<>/|'
 
 fpath=($ZDOTDIR/zsh-completions/src $fpath)
 autoload -Uz compinit
-compinit
+compinit -C
 
 zstyle ':completion:*:git-checkout:*' sort false
 zstyle ':completion:*:descriptions' format '[%d]'
