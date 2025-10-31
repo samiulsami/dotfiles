@@ -2,7 +2,6 @@
 
 ## Connect to bluetooth device manually
 ```bash
-hcitool scan  # to get the MAC address of your device
 bluetoothctl
 power on  # in case the bluez controller power is off
 agent on
