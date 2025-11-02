@@ -29,7 +29,7 @@
 set -euo pipefail
 
 sudo pacman -Syu --disable-download-timeout \
-  base-devel git curl lsd wget zsh tmux fd bat ripgrep zoxide npm \
+  base-devel git curl lsd wget fzf zsh tmux fd bat ripgrep zoxide npm \
   libnotify obs-studio rofi picom dunst i3 pavucontrol \
   blueman flameshot brightnessctl thunar thunar-volman \
   gvfs ghostty docker jdk-openjdk maven go golangci-lint rustup \
