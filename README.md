@@ -34,7 +34,8 @@ sudo pacman -Syu --disable-download-timeout \
   blueman flameshot brightnessctl thunar thunar-volman \
   gvfs ghostty docker jdk-openjdk maven go golangci-lint rustup \
   kubectl helm cmake gettext unzip xclip nvme-cli \
-  texlive-basic texlive-latex texlive-latexrecommended texlive-latexextra texlive-fontsrecommended
+  texlive-basic texlive-latex texlive-latexrecommended texlive-latexextra texlive-fontsrecommended \
+  noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra
 
 git clone --depth 1 https://aur.archlinux.org/yay.git /tmp/yay
 cd /tmp/yay
