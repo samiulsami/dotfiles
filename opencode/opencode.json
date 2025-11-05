@@ -94,11 +94,4 @@
                         "helm version*": "allow"
                 }
         },
-        "mcp": {
-                "deepwiki": {
-                        "type": "remote",
-                        "url": "https://mcp.deepwiki.com/sse",
-                        "enabled": true
-                }
-        }
 }
