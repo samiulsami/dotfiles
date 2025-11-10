@@ -1,0 +1,39 @@
+format = """
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$cmd_duration\
+$line_break\
+$character"""
+
+add_newline = false
+
+[character]
+success_symbol = "[❯](purple)"
+error_symbol = "[❯](red)"
+vimcmd_symbol = "[❮](green)"
+
+[directory]
+style = "blue"
+truncation_length = 1234
+truncate_to_repo = false
+
+[git_branch]
+format = "[$branch]($style)"
+style = "bright-black"
+
+[git_status]
+style = "blue"
+deleted = "-"
+modified = "~"
+stashed = ""
+
+[git_state]
+style = "blue"
+
+[cmd_duration]
+format = "[$duration]($style) "
+style = "yellow"

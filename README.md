@@ -29,7 +29,7 @@
 set -euo pipefail
 
 sudo pacman -Syu --disable-download-timeout \
-  base-devel git curl lsd wget fzf zsh tmux fd bat ripgrep zoxide npm \
+  base-devel git curl lsd wget fzf zsh starship tmux fd bat ripgrep zoxide npm \
   libnotify obs-studio rofi picom dunst i3 pavucontrol \
   blueman flameshot brightnessctl thunar thunar-volman \
   gvfs ghostty docker jdk-openjdk maven go golangci-lint rustup \
@@ -70,13 +70,8 @@ xdg-open https://github.com/settings/ssh/new
 
 ### restore zsh-shell history (private repo)
 ```bash
-source $HOME/.zshrc
-set -euo pipefail
-sudo -k
-
 git clone --depth 1 git@github.com:samiulsami/shell-history-backup.git
 cp shell-history-backup/.zsh_history "$ZDOTDIR/zsh_history"
-rm -rf shell-history-backup
 ```
 
 ## Additional Notes

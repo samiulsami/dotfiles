@@ -22,15 +22,18 @@ echo "[$(date '+%H:%M:%S')] ==> Configuring git email addresses..."
 echo ""
 echo "Personal email will be used for all directories except for $HOME/work/ and its subdirectories."
 echo "Work email will be used for $HOME/work/ and its subdirectories."
+echo "Leave empty to skip git configuration."
 read -rp "Enter your personal email address: " PERSONAL_EMAIL
 read -rp "Enter your work email address: " WORK_EMAIL
 
-rm -f "$HOME/.gitconfig" "$HOME/.gitconfig-work"
-cp "$DOTFILES_DIR/git/.gitconfig" "$HOME/.gitconfig"
-cp "$DOTFILES_DIR/git/.gitconfig-work" "$HOME/.gitconfig-work"
+if [ -n "$PERSONAL_EMAIL" ] && [ -n "$WORK_EMAIL" ]; then
+  rm -f "$HOME/.gitconfig" "$HOME/.gitconfig-work"
+  cp "$DOTFILES_DIR/git/.gitconfig" "$HOME/.gitconfig"
+  cp "$DOTFILES_DIR/git/.gitconfig-work" "$HOME/.gitconfig-work"
 
-sed -i "s/email = .*/email = $PERSONAL_EMAIL/" "$HOME/.gitconfig"
-sed -i "s/email = .*/email = $WORK_EMAIL/" "$HOME/.gitconfig-work"
+  sed -i "s/email = .*/email = $PERSONAL_EMAIL/" "$HOME/.gitconfig"
+  sed -i "s/email = .*/email = $WORK_EMAIL/" "$HOME/.gitconfig-work"
+fi
 
 echo "[$(date '+%H:%M:%S')] ==> Setting up symlinks for configuration files..."
 # symlink config files for rofi, picom, dunst, ghostty, tmux, zsh, opencode, ideavim
@@ -39,10 +42,10 @@ ln -sf "$DOTFILES_DIR/picom/picom.conf" "$XDG_CONFIG_HOME/picom/picom.conf"
 ln -sf "$DOTFILES_DIR/dunst/dunstrc" "$XDG_CONFIG_HOME/dunst/dunstrc"
 ln -sf "$DOTFILES_DIR/ghostty/config" "$XDG_CONFIG_HOME/ghostty/config"
 ln -sf "$DOTFILES_DIR/tmux/tmux.conf" "$XDG_CONFIG_HOME/tmux/tmux.conf"
-ln -sf "$DOTFILES_DIR/zsh/zshenv" "$HOME/.zshenv"
 ln -sf "$DOTFILES_DIR/zsh/zshrc" "$ZDOTDIR/.zshrc"
+ln -sf "$DOTFILES_DIR/zsh/zshenv" "$HOME/.zshenv"
 ln -sf "$DOTFILES_DIR/zsh/zsh_functions_and_widgets" "$ZDOTDIR/zsh_functions_and_widgets"
-ln -sf "$DOTFILES_DIR/zsh/p10k.zsh" "$ZDOTDIR/p10k.zsh"
+ln -sf "$DOTFILES_DIR/starship/starship.toml" "$XDG_CONFIG_HOME/starship.toml"
 ln -sf "$DOTFILES_DIR/opencode/opencode.json" "$XDG_CONFIG_HOME/opencode/opencode.json"
 ln -sf "$DOTFILES_DIR/ideavimrc/.ideavimrc" "$HOME/.ideavimrc"
 
@@ -51,7 +54,6 @@ echo "[$(date '+%H:%M:%S')] ==> Cloning zsh plugins..."
 run_async retry_git_clone --depth 1 https://github.com/jeffreytse/zsh-vi-mode.git "$ZDOTDIR/zsh-vi-mode"
 run_async retry_git_clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions.git "$ZDOTDIR/zsh-autosuggestions"
 run_async retry_git_clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZDOTDIR/zsh-syntax-highlighting"
-run_async retry_git_clone --depth 1 https://github.com/romkatv/powerlevel10k.git "$ZDOTDIR/powerlevel10k"
 run_async retry_git_clone --depth 1 https://github.com/Aloxaf/fzf-tab.git "$ZDOTDIR/fzf-tab"
 run_async retry_git_clone --depth 1 https://github.com/zsh-users/zsh-completions.git "$ZDOTDIR/zsh-completions"
 wait_err
