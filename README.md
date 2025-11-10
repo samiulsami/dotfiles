@@ -54,6 +54,11 @@ sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emula
 sudo update-alternatives --config x-terminal-emulator
 ```
 
+### Starship
+```bash
+curl -sS https://starship.rs/install.sh | sh
+```
+
 ### Configuration Files & Additional Applications
 ```bash
 # create directories
@@ -63,7 +68,7 @@ export ZDOTDIR=${ZDOTDIR:-$HOME/.config/zsh}
 
 mkdir -p $XDG_CONFIG_HOME/{rofi,zsh,picom,dunst,i3,ghostty,opencode,tmux} $XDG_CONFIG_HOME/tmux/plugins/
 
-# symlink config files for rofi, picom, dunst, ghostty, tmux, zsh, opencode
+# symlink config files for rofi, picom, dunst, ghostty, tmux, zsh, starship, opencode
 sudo ln -sf $HOME/dotfiles/rofi/config.rasi $XDG_CONFIG_HOME/rofi/config.rasi
 sudo ln -sf $HOME/dotfiles/picom/picom.conf $XDG_CONFIG_HOME/picom/picom.conf
 sudo ln -sf $HOME/dotfiles/dunst/dunstrc $XDG_CONFIG_HOME/dunst/dunstrc
@@ -71,8 +76,8 @@ sudo ln -sf $HOME/dotfiles/ghostty/config $XDG_CONFIG_HOME/ghostty/config
 sudo ln -sf $HOME/dotfiles/tmux/tmux.conf $XDG_CONFIG_HOME/tmux/tmux.conf
 sudo ln -sf $HOME/dotfiles/zsh/zshenv $HOME/.zshenv
 sudo ln -sf $HOME/dotfiles/zsh/zshrc $ZDOTDIR/.zshrc
+sudo ln -sf $HOME/dotfiles/starship/starship.toml $XDG_CONFIG_HOME/starship.toml
 sudo ln -sf $HOME/dotfiles/zsh/zsh_functions_and_widgets $ZDOTDIR/zsh_functions_and_widgets
-sudo ln -sf $HOME/dotfiles/zsh/p10k.zsh $ZDOTDIR/p10k.zsh
 sudo ln -sf $HOME/dotfiles/opencode/opencode.json $XDG_CONFIG_HOME/opencode/opencode.json
 
 # zsh plugins
