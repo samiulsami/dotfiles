@@ -7,7 +7,7 @@ source "$SCRIPT_DIR/utils.sh"
 
 if [ -z "$XDG_CONFIG_HOME" ] || [ -z "$XDG_DATA_HOME" ]; then
   echo "XDG_CONFIG_HOME and/or XDG_DATA_HOME not set."
-  return 1
+  exit 1
 fi
 
 echo "[$(date '+%H:%M:%S')] ==> Dotfiles directory detected at $DOTFILES_DIR"
@@ -73,13 +73,12 @@ echo "[$(date '+%H:%M:%S')] ==> Setting up i3wm configuration..."
 ln -sf "$DOTFILES_DIR/i3wm/config" "$XDG_CONFIG_HOME/i3/config"
 
 echo "[$(date '+%H:%M:%S')] ==> Downloading Neovim configuration..."
-retry_git_clone https://github.com/samiulsami/nvimconfig.git "$XDG_CONFIG_HOME/nvim"
+retry_git_clone https://github.com/samiulsami/nvim.git "$XDG_CONFIG_HOME/nvim"
 
 echo "[$(date '+%H:%M:%S')] ==> Configuring Docker..."
-sudo groupadd docker
+sudo groupadd docker 2>/dev/null || true
 sudo usermod -aG docker "$USER"
-newgrp docker
-sudo systemctl start docker
+sudo systemctl start docker 2>/dev/null || true
 
 echo ""
 

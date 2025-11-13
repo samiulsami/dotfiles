@@ -65,10 +65,15 @@ retry_git_clone() {
 
 # Cleanup function to kill all background jobs
 cleanup_background_jobs() {
-  sudo kill -9 "$SUDO_REFRESH_PID" || true
   for pid in "${ASYNC_PIDS[@]}"; do
-    sudo kill -9 "$pid" || true
+    # Kill all descendants (children, grandchildren, etc.) recursively
+    pkill -9 -P "$pid" 2>/dev/null || true
+    # Kill the entire process group
+    kill -9 -"$pid" 2>/dev/null || true
+    # Kill the process itself in case it's not in a group
+    kill -9 "$pid" 2>/dev/null || true
   done
+  kill -9 "$SUDO_REFRESH_PID" 2>/dev/null || true
 }
 
 # Kill all background jobs on script exit or interruption
