@@ -133,10 +133,10 @@
                 "agent_cycle": "tab",
                 "agent_cycle_reverse": "shift+tab",
                 "input_clear": "ctrl+c",
-                "input_forward_delete": "ctrl+d",
+                "input_forward_delete": "none",
                 "input_paste": "ctrl+v,ctrl+shift+v",
                 "input_submit": "enter",
-                "input_newline": "s+enter",
+                "input_newline": "shift+return",
                 "history_previous": "up",
                 "history_next": "down"
         }
