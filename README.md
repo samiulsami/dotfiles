@@ -15,7 +15,7 @@
 
 **System**
 - <b>Audio</b>: pavucontrol
-- <b>Bluetooth</b>: blueman
+- <b>Bluetooth</b>: bluez
 - <b>Network</b>: iwd
 - <b>VPN</b>: Cloudflare Warp
 
@@ -31,7 +31,7 @@ set -euo pipefail
 sudo pacman -Syu --disable-download-timeout \
   base-devel git curl lsd wget fzf zsh starship tmux fd bat ripgrep zoxide npm \
   libnotify obs-studio rofi picom dunst i3 pavucontrol \
-  blueman flameshot brightnessctl thunar thunar-volman \
+  bluez bluez-utils flameshot brightnessctl thunar thunar-volman \
   gvfs ghostty docker jdk-openjdk maven go golangci-lint rustup \
   kubectl helm cmake gettext unzip xclip nvme-cli \
   texlive-basic texlive-latex texlive-latexrecommended texlive-latexextra texlive-fontsrecommended \
