@@ -119,6 +119,7 @@ zvm_after_init_commands+=(my_init)
 
 alias ls='ls --color=always'
 alias kc="kubectl"
+alias tf="terraform"
 
 PATH=$PATH:$HOME/.local/bin
 

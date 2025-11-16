@@ -33,7 +33,7 @@ sudo pacman -Syu --disable-download-timeout \
   libnotify obs-studio rofi picom dunst i3 pavucontrol \
   bluez bluez-utils flameshot brightnessctl thunar thunar-volman \
   gvfs ghostty docker jdk-openjdk maven go golangci-lint rustup \
-  kubectl helm cmake gettext unzip xclip nvme-cli \
+  kubectl helm terraform cmake gettext unzip xclip nvme-cli \
   texlive-basic texlive-latex texlive-latexrecommended texlive-latexextra texlive-fontsrecommended \
   noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra
 
