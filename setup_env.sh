@@ -16,7 +16,7 @@ echo "[$(date '+%H:%M:%S')] ==> Using ZDOTDIR at $ZDOTDIR"
 
 # create directories
 echo "[$(date '+%H:%M:%S')] ==> Creating configuration directories..."
-mkdir -p "$XDG_CONFIG_HOME"/{rofi,picom,dunst,i3,ghostty,opencode,tmux} "$ZDOTDIR" "$XDG_CONFIG_HOME/tmux/plugins/" "$HOME/go"
+mkdir -p "$XDG_CONFIG_HOME"/{rofi,picom,dunst,i3,ghostty,opencode,tmux,fontconfig/conf.d} "$ZDOTDIR" "$XDG_CONFIG_HOME/tmux/plugins/" "$HOME/go"
 
 echo "[$(date '+%H:%M:%S')] ==> Configuring git email addresses..."
 echo ""
@@ -36,7 +36,7 @@ if [ -n "$PERSONAL_EMAIL" ] && [ -n "$WORK_EMAIL" ]; then
 fi
 
 echo "[$(date '+%H:%M:%S')] ==> Setting up symlinks for configuration files..."
-# symlink config files for rofi, picom, dunst, ghostty, tmux, zsh, opencode, ideavim
+# symlink config files for rofi, picom, dunst, ghostty, tmux, zsh, opencode, ideavim, fontconfig
 ln -sf "$DOTFILES_DIR/rofi/config.rasi" "$XDG_CONFIG_HOME/rofi/config.rasi"
 ln -sf "$DOTFILES_DIR/picom/picom.conf" "$XDG_CONFIG_HOME/picom/picom.conf"
 ln -sf "$DOTFILES_DIR/dunst/dunstrc" "$XDG_CONFIG_HOME/dunst/dunstrc"
@@ -48,6 +48,7 @@ ln -sf "$DOTFILES_DIR/zsh/zsh_functions_and_widgets" "$ZDOTDIR/zsh_functions_and
 ln -sf "$DOTFILES_DIR/starship/starship.toml" "$XDG_CONFIG_HOME/starship.toml"
 ln -sf "$DOTFILES_DIR/opencode/opencode.json" "$XDG_CONFIG_HOME/opencode/opencode.json"
 ln -sf "$DOTFILES_DIR/ideavimrc/.ideavimrc" "$HOME/.ideavimrc"
+ln -sf "$DOTFILES_DIR/fontconfig/conf.d/01-emoji.conf" "$XDG_CONFIG_HOME/fontconfig/conf.d/01-emoji.conf"
 
 # zsh plugins
 echo "[$(date '+%H:%M:%S')] ==> Cloning zsh plugins..."
