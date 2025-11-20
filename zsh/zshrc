@@ -112,6 +112,7 @@ function my_init() {
         zstyle ':fzf-tab:*' use-fzf-default-opts yes
 
         bindkey '^O' autosuggest-accept
+        bindkey '^I' vi-forward-word
         source $ZDOTDIR/zsh_functions_and_widgets
 }
 
