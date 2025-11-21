@@ -111,7 +111,8 @@ function my_init() {
         # zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
         zstyle ':fzf-tab:*' use-fzf-default-opts yes
 
-        bindkey '^O' autosuggest-accept
+	bindkey '\eo' autosuggest-accept
+	bindkey '^O' vi-forward-word
         source $ZDOTDIR/zsh_functions_and_widgets
 }
 
