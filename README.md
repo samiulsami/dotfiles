@@ -32,10 +32,12 @@ sudo pacman -Syu --disable-download-timeout \
   base-devel git curl lsd wget fzf zsh starship tmux fd bat ripgrep zoxide npm \
   libnotify obs-studio rofi picom dunst i3 pavucontrol \
   bluez bluez-utils flameshot brightnessctl thunar thunar-volman \
-  gvfs ghostty docker jdk-openjdk maven go golangci-lint rustup \
+  gvfs ghostty docker jdk-openjdk maven go gopls golangci-lint gofumpt rustup \
   kubectl helm terraform cmake gettext unzip xclip nvme-cli \
   texlive-basic texlive-latex texlive-latexrecommended texlive-latexextra texlive-fontsrecommended \
-  noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra
+  noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra \
+  stylua lua-language-server bash-language-server shellcheck shfmt \
+  terraform tflint jq tree-sitter-cli yaml-language-server
 
 git clone --depth 1 https://aur.archlinux.org/yay.git /tmp/yay
 cd /tmp/yay
@@ -84,6 +86,7 @@ For additional configuration and troubleshooting guides, see the [notes/](notes/
 ## TODO
 
 - [ ] NOT automate this with ansible/stow/chezmoi/etc.
+- [ ] Switch to a wayland based dm. Preferably not `hyprland` because of its frequent breaking changes.
 - [ ] Add support for Debian based distros.
 - [ ] Consider wrapping the ```notes``` directory using Obsidian.
 
