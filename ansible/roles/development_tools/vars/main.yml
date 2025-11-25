@@ -1,6 +1,0 @@
----
-# Version variables for development tools
-# Note: These are defaults - override in group_vars/all.yml for customization
-# The values in group_vars/all.yml take precedence over these defaults
-
-kind_version: "v0.29.0"

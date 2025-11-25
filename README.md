@@ -1,26 +1,12 @@
 # Dotfiles
 
-## Automated Installation (Ubuntu 24.04 LTS)
-
-```bash
-git clone https://github.com/samiulsami/dotfiles.git $HOME/dotfiles
-cd $HOME/dotfiles
-./setup.sh
-```
-
-See [README-ANSIBLE.md](README-ANSIBLE.md) for details.
-
----
-
-## Manual Installation
-
 ### APT Packages
 ```bash
 sudo apt update && sudo apt install -y \
-  build-essential git curl wget zsh tmux fd-find bat ripgrep zoxide npm \
-  libnotify-bin rofi picom dunst i3 pavucontrol \
-  blueman flameshot brightnessctl git-gui \
-  docker.io cmake gettext unzip xclip nvme-cli
+  build-essential libunwind-dev binutils-dev git curl wget zsh tmux fd-find bat ripgrep zoxide npm \
+  libnotify-bin wofi dunst pavucontrol blueman brightnessctl git-gui \
+  docker.io cmake gettext unzip xclip nvme-cli \
+  sway swaylock swayidle swaybg waybar grim slurp wl-clipboard xdg-desktop-portal-wlr
 
 sudo ln -sf $(which fdfind) /usr/bin/fd
 sudo ln -sf $(which batcat) /usr/bin/bat
@@ -66,18 +52,17 @@ export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
 export ZDOTDIR=${ZDOTDIR:-$HOME/.config/zsh}
 
-mkdir -p $XDG_CONFIG_HOME/{rofi,zsh,picom,dunst,i3,ghostty,opencode,tmux} $XDG_CONFIG_HOME/tmux/plugins/
+mkdir -p $XDG_CONFIG_HOME/{wofi,zsh,dunst,sway,waybar,ghostty,opencode,tmux} $XDG_CONFIG_HOME/tmux/plugins/
 
-# symlink config files for rofi, picom, dunst, ghostty, tmux, zsh, starship, opencode
-sudo ln -sf $HOME/dotfiles/rofi/config.rasi $XDG_CONFIG_HOME/rofi/config.rasi
-sudo ln -sf $HOME/dotfiles/picom/picom.conf $XDG_CONFIG_HOME/picom/picom.conf
+# symlink config files for wofi, dunst, ghostty, tmux, zsh, starship, opencode
+sudo ln -sf $HOME/dotfiles/wofi/config $XDG_CONFIG_HOME/wofi/config
 sudo ln -sf $HOME/dotfiles/dunst/dunstrc $XDG_CONFIG_HOME/dunst/dunstrc
 sudo ln -sf $HOME/dotfiles/ghostty/config $XDG_CONFIG_HOME/ghostty/config
 sudo ln -sf $HOME/dotfiles/tmux/tmux.conf $XDG_CONFIG_HOME/tmux/tmux.conf
 sudo ln -sf $HOME/dotfiles/zsh/zshenv $HOME/.zshenv
 sudo ln -sf $HOME/dotfiles/zsh/zshrc $ZDOTDIR/.zshrc
 sudo ln -sf $HOME/dotfiles/starship/starship.toml $XDG_CONFIG_HOME/starship.toml
-sudo ln -sf $HOME/dotfiles/zsh/zsh_functions_and_widgets $ZDOTDIR/zsh_functions_and_widgets
+sudo ln -sf $HOME/dotfiles/zsh/zsh_functions $ZDOTDIR/zsh_functions
 sudo ln -sf $HOME/dotfiles/opencode/opencode.json $XDG_CONFIG_HOME/opencode/opencode.json
 
 # zsh plugins
@@ -97,17 +82,30 @@ git clone --depth 1 https://github.com/junegunn/fzf.git $XDG_DATA_HOME/.fzf
 $XDG_DATA_HOME/.fzf/install
 source $ZDOTDIR/.zshrc
 
-# i3wm
-sed -i "s|^set \$monitor1 .*|set \$monitor1 $(xrandr | grep ' connected primary' | awk '{print $1}')|" "$HOME/dotfiles/i3wm/config"
-sed -i "s|^set \$monitor2 .*|set \$monitor2 $(xrandr | grep ' connected' | grep -v ' connected primary ' | awk '{print $1}')|" "$HOME/dotfiles/i3wm/config"
-sudo ln -sf $HOME/dotfiles/i3wm/config $XDG_CONFIG_HOME/i3/config
+# sway
+sudo ln -sf $HOME/dotfiles/sway/config $XDG_CONFIG_HOME/sway/config
+
+# waybar
+sudo ln -sf $HOME/dotfiles/waybar/config $XDG_CONFIG_HOME/waybar/config
+sudo ln -sf $HOME/dotfiles/waybar/style.css $XDG_CONFIG_HOME/waybar/style.css
+```
+
+### JetBrainsMono Nerd Font
+```bash
+mkdir -p ~/.local/share/fonts
+cd ~/.local/share/fonts
+wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
+unzip -o JetBrainsMono.zip
+rm JetBrainsMono.zip
+cd -
+fc-cache -fv
 ```
 
 ### Java
 ```bash
-java_version=jdk-24
+java_version=jdk-25
 sudo rm -rf /usr/lib/jvm
-curl -Lo ${java_version}.tar.gz https://download.oracle.com/java/24/archive/${java_version}_linux-x64_bin.tar.gz
+curl -Lo ${java_version}.tar.gz https://download.oracle.com/java/25/archive/${java_version}_linux-x64_bin.tar.gz
 tar -zxvf ${java_version}.tar.gz
 rm ${java_version}.tar.gz
 sudo mkdir -p /usr/lib/jvm
@@ -136,7 +134,7 @@ mvn -version
 
 ### Golang
 ```bash
-go_version=1.25.1
+go_version=1.25.4
 sudo rm -rf /usr/local/go
 mkdir -p $HOME/Downloads
 cd $HOME/Downloads
@@ -152,6 +150,15 @@ source $HOME/.zshrc
 go version
 go install golang.org/x/tools/gopls@latest
 go install github.com/go-delve/delve/cmd/dlv@latest
+```
+
+### Scala
+```bash
+# On x86-64 (aka AMD64)
+curl -fL "https://github.com/coursier/launchers/raw/master/cs-x86_64-pc-linux.gz" | gzip -d > cs
+chmod +x cs
+./cs setup
+cs install metals
 ```
 
 ### kubectl
@@ -175,7 +182,7 @@ curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 |
 
 ### OpenCode
 ```bash
-npm i -g opencode-ai@latest
+curl -fsSL https://opencode.ai/install | bash
 ```
 
 ### Git & GitHub

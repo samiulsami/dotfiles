@@ -1,0 +1,125 @@
+{
+    "layer": "top",
+    "position": "bottom",
+    "height": 24,
+    // "output": ["HDMI-A-1"],
+    "modules-left": ["sway/workspaces", "sway/mode"],
+    "modules-center": ["tray"],
+    "modules-right": [ "custom/dunst", "cpu", "memory", "disk", "bluetooth", "network", "pulseaudio", "pulseaudio#microphone", "battery", "clock", "idle_inhibitor" ],
+
+    "sway/workspaces": {
+        "format": "{name}",
+        "on-click": "activate"
+    },
+
+    "sway/mode": {
+        "format": "{}",
+        "max-length": 20
+    },
+
+    "idle_inhibitor": {
+            "format": "{icon}",
+            "format-icons": {
+                    "activated": "󰛊 ",
+                    "deactivated": "󰾫 "
+            },
+            "tooltip-format-activated": "Idle inhibitor: ON",
+            "tooltip-format-deactivated": "Idle inhibitor: OFF"
+    },
+
+    "clock": {
+        "format": " {:%a %d/%b/%Y  %H:%M}",
+        "tooltip-format": "Date and Time"
+    },
+
+    "battery": {
+        "interval": 10,
+        "format": "{icon} {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
+        "format-full": "󰂄 {capacity}%",
+        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "tooltip-format": "Battery: {capacity}%\nTime remaining: {time}"
+    },
+
+    "network": {
+        "interval": 2,
+        "format-wifi": "󰖩 {essid} {signalStrength}%",
+        "format-ethernet": "󰈀 {ifname}",
+        "format-disconnected": "󰖪 Disconnected",
+        "tooltip-format": "ipaddr: {ipaddr}\n󰕒 {bandwidthUpBytes} 󰇚 {bandwidthDownBytes}\nUse nmcli to manage network",
+        "states": {
+            "good": 50,
+            "fair": 25
+        }
+    },
+
+    "pulseaudio": {
+        "format": "  {volume}%",
+        "format-muted": "󰖁",
+        "tooltip-format": "Volume: {volume}%\nSuper+V: -5%\nSuper+Shift+V: +5%\nSuper+M: Toggle mute",
+        "on-click": "pavucontrol"
+    },
+
+    "pulseaudio#microphone": {
+        "format": "{format_source}",
+        "format-source": " {volume}%",
+        "format-source-muted": " ",
+        "tooltip-format": "Mic: {source_volume}%\nSuper+Shift+M: Toggle mute",
+        "on-click": "pavucontrol"
+    },
+
+    "cpu": {
+        "interval": 5,
+        "format": " {usage}%",
+        "tooltip-format": "CPU: Run btop for detailed process info",
+        "states": {
+            "warning": 70,
+            "critical": 90
+        }
+    },
+
+    "memory": {
+        "interval": 5,
+        "format": " {used:0.1f}GB/{total:0.1f}GB",
+        "tooltip-format": "Memory: Run btop for detailed process info",
+        "states": {
+            "warning": 75,
+            "critical": 90
+        }
+    },
+
+    "disk": {
+        "interval": 60,
+        "format": "󰋊 {used}/{total}",
+        "path": "/",
+        "tooltip-format": "Disk usage",
+        "states": {
+            "warning": 80,
+            "critical": 95
+        }
+    },
+
+    "bluetooth": {
+        "interval": 10,
+        "format": "󰂯 {status}",
+        "format-connected": "󰂯 {device_alias} {device_battery_percentage}%",
+        "tooltip-format": "Bluetooth\nUse bluetoothctl to manage devices"
+    },
+
+    "tray": {
+        "spacing": 10
+    },
+
+    "custom/dunst": {
+        "exec": "dunstctl is-paused | grep -q true && echo '{\"text\": \"󰂛\", \"class\": \"paused\"}' || echo '{\"text\": \"󰂚\", \"class\": \"active\"}'",
+        "return-type": "json",
+        "signal": 1,
+        "interval": "once",
+        "on-click": "dunstctl set-paused toggle && pkill -RTMIN+1 waybar",
+        "tooltip-format": "Notifications\nSuper+N: History pop\nSuper+P: Close\nSuper+A: Action\nSuper+C: Close all\nSuper+Shift+S: Toggle pause"
+    }
+}

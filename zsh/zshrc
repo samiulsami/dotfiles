@@ -1,11 +1,7 @@
-export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
-export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
-export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
-export ZDOTDIR="${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}"
-
 WORDCHARS='*?[]~=\@.:; -_&;!#$%^(){}<>/|'
 
 fpath=($ZDOTDIR/zsh-completions/src $fpath)
+autoload -U +X bashcompinit && bashcompinit
 autoload -Uz compinit
 compinit -C
 
@@ -36,14 +32,12 @@ bindkey -M menuselect '^P' up-line-or-history
 
 function vi-history-up-and-highlight() {
         zle vi-up-line-or-history
-        zle zle-line-init
         zle end-of-line
 }
 zle -N vi-history-up-and-highlight
 
 function vi-history-down-and-highlight() {
         zle vi-down-line-or-history
-        zle zle-line-init
         zle end-of-line
 }
 zle -N vi-history-down-and-highlight
@@ -51,7 +45,7 @@ zle -N vi-history-down-and-highlight
 bindkey -M vicmd 'k' vi-history-up-and-highlight
 bindkey -M vicmd 'j' vi-history-down-and-highlight
 
-KEYTIMEOUT=0
+KEYTIMEOUT=1
 
 setopt AUTO_CD
 setopt AUTO_PUSHD
@@ -69,18 +63,14 @@ HISTSIZE=999999999
 SAVEHIST=$HISTSIZE
 setopt BANG_HIST                 # Treat the '!' character specially during expansion.
 setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
-setopt APPEND_HISTORY            # Add new commands to the history file, instead of overwriting it.
-setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
-setopt SHARE_HISTORY             # Share history between all sessions.
+setopt SHARE_HISTORY             # Share history between all sessions (implies APPEND_HISTORY and INC_APPEND_HISTORY).
 setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
-setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
 setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
 setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
 setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
 setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
 setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
 setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
-setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 
 unsetopt BEEP
 
@@ -90,33 +80,65 @@ ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=100
 source $ZDOTDIR/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-source $ZDOTDIR/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-ZVM_CURSOR_STYLE_ENABLED=false
-ZVM_ESCAPE_KEYTIMEOUT=0
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='fd --hidden --color=always'
+export FZF_DEFAULT_OPTS="--ansi ${FZF_DEFAULT_OPTS} --multi --cycle --tiebreak=length,begin,end"
+export FZF_DEFAULT_OPTS="--bind='ctrl-y:accept,ctrl-a:select-all,ctrl-d:deselect-all' ${FZF_DEFAULT_OPTS}"
+export FZF_PREVIEW_FILE_CMD='bat --color=always --style=numbers --line-range=:500'
 
-function my_init() {
-        [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-        export FZF_DEFAULT_COMMAND='fd --hidden --color=always'
-        export FZF_DEFAULT_OPTS="--ansi ${FZF_DEFAULT_OPTS} --multi --cycle --tiebreak=length,begin,end"
-        export FZF_DEFAULT_OPTS="--bind='ctrl-y:accept,ctrl-a:select-all,ctrl-d:deselect-all' ${FZF_DEFAULT_OPTS}"
-        export FZF_PREVIEW_FILE_CMD='bat --color=always --style=numbers --line-range=:500'
+bindkey -a '\er' fzf-history-widget
+bindkey '\er' fzf-history-widget
 
-        bindkey -a '\er' fzf-history-widget
-        bindkey '\er' fzf-history-widget
+source $ZDOTDIR/fzf-tab/fzf-tab.plugin.zsh
+# zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+zstyle ':fzf-tab:*' use-fzf-default-opts yes
 
-        bindkey -a '\ef' fzf-file-widget
-        bindkey '\ef' fzf-file-widget
+bindkey '\eo' vi-forward-word
+bindkey '^O' autosuggest-accept
 
-        source $ZDOTDIR/fzf-tab/fzf-tab.plugin.zsh
-        # zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
-        zstyle ':fzf-tab:*' use-fzf-default-opts yes
+bindkey -M viins '^N' fzf-tab-complete
+bindkey -M viins '^P' fzf-tab-complete
 
-        bindkey '^O' autosuggest-accept
-        bindkey '^I' vi-forward-word
-        source $ZDOTDIR/zsh_functions_and_widgets
+# stop word deletion at word boundaries
+backward-kill-word-strict() {
+	local wordchars="$WORDCHARS"
+	local i=${#LBUFFER}
+	local first=true
+	local delete_space=false
+
+	while ((i > 0)); do
+		local c="${LBUFFER[i]}"
+		if [[ "$c" == " " ]]; then
+			if [[ "$first" == true ]]; then
+				delete_space=true
+			elif [[ "$delete_space" != true ]]; then
+				break
+			fi
+		else
+			if [[ "$delete_space" == true ]]; then
+				break
+			fi
+			delete_space=false
+		fi
+
+		if [[ "$first" == true || "$wordchars" != *"$c"* || (("$delete_space" == true && "$c" == " ")) ]]; then
+			((i--))
+		else
+			break
+		fi
+		first=false
+	done
+	LBUFFER="${LBUFFER[1, i]}"
 }
+zle -N backward-kill-word-strict
 
-zvm_after_init_commands+=(my_init)
+bindkey '^W' backward-kill-word-strict
+bindkey '^?' backward-delete-char
+bindkey '^H' backward-delete-char
+bindkey '^U' backward-kill-line
+
+[[ -f $ZDOTDIR/zsh_functions ]] && source $ZDOTDIR/zsh_functions
+
 #################################################################################
 
 alias ls='ls --color=always'
@@ -132,6 +154,10 @@ export PATH=$JAVA_HOME/bin:$PATH
 
 export MAVEN_HOME=/usr/lib/mvn/maven
 export PATH=$MAVEN_HOME/bin:$PATH
+export PATH=$HOME/.local/share/coursier/bin:$PATH
+export NVIM_NO_TRANSPARENCY=true
+export PATH=$HOME/.opencode/bin:$PATH
+. "$HOME/.cargo/env"
 
 FNM_PATH="$XDG_DATA_HOME/fnm"
 if [ -d "$FNM_PATH" ]; then
@@ -145,10 +171,6 @@ if command -v nvim >/dev/null; then
         export MANPAGER="nvim +Man!"
 elif command -v bat >/dev/null; then
         export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-fi
-
-if command -v warp-cli >/dev/null; then
-        source <(warp-cli generate-completions zsh)
 fi
 
 if command -v golangci-lint >/dev/null; then
