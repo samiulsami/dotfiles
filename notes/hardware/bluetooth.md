@@ -12,5 +12,8 @@ pair MAC_ADDRRESS
 connect MAC_ADDRESS
 ```
 
+## Manual
+`man bluetoothctl`
+
 ## References
 - [https://unix.stackexchange.com/a/530226/732495](https://unix.stackexchange.com/a/530226/732495)

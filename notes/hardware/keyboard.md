@@ -6,5 +6,8 @@ echo "options hid_apple fnmode=0" | sudo tee -a /etc/modprobe.d/hid_apple.conf
 sudo mkinitcpio -P
 ```
 
+## Manual
+`man modprobe.d`, `man mkinitcpio`
+
 ## References
 - [https://mikeshade.com/posts/keychron-linux-function-keys/](https://mikeshade.com/posts/keychron-linux-function-keys/)

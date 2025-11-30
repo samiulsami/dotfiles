@@ -3,8 +3,7 @@
 ```bash
 sudo reflector --latest 500 --protocol https --connection-timeout 10 --download-timeout 10 --sort rate --save /etc/pacman.d/mirrorlist
 ```
-see 
+see
 ```bash
 reflector --help
 ```
-

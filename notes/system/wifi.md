@@ -27,3 +27,6 @@ iwctl station <device> disconnect
 ```bash
 iwctl station <device> show
 ```
+
+## Manual
+`man iwctl`, `man iwd`

@@ -34,3 +34,6 @@ sudo systemctl start nvme-powersave.service
 # Verify service status
 sudo systemctl status nvme-powersave.service
 ```
+
+## Manual
+`man nvme`

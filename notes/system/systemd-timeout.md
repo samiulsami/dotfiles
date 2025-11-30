@@ -9,3 +9,6 @@ sudo tee /etc/systemd/system.conf.d/timeout.conf << 'EOF'
 DefaultTimeoutStopSec=1s
 EOF
 ```
+
+## Manual
+`man systemd-system.conf`

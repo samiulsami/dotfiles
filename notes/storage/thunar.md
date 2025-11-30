@@ -12,3 +12,6 @@ polkit.addRule(function(action, subject) {
 EOF
 sudo systemctl restart polkit
 ```
+
+## Manual
+`man polkit`
