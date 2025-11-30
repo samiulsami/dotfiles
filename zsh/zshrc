@@ -135,10 +135,6 @@ fi
 
 export MANPAGER='less'
 
-if command -v warp-cli >/dev/null; then
-        source <(warp-cli generate-completions zsh)
-fi
-
 if command -v golangci-lint >/dev/null; then
         source <(golangci-lint completion zsh)
 fi
