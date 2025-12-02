@@ -1,8 +1,9 @@
 # dotfiles
 
 **Core**
-- <b>WM</b>: i3
-- <b>DE</b>: gnome
+- <b>Display Manager</b>: gdm
+- <b>Window Manager</b>: i3
+- <b>Desktop Environment</b>: gnome
 - <b>Terminal</b>: ghostty
 - <b>Shell</b>: zsh + tmux
 - <b>Editor</b>: Neovim
@@ -32,7 +33,7 @@ set -euo pipefail
 sudo pacman -Syu --disable-download-timeout \
   base-devel git curl lsd wget fzf zsh starship tmux fd bat ripgrep zoxide npm \
   libnotify obs-studio rofi picom dunst pavucontrol \
-  i3 gdm gnome-shell gnome-control-center nautilus networkmanager \
+  i3 gdm gnome-shell gnome-keyring gnome-control-center nautilus networkmanager \
   bluez bluez-utils flameshot brightnessctl \
   gvfs ghostty docker jdk-openjdk maven go gopls golangci-lint gofumpt rustup clang \
   kubectl helm cmake gettext unzip xclip nvme-cli \
