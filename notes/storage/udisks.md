@@ -1,6 +1,6 @@
-# Thunar Configuration
+# Passwordless Drive Mounting
 
-## Polkit rule for Thunar (allow mounting without authentication)
+## Polkit rule for udisks2 (allow mounting without authentication)
 ```bash
 sudo tee /etc/polkit-1/rules.d/50-udisks.rules > /dev/null << 'EOF'
 polkit.addRule(function(action, subject) {
@@ -14,4 +14,4 @@ sudo systemctl restart polkit
 ```
 
 ## Manual
-`man polkit`
+`man polkit`, `man udisks`
