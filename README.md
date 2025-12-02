@@ -35,7 +35,7 @@ sudo pacman -Syu --disable-download-timeout \
   i3 gdm gnome-shell gnome-control-center nautilus networkmanager \
   bluez bluez-utils flameshot brightnessctl \
   gvfs ghostty docker jdk-openjdk maven go gopls golangci-lint gofumpt rustup clang \
-  kubectl helm terraform cmake gettext unzip xclip nvme-cli \
+  kubectl helm cmake gettext unzip xclip nvme-cli \
   texlive-basic texlive-latex texlive-latexrecommended texlive-latexextra texlive-fontsrecommended \
   noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra \
   stylua lua-language-server bash-language-server shellcheck shfmt \
@@ -91,7 +91,7 @@ For additional configuration and troubleshooting guides, see the [notes/](notes/
 ## TODO
 
 - [ ] NOT automate this with ansible/stow/chezmoi/etc.
-- [ ] Switch to a wayland based dm. Preferably not `hyprland` because of its frequent breaking changes.
+- [ ] Switch to a wayland based dm. MAYBE hyprland.
 - [ ] Add support for Debian based distros.
 - [ ] Consider wrapping the ```notes``` directory using Obsidian.
 
