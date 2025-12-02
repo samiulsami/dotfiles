@@ -1,7 +1,8 @@
 # dotfiles
 
 **Core**
-- <b>WM</b>: i3wm
+- <b>WM</b>: i3
+- <b>DE</b>: gnome
 - <b>Terminal</b>: ghostty
 - <b>Shell</b>: zsh + tmux
 - <b>Editor</b>: Neovim
@@ -11,12 +12,12 @@
 - <b>Compositor</b>: picom
 - <b>Notifications</b>: dunst
 - <b>Screenshots</b>: flameshot
-- <b>Files</b>: thunar
+- <b>Files</b>: nautilus
 
 **System**
 - <b>Audio</b>: pavucontrol
 - <b>Bluetooth</b>: bluez
-- <b>Network</b>: iwd
+- <b>Network</b>: NetworkManager
 - <b>VPN</b>: Cloudflare Warp
 
 **Utilities**
@@ -30,14 +31,17 @@ set -euo pipefail
 
 sudo pacman -Syu --disable-download-timeout \
   base-devel git curl lsd wget fzf zsh starship tmux fd bat ripgrep zoxide npm \
-  libnotify obs-studio rofi picom dunst i3 pavucontrol \
-  bluez bluez-utils flameshot brightnessctl thunar thunar-volman \
+  libnotify obs-studio rofi picom dunst pavucontrol \
+  i3 gdm gnome-shell gnome-control-center nautilus networkmanager \
+  bluez bluez-utils flameshot brightnessctl \
   gvfs ghostty docker jdk-openjdk maven go gopls golangci-lint gofumpt rustup clang \
   kubectl helm terraform cmake gettext unzip xclip nvme-cli \
   texlive-basic texlive-latex texlive-latexrecommended texlive-latexextra texlive-fontsrecommended \
   noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra \
   stylua lua-language-server bash-language-server shellcheck shfmt \
   terraform tflint jq tree-sitter-cli yaml-language-server
+
+sudo systemctl enable --now NetworkManager gdm
 
 git clone --depth 1 https://aur.archlinux.org/yay.git /tmp/yay
 cd /tmp/yay

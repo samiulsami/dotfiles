@@ -1,32 +1,39 @@
-# WiFi Configuration with iwd
+# WiFi Configuration with NetworkManager
 
 ## Connect to WiFi
 
 ```bash
-iwctl
-device list
-station <device> scan
-station <device> get-networks
-station <device> connect <network-name>
+# List available networks
+nmcli device wifi list
+
+# Connect to a network
+nmcli device wifi connect <network name> --ask
 ```
 
-## Enable iwd service
+## Enable NetworkManager service
 
 ```bash
-sudo systemctl enable --now iwd
+sudo systemctl enable --now NetworkManager
 ```
 
 ## Disconnect
 
 ```bash
-iwctl station <device> disconnect
+nmcli connection down "connection-name"
 ```
 
-## Show connected network
+## Show connection status
 
 ```bash
-iwctl station <device> show
+nmcli device status
+nmcli connection show
+```
+
+## Connect to saved network
+
+```bash
+nmcli connection up "connection-name"
 ```
 
 ## Manual
-`man iwctl`, `man iwd`
+`man nmcli`
