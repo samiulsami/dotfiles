@@ -2,15 +2,14 @@
 
 **Core**
 - <b>Display Manager</b>: gdm
-- <b>Window Manager</b>: i3
+- <b>Window Manager</b>: hyprland
 - <b>Desktop Environment</b>: gnome
 - <b>Terminal</b>: ghostty
 - <b>Shell</b>: zsh + tmux
 - <b>Editor</b>: Neovim
 
 **Desktop**
-- <b>Launcher</b>: rofi
-- <b>Compositor</b>: picom
+- <b>Launcher</b>: wofi
 - <b>Notifications</b>: dunst
 - <b>Screenshots</b>: flameshot
 - <b>Files</b>: nautilus
@@ -30,11 +29,12 @@
 ```bash
 set -euo pipefail
 
-sudo pacman -Syu --disable-download-timeout \
+sudo pacman -Syu --disable-download-timeout --needed \
   base-devel git curl lsd wget fzf zsh starship tmux fd bat ripgrep zoxide npm \
-  libnotify obs-studio rofi picom dunst pavucontrol \
-  i3 gdm gnome-shell gnome-shell-extension-dash-to-panel gnome-keyring gnome-control-center nautilus networkmanager \
-  bluez bluez-utils flameshot brightnessctl \
+  libnotify obs-studio wofi dunst pipewire wireplumber pavucontrol \
+  gdm gnome-shell gnome-shell-extension-dash-to-panel gnome-keyring gnome-control-center nautilus networkmanager \
+  hyprland hyprpaper hypridle hyprlock hyprpolkitagent waybar grim slurp swappy wl-clipboard xdg-desktop-portal-wlr\
+  bluez bluez-utils flameshot brightnessctl ttf-jetbrains-mono-nerd \
   gvfs ghostty docker jdk-openjdk maven go gopls golangci-lint gofumpt rustup clang \
   kubectl helm cmake gettext unzip xclip nvme-cli \
   texlive-basic texlive-latex texlive-latexrecommended texlive-latexextra texlive-fontsrecommended \
@@ -91,7 +91,6 @@ For additional configuration and troubleshooting guides, see the [notes/](notes/
 ## TODO
 
 - [ ] NOT automate this with ansible/stow/chezmoi/etc.
-- [ ] Switch to a wayland based dm. MAYBE hyprland.
 - [ ] Add support for Debian based distros.
 - [ ] Consider wrapping the ```notes``` directory using Obsidian.
 

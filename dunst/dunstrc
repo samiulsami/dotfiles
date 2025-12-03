@@ -1,5 +1,5 @@
 [global]
-    dmenu = /usr/bin/rofi -dmenu -p dunst
+    dmenu = /usr/bin/wofi --dmenu -p dunst
     mouse_left_click = do_action
     mouse_middle_click = close_current
     mouse_right_click = close_all

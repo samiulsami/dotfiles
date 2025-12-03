@@ -101,26 +101,6 @@ gb() {
         fi
 }
 
-# lock the screen with i3lock
-# pause dunst while locked
-i3l() {
-	if ! command -v dunstctl >/dev/null; then
-		echo "dunst not found"
-		return 1
-	fi
-
-	if ! command -v i3lock >/dev/null; then
-		echo "i3lock not found"
-		return 1
-	fi
-
-	dunstctl set-paused true
-        xset dpms 1 1 1
-	i3lock -n -unc 000000
-        xset dpms 305 305 305
-	dunstctl set-paused false
-}
-
 # create and switch to a new tmux session from the current directory
 # works inside tmux sessions
 tns() {

@@ -1,0 +1,9 @@
+show=drun
+allow_images=true
+image_size=24
+term=ghostty
+insensitive=true
+no_actions=true
+prompt=
+width=1000
+height=500

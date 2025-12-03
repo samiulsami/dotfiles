@@ -6,39 +6,43 @@ echo "Requires sudo privileges for setting up the environment"
 source "$SCRIPT_DIR/utils.sh"
 
 if [ -z "$XDG_CONFIG_HOME" ] || [ -z "$XDG_DATA_HOME" ]; then
-  echo "XDG_CONFIG_HOME and/or XDG_DATA_HOME not set."
-  exit 1
+        echo "XDG_CONFIG_HOME and/or XDG_DATA_HOME not set."
+        exit 1
 fi
 
 echo "[$(date '+%H:%M:%S')] ==> Dotfiles directory detected at $DOTFILES_DIR"
 echo "[$(date '+%H:%M:%S')] ==> Using XDG_CONFIG_HOME at $XDG_CONFIG_HOME"
 echo "[$(date '+%H:%M:%S')] ==> Using ZDOTDIR at $ZDOTDIR"
 
+# Change shell to zsh if not already
+if [ "$SHELL" != "$(readlink -f "$(which zsh)")" ]; then
+        echo "[$(date '+%H:%M:%S')] ==> Setting default shell to zsh..."
+        chsh -s "$(readlink -f "$(which zsh)")"
+fi
+
 # create directories
 echo "[$(date '+%H:%M:%S')] ==> Creating configuration directories..."
-mkdir -p "$XDG_CONFIG_HOME"/{rofi,picom,dunst,i3,ghostty,opencode,tmux,fontconfig/conf.d} "$ZDOTDIR" "$XDG_CONFIG_HOME/tmux/plugins/" "$HOME/go"
+mkdir -p "$XDG_CONFIG_HOME"/{dunst,ghostty,opencode,tmux,fontconfig/conf.d,hypr,wofi,waybar} "$ZDOTDIR" "$XDG_CONFIG_HOME/tmux/plugins/" "$HOME/go"
 
 echo "[$(date '+%H:%M:%S')] ==> Configuring git email addresses..."
 echo ""
 echo "Personal email will be used for all directories except for $HOME/work/ and its subdirectories."
 echo "Work email will be used for $HOME/work/ and its subdirectories."
-echo "Leave empty to skip git configuration."
+echo "LEAVE EMPTY TO SKIP GIT CONFIGURATION."
 read -rp "Enter your personal email address: " PERSONAL_EMAIL
 read -rp "Enter your work email address: " WORK_EMAIL
 
 if [ -n "$PERSONAL_EMAIL" ] && [ -n "$WORK_EMAIL" ]; then
-  rm -f "$HOME/.gitconfig" "$HOME/.gitconfig-work"
-  cp "$DOTFILES_DIR/git/.gitconfig" "$HOME/.gitconfig"
-  cp "$DOTFILES_DIR/git/.gitconfig-work" "$HOME/.gitconfig-work"
+        rm -f "$HOME/.gitconfig" "$HOME/.gitconfig-work"
+        cp "$DOTFILES_DIR/git/.gitconfig" "$HOME/.gitconfig"
+        cp "$DOTFILES_DIR/git/.gitconfig-work" "$HOME/.gitconfig-work"
 
-  sed -i "s/email = .*/email = $PERSONAL_EMAIL/" "$HOME/.gitconfig"
-  sed -i "s/email = .*/email = $WORK_EMAIL/" "$HOME/.gitconfig-work"
+        sed -i "s/email = .*/email = $PERSONAL_EMAIL/" "$HOME/.gitconfig"
+        sed -i "s/email = .*/email = $WORK_EMAIL/" "$HOME/.gitconfig-work"
 fi
 
 echo "[$(date '+%H:%M:%S')] ==> Setting up symlinks for configuration files..."
-# symlink config files for rofi, picom, dunst, ghostty, tmux, zsh, opencode, ideavim, fontconfig
-ln -sf "$DOTFILES_DIR/rofi/config.rasi" "$XDG_CONFIG_HOME/rofi/config.rasi"
-ln -sf "$DOTFILES_DIR/picom/picom.conf" "$XDG_CONFIG_HOME/picom/picom.conf"
+# symlink config files for dunst, ghostty, tmux, zsh, opencode, ideavim, fontconfig
 ln -sf "$DOTFILES_DIR/dunst/dunstrc" "$XDG_CONFIG_HOME/dunst/dunstrc"
 ln -sf "$DOTFILES_DIR/ghostty/config" "$XDG_CONFIG_HOME/ghostty/config"
 ln -sf "$DOTFILES_DIR/tmux/tmux.conf" "$XDG_CONFIG_HOME/tmux/tmux.conf"
@@ -63,15 +67,16 @@ wait_err
 echo "[$(date '+%H:%M:%S')] ==> Cloning tmux plugins..."
 retry_git_clone --depth 1 https://github.com/tmux-plugins/tmux-resurrect "$XDG_CONFIG_HOME/tmux/plugins/tmux-resurrect"
 tmux source-file "$XDG_CONFIG_HOME/tmux/tmux.conf"
-# set proper monitor names in i3wm config
 
-echo "[$(date '+%H:%M:%S')] ==> Configuring i3wm monitors..."
-sed -i "s|^set \$monitor2 .*|set \$monitor2 $(xrandr | grep ' connected primary' | awk '{print $1}')|" "$DOTFILES_DIR/i3wm/config"
-sed -i "s|^set \$monitor1 .*|set \$monitor1 $(xrandr | grep ' connected' | grep -v ' connected primary ' | awk '{print $1}')|" "$DOTFILES_DIR/i3wm/config"
-
-# i3wm config
-echo "[$(date '+%H:%M:%S')] ==> Setting up i3wm configuration..."
-ln -sf "$DOTFILES_DIR/i3wm/config" "$XDG_CONFIG_HOME/i3/config"
+# hyprland config
+echo "[$(date '+%H:%M:%S')] ==> Setting up Hyprland configuration..."
+ln -sf "$DOTFILES_DIR/hyprland/hyprland.conf" "$XDG_CONFIG_HOME/hypr/hyprland.conf"
+ln -sf "$DOTFILES_DIR/hyprland/hyprlock.conf" "$XDG_CONFIG_HOME/hypr/hyprlock.conf"
+ln -sf "$DOTFILES_DIR/hyprland/hypridle.conf" "$XDG_CONFIG_HOME/hypr/hypridle.conf"
+ln -sf "$DOTFILES_DIR/hyprland/hyprpaper.conf" "$XDG_CONFIG_HOME/hypr/hyprpaper.conf"
+ln -sf "$DOTFILES_DIR/waybar/config" "$XDG_CONFIG_HOME/waybar/config"
+ln -sf "$DOTFILES_DIR/waybar/style.css" "$XDG_CONFIG_HOME/waybar/style.css"
+ln -sf "$DOTFILES_DIR/wofi/config" "$XDG_CONFIG_HOME/wofi/config"
 
 echo "[$(date '+%H:%M:%S')] ==> Downloading Neovim configuration..."
 retry_git_clone https://github.com/samiulsami/nvim.git "$XDG_CONFIG_HOME/nvim"
@@ -80,9 +85,6 @@ echo "[$(date '+%H:%M:%S')] ==> Configuring Docker..."
 sudo groupadd docker 2>/dev/null || true
 sudo usermod -aG docker "$USER"
 sudo systemctl start docker 2>/dev/null || true
-
-echo "[$(date '+%H:%M:%S')] ==> Setting default shell to zsh..."
-chsh -s "$(readlink -f "$(which zsh)")"
 
 echo ""
 
