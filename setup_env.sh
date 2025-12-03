@@ -81,6 +81,9 @@ sudo groupadd docker 2>/dev/null || true
 sudo usermod -aG docker "$USER"
 sudo systemctl start docker 2>/dev/null || true
 
+echo "[$(date '+%H:%M:%S')] ==> Setting default shell to zsh..."
+chsh -s "$(readlink -f "$(which zsh)")"
+
 echo ""
 
 echo "[$(date '+%H:%M:%S')] ==> Installation complete!"

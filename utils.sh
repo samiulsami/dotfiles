@@ -18,6 +18,15 @@ export ZDOTDIR="${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}"
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 export DOTFILES_DIR
 
+# Ensure required tools are available before proceeding
+CHECK_REQUIREMENTS_SCRIPT="$DOTFILES_DIR/check_requirements.sh"
+if [ -x "$CHECK_REQUIREMENTS_SCRIPT" ]; then
+  source "$CHECK_REQUIREMENTS_SCRIPT"
+else
+  echo "Missing check_requirements.sh script at $CHECK_REQUIREMENTS_SCRIPT" >&2
+  exit 1
+fi
+
 # Async job management
 declare -a ASYNC_PIDS=()
 

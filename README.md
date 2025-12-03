@@ -58,7 +58,6 @@ sudo systemctl disable warp-svc.service
 ### config files, plugins, and tools
 <i>Unattended installation after providing sudo password and email(s)</i>
 ```bash
-chsh -s $(readlink -f $(which zsh))
 chmod +x ./setup_env.sh ./install_dev_tools.sh
 ./setup_env.sh
 ./install_dev_tools.sh
