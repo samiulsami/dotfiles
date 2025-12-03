@@ -32,13 +32,6 @@ run_async download_eclipse_jdtls
 echo "[$(date '+%H:%M:%S')] ==> Installing Go tools..."
 run_async go install golang.org/x/tools/gopls@latest
 
-# Claude Code CLI
-echo "[$(date '+%H:%M:%S')] ==> Installing Claude Code..."
-install_claude_code() {
-  curl -fsSL https://claude.ai/install.sh | bash
-}
-run_async install_claude_code
-
 # Build Neovim from source
 echo "[$(date '+%H:%M:%S')] ==> Cloning Neovim repository..."
 retry_git_clone --depth 1 https://github.com/neovim/neovim.git "$XDG_DATA_HOME/neovim"
