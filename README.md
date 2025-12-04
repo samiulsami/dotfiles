@@ -49,9 +49,11 @@ cd /tmp/yay
 makepkg -si --noconfirm
 cd && rm -rf /tmp/yay
 
-yay -S --noconfirm --needed --removemake --cleanafter cloudflare-warp-bin kind-bin opencode-bin
+yay -S --noconfirm --needed --removemake --cleanafter cloudflare-warp-bin kind-bin opencode-bin coursier
 sudo warp-cli registration new
 sudo systemctl disable warp-svc.service
+coursier setup --env
+coursier install metals
 ```
 
 ## Environment Setup

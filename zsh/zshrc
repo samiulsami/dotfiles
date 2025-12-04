@@ -127,7 +127,7 @@ PATH=$PATH:$HOME/.local/bin
 
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
-export PATH=$XDG_DATA_HOME/coursier/bin:$PATH
+export PATH=$HOME/.local/share/coursier/bin:$PATH
 
 if command -v nvim >/dev/null; then
         export EDITOR='nvim -f'

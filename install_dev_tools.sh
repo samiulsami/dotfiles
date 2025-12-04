@@ -27,17 +27,6 @@ download_eclipse_jdtls() {
 }
 run_async download_eclipse_jdtls
 
-# Scala LSP (Metals via Coursier). ref: https://get-coursier.io/docs/cli-installation
-echo "[$(date '+%H:%M:%S')] ==> Installing Metals (Scala LSP) via Coursier..."
-download_coursier() {
-  curl -fL "https://github.com/coursier/launchers/raw/master/cs-x86_64-pc-linux.gz" | gzip -d > /tmp/cs
-  chmod +x /tmp/cs
-  yes | /tmp/cs setup
-  /tmp/cs install metals
-  rm /tmp/cs
-}
-run_async download_coursier
-
 # Go tools
 echo "[$(date '+%H:%M:%S')] ==> Installing Go tools..."
 run_async go install golang.org/x/tools/gopls@latest
