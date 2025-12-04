@@ -5,7 +5,7 @@
     // "output": ["HDMI-A-1"],
     "modules-left": ["hyprland/workspaces", "hyprland/submap"],
     "modules-center": ["tray"],
-    "modules-right": [ "cpu", "memory", "disk", "bluetooth", "pulseaudio", "network", "battery", "clock"],
+    "modules-right": [ "cpu", "memory", "disk", "bluetooth", "network", "pulseaudio", "pulseaudio#microphone", "clock", "battery" ],
 
     "hyprland/workspaces": {
         "format": "{id}",
@@ -18,49 +18,64 @@
     },
 
     "clock": {
-        "format": "{:%d/%b/%Y  %H:%M}",
-        "tooltip-format": "{:%d/%b/%Y}"
+        "format": " {:%d/%b/%Y  %H:%M}",
+        "tooltip-format": "Date and Time"
     },
 
     "battery": {
-        "format": "󰁹{capacity}%",
-        "format-charging": "󰂄{capacity}%",
+        "interval": 10,
+        "format": "{icon} {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
+        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
         "states": {
             "warning": 30,
             "critical": 15
-        }
+        },
+        "tooltip-format": "Battery status"
     },
 
     "network": {
         "format-wifi": "󰖩 {essid}",
         "format-ethernet": " {ifname}",
         "format-disconnected": "󱛅 Disconnected",
-        "tooltip-format": "{ipaddr}"
+        "tooltip-format": "ipaddr: {ipaddr}\nUse nmcli to manage network"
     },
 
     "pulseaudio": {
         "format": "  {volume}%",
+        "tooltip-format": "{source_desc}",
+        "on-click": "pavucontrol"
+    },
+
+    "pulseaudio#microphone": {
+        "format": "{format_source}",
+        "format-source": " {volume}%",
+        "format-source-muted": " ",
+        "tooltip-format": "{source_desc}",
         "on-click": "pavucontrol"
     },
 
     "cpu": {
-        "format": " {usage}%"
+        "format": " {usage}%",
+        "tooltip-format": "CPU usage",
+        "on-click": "gnome-system-monitor"
     },
 
     "memory": {
         "format": " {used:0.1f}GB/{total:0.1f}GB",
-        "tooltip-format": "{used:0.1f}GB / {total:0.1f}GB"
+        "tooltip-format": "Memory usage"
     },
 
     "disk": {
         "format": "󰋊 {used}/{total}",
         "path": "/",
-        "tooltip-format": "{used} / {total}"
+        "tooltip-format": "Disk usage"
     },
 
     "bluetooth": {
         "format": "󰂯 {status}",
-        "format-connected": "󰂯{device_alias}"
+        "format-connected": "󰂯 {device_alias} {device_battery_percentage}%",
+        "tooltip-format": "Bluetooth\nUse bluetoothctl to manage devices"
     },
 
     "tray": {

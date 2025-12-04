@@ -17,23 +17,38 @@ window#waybar {
 
 #workspaces button.active {
     color: #000000;
-    background-color: #55cc55;
+    background-color: #dddddd;
+    font-weight: bold;
 }
 
 #workspaces button:hover {
     background-color: #222222;
 }
 
-#clock, #battery, #network, #pulseaudio, #cpu, #memory, #disk, #bluetooth {
+#clock, #battery, #network, #pulseaudio,#memory, #disk, #bluetooth {
     padding: 0 10px;
     border-right: 1px solid #333333;
+}
+
+#cpu {
+    padding: 0 10px;
+    border-right: 1px solid #333333;
+    border-left: 1px solid #333333;
 }
 
 #tray {
     padding: 0;
 }
 
+#tray > * {
+    border: none;
+}
+
 #clock {
+    border-right: 1px solid #333333;
+}
+
+#battery {
     border-right: none;
 }
 
