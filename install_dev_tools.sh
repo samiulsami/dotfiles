@@ -14,9 +14,8 @@ fi
 
 echo "[$(date '+%H:%M:%S')] ==> Installing development tools..."
 
-# Java LSP (Eclipse JDTLS)
+# Java LSP (Eclipse JDTLS). ref: https://github.com/mfussenegger/nvim-jdtls
 echo "[$(date '+%H:%M:%S')] ==> Downloading Eclipse JDTLS..."
-
 download_eclipse_jdtls() {
   rm -f "$XDG_DATA_HOME/tmp_jdtls.tar.gz"
   wget --retry-connrefused --waitretry=1 --timeout=20 -t 3 \
@@ -27,6 +26,17 @@ download_eclipse_jdtls() {
   rm -f "$XDG_DATA_HOME/tmp_jdtls.tar.gz"
 }
 run_async download_eclipse_jdtls
+
+# Scala LSP (Metals via Coursier). ref: https://get-coursier.io/docs/cli-installation
+echo "[$(date '+%H:%M:%S')] ==> Installing Metals (Scala LSP) via Coursier..."
+download_coursier() {
+  curl -fL "https://github.com/coursier/launchers/raw/master/cs-x86_64-pc-linux.gz" | gzip -d > /tmp/cs
+  chmod +x /tmp/cs
+  yes | /tmp/cs setup
+  /tmp/cs install metals
+  rm /tmp/cs
+}
+run_async download_coursier
 
 # Go tools
 echo "[$(date '+%H:%M:%S')] ==> Installing Go tools..."

@@ -34,15 +34,15 @@ sudo pacman -Syu --disable-download-timeout --needed \
   libnotify obs-studio wofi dunst pipewire wireplumber pavucontrol \
   gdm gnome-shell gnome-shell-extension-dash-to-panel gnome-keyring gnome-control-center nautilus networkmanager \
   hyprland hyprpaper hypridle hyprlock hyprpolkitagent waybar grim slurp swappy wl-clipboard xdg-desktop-portal-wlr\
-  bluez bluez-utils flameshot brightnessctl ttf-jetbrains-mono-nerd \
+  bluez bluez-utils brightnessctl ttf-jetbrains-mono-nerd \
   gvfs ghostty docker jdk-openjdk maven go gopls golangci-lint gofumpt rustup clang \
-  kubectl helm cmake gettext unzip xclip nvme-cli \
+  kubectl helm cmake gettext unzip nvme-cli \
   texlive-basic texlive-latex texlive-latexrecommended texlive-latexextra texlive-fontsrecommended \
   noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra \
   stylua lua-language-server bash-language-server shellcheck shfmt \
   terraform tflint jq tree-sitter-cli yaml-language-server
 
-sudo systemctl enable --now NetworkManager gdm
+sudo systemctl enable gdm
 
 git clone --depth 1 https://aur.archlinux.org/yay.git /tmp/yay
 cd /tmp/yay
@@ -69,7 +69,7 @@ set -euo pipefail
 EMAIL=$(git config user.email)
 ssh-keygen -t ed25519 -C "$EMAIL"  # Press enter 3 times
 eval "$(ssh-agent -s)" && ssh-add $HOME/.ssh/id_ed25519
-cat "$HOME/.ssh/id_ed25519.pub" | xclip -selection clipboard
+wl-copy < "$HOME/.ssh/id_ed25519.pub"
 printf "Public key copied. Add it to https://github.com/settings/ssh/new\n(Press enter to open)..."
 read
 xdg-open https://github.com/settings/ssh/new

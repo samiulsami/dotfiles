@@ -4,7 +4,7 @@
 
 REQUIRED_CMDS=(
   git wget curl tmux sed ln mkdir xrandr awk
-  go make tar sudo systemctl groupadd usermod
+  go make tar gzip sudo systemctl groupadd usermod
   cp rm grep chsh readlink which zsh
 )
 
