@@ -76,6 +76,10 @@ window#waybar {
     color: #26A65B;
 }
 
+#pulseaudio.microphone.source-muted {
+    color: #e74c3c;
+}
+
 #submap {
     background-color: #e74c3c;
     color: #ffffff;
