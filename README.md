@@ -31,7 +31,7 @@ set -euo pipefail
 
 sudo pacman -Syu --disable-download-timeout --needed \
   base-devel git curl lsd wget fzf zsh starship tmux fd bat ripgrep zoxide npm \
-  libnotify obs-studio wofi dunst pipewire wireplumber pavucontrol \
+  libnotify imv obs-studio wofi dunst pipewire wireplumber pavucontrol \
   gdm gnome-shell gnome-system-monitor gnome-shell-extension-dash-to-panel gnome-keyring gnome-control-center nautilus networkmanager \
   hyprland hyprpaper hypridle hyprlock hyprpolkitagent waybar grim slurp swappy wl-clipboard xdg-desktop-portal-wlr\
   bluez bluez-utils brightnessctl ttf-jetbrains-mono-nerd \

@@ -86,6 +86,11 @@ sudo groupadd docker 2>/dev/null || true
 sudo usermod -aG docker "$USER"
 sudo systemctl start docker 2>/dev/null || true
 
+if command -v imv >/dev/null 2>&1; then
+        echo "[$(date '+%H:%M:%S')] ==> Setting imv as default image viewer..."
+        xdg-mime default imv.desktop image/png image/jpeg image/jpg image/gif image/bmp image/tiff image/webp image/svg+xml image/heif image/avif image/jxl image/x-png image/pjpeg image/x-bmp image/x-farbfeld image/tiff-fx image/qoi
+fi
+
 echo ""
 
 echo "[$(date '+%H:%M:%S')] ==> Installation complete!"
