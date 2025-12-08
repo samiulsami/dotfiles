@@ -64,6 +64,42 @@ window#waybar {
     color: #e74c3c;
 }
 
+#memory.warning {
+    color: #f39c12;
+}
+
+#memory.critical {
+    color: #e74c3c;
+}
+
+#disk.warning {
+    color: #f39c12;
+}
+
+#disk.critical {
+    color: #e74c3c;
+}
+
+#cpu.warning {
+    color: #f39c12;
+}
+
+#cpu.critical {
+    color: #e74c3c;
+}
+
+#network {
+    color: #e74c3c;
+}
+
+#network.fair {
+    color: #f39c12;
+}
+
+#network.good {
+    color: #ffffff;
+}
+
 #network.disconnected {
     color: #e74c3c;
 }

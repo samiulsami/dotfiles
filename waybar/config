@@ -35,10 +35,15 @@
     },
 
     "network": {
-        "format-wifi": "󰖩 {essid}",
-        "format-ethernet": " {ifname}",
-        "format-disconnected": "󱛅 Disconnected",
-        "tooltip-format": "ipaddr: {ipaddr}\nUse nmcli to manage network"
+        "interval": 2,
+        "format-wifi": "󰖩 {essid} {signalStrength}%",
+        "format-ethernet": "󰈀 {ifname}",
+        "format-disconnected": "󰖪 Disconnected",
+        "tooltip-format": "ipaddr: {ipaddr}\n󰕒 {bandwidthUpBytes} 󰇚 {bandwidthDownBytes}\nUse nmcli to manage network",
+        "states": {
+            "good": 50,
+            "fair": 25
+        }
     },
 
     "pulseaudio": {
@@ -56,23 +61,40 @@
     },
 
     "cpu": {
+        "interval": 5,
         "format": " {usage}%",
         "tooltip-format": "CPU usage",
-        "on-click": "gnome-system-monitor"
+        "on-click": "gnome-system-monitor",
+        "states": {
+            "warning": 70,
+            "critical": 90
+        }
     },
 
     "memory": {
+        "interval": 5,
         "format": " {used:0.1f}GB/{total:0.1f}GB",
-        "tooltip-format": "Memory usage"
+        "tooltip-format": "Memory usage",
+        "on-click": "gnome-system-monitor",
+        "states": {
+            "warning": 75,
+            "critical": 90
+        }
     },
 
     "disk": {
+        "interval": 60,
         "format": "󰋊 {used}/{total}",
         "path": "/",
-        "tooltip-format": "Disk usage"
+        "tooltip-format": "Disk usage",
+        "states": {
+            "warning": 80,
+            "critical": 95
+        }
     },
 
     "bluetooth": {
+        "interval": 10,
         "format": "󰂯 {status}",
         "format-connected": "󰂯 {device_alias} {device_battery_percentage}%",
         "tooltip-format": "Bluetooth\nUse bluetoothctl to manage devices"
