@@ -21,8 +21,10 @@ window#waybar {
     font-weight: bold;
 }
 
-#workspaces button:hover {
-    background-color: #222222;
+#workspaces button.urgent {
+    color: #ffffff;
+    background-color: #e74c3c;
+    font-weight: bold;
 }
 
 #clock, #battery, #network, #pulseaudio,#memory, #disk, #bluetooth {
