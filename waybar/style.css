@@ -27,7 +27,7 @@ window#waybar {
     font-weight: bold;
 }
 
-#clock, #battery, #network, #pulseaudio,#memory, #disk, #bluetooth {
+#clock, #battery, #network, #pulseaudio, #memory, #disk, #bluetooth {
     padding: 0 10px;
     border-right: 1px solid #333333;
 }
@@ -47,11 +47,11 @@ window#waybar {
 }
 
 #clock {
-    border-right: 1px solid #333333;
+    border-right: none;
 }
 
 #battery {
-    border-right: none;
+    border-right: 1px solid #333333;
 }
 
 #battery.charging {
