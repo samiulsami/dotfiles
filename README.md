@@ -33,7 +33,7 @@ sudo pacman -Syu --disable-download-timeout --needed \
   base-devel git curl lsd wget fzf zsh starship tmux fd bat ripgrep zoxide npm \
   libnotify imv obs-studio wofi dunst pipewire wireplumber pavucontrol \
   gdm gnome-shell gnome-system-monitor gnome-shell-extension-dash-to-panel gnome-keyring gnome-control-center nautilus networkmanager \
-  hyprland hyprpaper hypridle hyprlock hyprpolkitagent waybar grim slurp swappy wl-clipboard xdg-desktop-portal-wlr\
+  sway swaylock swayidle swaybg waybar grim slurp swappy wl-clipboard xdg-desktop-portal-wlr\
   bluez bluez-utils brightnessctl ttf-jetbrains-mono-nerd \
   gvfs ghostty docker docker-buildx jdk-openjdk maven go gopls golangci-lint gofumpt rustup clang \
   kubectl helm cmake gettext unzip nvme-cli \

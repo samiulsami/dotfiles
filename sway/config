@@ -1,0 +1,158 @@
+# Sway config
+
+# Fix portal/dbus for proper app launching
+exec dbus-update-activation-environment --all XDG_CURRENT_DESKTOP=sway
+
+set $mod Mod4
+
+# Font
+font pango:JetBrainsMono Nerd Font 8
+
+# Background
+exec swaybg -i ~/Desktop/andreas-rocha-occultknowledge01.jpg
+
+# Monitor setup (run 'swaymsg -t get_outputs' to list monitors)
+set $monitor1 DP-1
+set $monitor2 HDMI-A-2
+output $monitor1 position 0 0
+output $monitor2 position 1920 0
+
+# Input configuration
+input type:pointer {
+accel_profile flat
+}
+
+# Idle and lock
+exec swayidle -w \
+timeout 300 'swaylock -uc 000000' \
+timeout 305 'swaymsg "output * power off"' \
+resume 'swaymsg "output * power on"' \
+before-sleep 'swaylock -uc 000000'
+
+# Autostart
+exec dunst
+exec waybar
+
+# Drag windows with mod + mouse
+floating_modifier $mod normal
+
+# Keybindings
+bindsym $mod+Return exec ghostty
+bindsym $mod+Shift+w kill
+bindsym $mod+d exec "swaymsg fullscreen disable; wofi"
+
+# Focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# Move windows
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# Fullscreen
+bindsym $mod+f fullscreen toggle
+
+# Layout
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+t layout toggle split
+
+# Floating
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+
+# Parent/child focus
+bindsym $mod+Shift+a focus parent
+
+# Workspaces
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+bindsym $mod+Shift+1 move container to workspace number $ws1; workspace $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2; workspace $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3; workspace $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4; workspace $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5; workspace $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6; workspace $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7; workspace $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8; workspace $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9; workspace $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10; workspace $ws10
+
+workspace_layout default
+
+# Workspace outputs
+workspace $ws1 output $monitor1
+workspace $ws4 output $monitor2
+
+# Lock screen
+bindsym $mod+Escape exec sh -c 'dunstctl set-paused true; swaymsg "output * dpms off"; swaylock -u --color 000000; swaymsg "output * dpms on"; dunstctl set-paused false'
+
+# Reload/exit
+bindsym $mod+Shift+r reload
+bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit sway?' -B 'Yes' 'swaymsg exit'
+
+# Resize mode
+mode "resize" {
+bindsym h resize shrink width 10 px
+bindsym j resize grow height 10 px
+bindsym k resize shrink height 10 px
+bindsym l resize grow width 10 px
+
+bindsym Return mode "default"
+bindsym Escape mode "default"
+bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# Screenshot (requires grim + slurp + swappy)
+bindsym Print exec grim -g "$(slurp)" - | swappy -f -
+
+# Screenshot (requires grim + slurp + wl-copy)
+# bindsym Print exec grim -g "$(slurp)" - | wl-copy
+
+# Brightness
+bindsym $mod+Shift+b exec brightnessctl set 5%+ && notify-send -h string:x-dunst-stack-tag:brightness "Brightness: +5%"
+bindsym $mod+b exec brightnessctl set 5%- && notify-send -h string:x-dunst-stack-tag:brightness "Brightness: -5%"
+
+# Volume
+bindsym $mod+Shift+v exec pactl set-sink-volume @DEFAULT_SINK@ +5% && notify-send -h string:x-dunst-stack-tag:audio "Volume: $(pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '[0-9]+(?=%)' | head -1)%"
+bindsym $mod+v exec pactl set-sink-volume @DEFAULT_SINK@ -5% && notify-send -h string:x-dunst-stack-tag:audio "Volume: $(pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '[0-9]+(?=%)' | head -1)%"
+bindsym $mod+Shift+m exec pactl set-sink-mute @DEFAULT_SINK@ toggle && notify-send -h string:x-dunst-stack-tag:audio "Audio Muted: $(pactl get-sink-mute @DEFAULT_SINK@ | awk '{print $2}')"
+bindsym $mod+m exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && notify-send -h string:x-dunst-stack-tag:audio "Mic Muted: $(pactl get-source-mute @DEFAULT_SOURCE@ | awk '{print $2}')"
+
+# Dunst
+bindsym $mod+n exec dunstctl history-pop
+bindsym $mod+p exec dunstctl close
+bindsym $mod+a exec dunstctl action
+bindsym $mod+c exec dunstctl close-all
+
+# Window borders - disable title bars completely
+default_border pixel 0
+default_floating_border pixel 0
+
+# Transparency
+for_window [class=".*"] opacity 0.5

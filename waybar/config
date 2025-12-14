@@ -3,16 +3,16 @@
     "position": "bottom",
     "height": 24,
     // "output": ["HDMI-A-1"],
-    "modules-left": ["hyprland/workspaces", "hyprland/submap"],
+    "modules-left": ["sway/workspaces"],
     "modules-center": ["tray"],
     "modules-right": [ "cpu", "memory", "disk", "bluetooth", "network", "pulseaudio", "pulseaudio#microphone", "battery", "clock" ],
 
-    "hyprland/workspaces": {
-        "format": "{id}",
+    "sway/workspaces": {
+        "format": "{name}",
         "on-click": "activate"
     },
 
-    "hyprland/submap": {
+    "sway/mode": {
         "format": "{}",
         "max-length": 20
     },
