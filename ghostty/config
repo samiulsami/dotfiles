@@ -35,3 +35,4 @@ keybind = ctrl+shift+l=goto_split:right
 clipboard-paste-protection = false
 clipboard-trim-trailing-spaces = false
 copy-on-select = false
+adjust-cell-height = -1
