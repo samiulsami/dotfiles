@@ -6,12 +6,12 @@
 - <b>Desktop Environment</b>: gnome
 - <b>Terminal</b>: ghostty
 - <b>Shell</b>: zsh + tmux
-- <b>Editor</b>: Neovim
+- <b>Editor</b>: neovim
 
 **Desktop**
 - <b>Launcher</b>: wofi
 - <b>Notifications</b>: dunst
-- <b>Screenshots</b>: flameshot
+- <b>Screenshots</b>: grim + slurp + swappy
 - <b>Files</b>: nautilus
 
 **System**
