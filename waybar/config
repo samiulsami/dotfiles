@@ -49,7 +49,16 @@
     "pulseaudio": {
         "format": "  {volume}%",
         "tooltip-format": "{source_desc}",
-        "on-click": "pavucontrol"
+        "on-click": "pavucontrol",
+        "max-volume": 200,
+        "states": {
+            "normal": 74,
+            "high": 99,
+            "higher": 124,
+            "veryhigh": 149,
+            "warning": 174,
+            "critical": 200
+        }
     },
 
     "pulseaudio#microphone": {

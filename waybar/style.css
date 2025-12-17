@@ -30,6 +30,7 @@ window#waybar {
 #clock, #battery, #network, #pulseaudio, #memory, #disk, #bluetooth {
     padding: 0 10px;
     border-right: 1px solid #333333;
+    color: #ffffff;
 }
 
 #cpu {
@@ -115,6 +116,30 @@ window#waybar {
 }
 
 #pulseaudio.microphone.source-muted {
+    color: #e74c3c;
+}
+
+#pulseaudio.normal {
+    color: #ffffff;
+}
+
+#pulseaudio.high {
+    color: #f39c12;
+}
+
+#pulseaudio.higher {
+    color: #e88c0c;
+}
+
+#pulseaudio.veryhigh {
+    color: #e07b10;
+}
+
+#pulseaudio.warning {
+    color: #d86a14;
+}
+
+#pulseaudio.critical {
     color: #e74c3c;
 }
 
