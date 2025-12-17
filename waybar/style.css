@@ -123,24 +123,44 @@ window#waybar {
     color: #ffffff;
 }
 
-#pulseaudio.high {
+#pulseaudio.vol50 {
+    color: #f9e79f;
+}
+
+#pulseaudio.vol60 {
+    color: #f7dc6f;
+}
+
+#pulseaudio.vol70 {
+    color: #f5b041;
+}
+
+#pulseaudio.vol80 {
     color: #f39c12;
 }
 
-#pulseaudio.higher {
-    color: #e88c0c;
-}
-
-#pulseaudio.veryhigh {
-    color: #e07b10;
-}
-
-#pulseaudio.warning {
-    color: #d86a14;
-}
-
-#pulseaudio.critical {
+#pulseaudio.vol90 {
     color: #e74c3c;
+}
+
+#pulseaudio.vol100 {
+    color: #dc3545;
+}
+
+#pulseaudio.vol120 {
+    color: #c82333;
+}
+
+#pulseaudio.vol140 {
+    color: #b21f2d;
+}
+
+#pulseaudio.vol160 {
+    color: #9c1a25;
+}
+
+#pulseaudio.vol180 {
+    color: #85151e;
 }
 
 #submap {

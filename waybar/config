@@ -52,12 +52,17 @@
         "on-click": "pavucontrol",
         "max-volume": 200,
         "states": {
-            "normal": 74,
-            "high": 99,
-            "higher": 124,
-            "veryhigh": 149,
-            "warning": 174,
-            "critical": 200
+            "normal": 49,
+            "vol50": 59,
+            "vol60": 69,
+            "vol70": 79,
+            "vol80": 89,
+            "vol90": 99,
+            "vol100": 119,
+            "vol120": 139,
+            "vol140": 159,
+            "vol160": 179,
+            "vol180": 200
         }
     },
 
