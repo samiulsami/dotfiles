@@ -1,0 +1,68 @@
+/* Wofi style - transparent black with white text */
+
+window {
+    background-color: rgba(0, 0, 0, 0.85);
+    color: #ffffff;
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 14px;
+    border: 1px solid #333333;
+
+    /* Fade in animation */
+    animation: fadeIn 0.15s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+#input {
+    background-color: rgba(20, 20, 20, 0.9);
+    color: #ffffff;
+    border: none;
+    border-bottom: 1px solid #333333;
+    padding: 10px;
+    margin: 0;
+}
+
+#input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+#outer-box {
+    margin: 0;
+    padding: 0;
+}
+
+#inner-box {
+    margin: 0;
+    padding: 0;
+}
+
+#scroll {
+    margin: 0;
+    padding: 0;
+}
+
+#text {
+    color: #ffffff;
+    margin: 0 10px;
+}
+
+#entry {
+    padding: 8px;
+    margin: 0;
+}
+
+#entry:selected {
+    background-color: rgba(80, 80, 80, 0.6);
+}
+
+#img {
+    margin-right: 8px;
+}

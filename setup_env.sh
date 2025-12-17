@@ -77,6 +77,7 @@ ln -sf "$DOTFILES_DIR/hyprland/hyprpaper.conf" "$XDG_CONFIG_HOME/hypr/hyprpaper.
 ln -sf "$DOTFILES_DIR/waybar/config" "$XDG_CONFIG_HOME/waybar/config"
 ln -sf "$DOTFILES_DIR/waybar/style.css" "$XDG_CONFIG_HOME/waybar/style.css"
 ln -sf "$DOTFILES_DIR/wofi/config" "$XDG_CONFIG_HOME/wofi/config"
+ln -sf "$DOTFILES_DIR/wofi/style.css" "$XDG_CONFIG_HOME/wofi/style.css"
 
 echo "[$(date '+%H:%M:%S')] ==> Downloading Neovim configuration..."
 retry_git_clone https://github.com/samiulsami/nvim.git "$XDG_CONFIG_HOME/nvim"
