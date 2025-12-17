@@ -8,7 +8,7 @@ agent on
 scan on  # wait for your device's address to show up here
 scan off
 trust MAC_ADDRESS
-pair MAC_ADDRRESS
+pair MAC_ADDRESS
 connect MAC_ADDRESS
 ```
 
