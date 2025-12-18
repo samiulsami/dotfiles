@@ -7,6 +7,8 @@ readonly BLACK="rgba(000000ff)"
 
 # Track the PID of the pending restore operation
 RESTORE_PID=""
+# Track last active window address to filter out title-only changes
+LAST_WINDOW=""
 
 handle() {
     case $1 in
@@ -15,8 +17,19 @@ handle() {
             flash_border ;;
 
         # Window operations
-        activewindowv2\>*|movewindowv2\>*|closewindow\>*|changefloatingmode\>*|urgent\>*)
+        movewindowv2\>*|closewindow\>*|changefloatingmode\>*|urgent\>*)
             flash_border ;;
+
+        # Active window changed - only flash if window address actually changed
+        activewindowv2\>*)
+            # Format: activewindowv2>>WINDOW_ADDRESS,WINDOW_TITLE
+            window_addr="${1#activewindowv2>>}"
+            window_addr="${window_addr%%,*}"
+            if [[ "$window_addr" != "$LAST_WINDOW" ]]; then
+                LAST_WINDOW="$window_addr"
+                flash_border
+            fi
+            ;;
 
         # Group operations (tabbed/stacked layout manipulation)
         togglegroup\>*|moveintogroup\>*|moveoutofgroup\>*)
