@@ -9,7 +9,7 @@ window#waybar {
 }
 
 #workspaces button {
-    padding: 0 8px;
+    padding: 0 5px;
     color: #888888;
     background: transparent;
     border: none;
@@ -128,4 +128,14 @@ window#waybar {
     color: #ffffff;
     padding: 0 10px;
     font-weight: bold;
+}
+
+#custom-dunst {
+    padding: 0 10px;
+    border-right: 1px solid #333333;
+    border-left: 1px solid #333333;
+}
+
+#custom-dunst.paused {
+    color: #e74c3c;
 }

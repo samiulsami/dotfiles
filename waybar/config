@@ -5,7 +5,7 @@
     // "output": ["HDMI-A-1"],
     "modules-left": ["hyprland/workspaces", "hyprland/submap"],
     "modules-center": ["tray"],
-    "modules-right": [ "cpu", "memory", "disk", "bluetooth", "network", "pulseaudio", "pulseaudio#microphone", "battery", "clock" ],
+    "modules-right": [ "custom/dunst", "cpu", "memory", "disk", "bluetooth", "network", "pulseaudio", "pulseaudio#microphone", "battery", "clock" ],
 
     "hyprland/workspaces": {
         "format": "{id}",
@@ -104,5 +104,14 @@
 
     "tray": {
         "spacing": 10
+    },
+
+    "custom/dunst": {
+        "exec": "dunstctl is-paused | grep -q true && echo '{\"text\": \"󰂛\", \"class\": \"paused\"}' || echo '{\"text\": \"󰂚\", \"class\": \"active\"}'",
+        "return-type": "json",
+        "signal": 1,
+        "interval": "once",
+        "on-click": "dunstctl set-paused toggle && pkill -RTMIN+1 waybar",
+        "tooltip-format": "Notifications\nSuper+Shift+S: Toggle pause"
     }
 }
