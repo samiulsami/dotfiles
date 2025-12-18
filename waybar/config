@@ -112,6 +112,6 @@
         "signal": 1,
         "interval": "once",
         "on-click": "dunstctl set-paused toggle && pkill -RTMIN+1 waybar",
-        "tooltip-format": "Notifications\nSuper+Shift+S: Toggle pause"
+        "tooltip-format": "Notifications\nSuper+N: History pop\nSuper+P: Close\nSuper+A: Action\nSuper+C: Close all\nSuper+Shift+S: Toggle pause"
     }
 }
