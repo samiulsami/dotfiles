@@ -11,12 +11,14 @@ sudo -v
 (while true; do sudo -n true; sleep 50; kill -0 "$$" || exit; done) &
 SUDO_REFRESH_PID=$!
 
-# XDG configuration
-export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
-export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
-export ZDOTDIR="${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}"
+# XDG configuration - source from environment.d/xdg.conf
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 export DOTFILES_DIR
+while IFS='=' read -r key value; do
+  [[ -z "$key" || "$key" =~ ^# ]] && continue
+  value="${value//\$HOME/$HOME}"
+  export "$key"="$value"
+done < "$DOTFILES_DIR/environment.d/xdg.conf"
 
 # Ensure required tools are available before proceeding
 CHECK_REQUIREMENTS_SCRIPT="$DOTFILES_DIR/check_requirements.sh"

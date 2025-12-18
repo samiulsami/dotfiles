@@ -22,7 +22,7 @@ fi
 
 # create directories
 echo "[$(date '+%H:%M:%S')] ==> Creating configuration directories..."
-mkdir -p "$XDG_CONFIG_HOME"/{dunst,ghostty,opencode,tmux,fontconfig/conf.d,hypr,wofi,waybar} "$ZDOTDIR" "$XDG_CONFIG_HOME/tmux/plugins/" "$HOME/go"
+mkdir -p "$XDG_CONFIG_HOME"/{dunst,ghostty,opencode,tmux,fontconfig/conf.d,hypr,wofi,waybar,environment.d} "$ZDOTDIR" "$XDG_CONFIG_HOME/tmux/plugins/" "$HOME/go"
 
 echo "[$(date '+%H:%M:%S')] ==> Configuring git email addresses..."
 echo ""
@@ -42,12 +42,12 @@ if [ -n "$PERSONAL_EMAIL" ] && [ -n "$WORK_EMAIL" ]; then
 fi
 
 echo "[$(date '+%H:%M:%S')] ==> Setting up symlinks for configuration files..."
-# symlink config files for dunst, ghostty, tmux, zsh, opencode, ideavim, fontconfig
+# symlink config files for dunst, ghostty, tmux, zsh, opencode, ideavim, fontconfig, environment.d
+ln -sf "$DOTFILES_DIR/environment.d/xdg.conf" "$XDG_CONFIG_HOME/environment.d/xdg.conf"
 ln -sf "$DOTFILES_DIR/dunst/dunstrc" "$XDG_CONFIG_HOME/dunst/dunstrc"
 ln -sf "$DOTFILES_DIR/ghostty/config" "$XDG_CONFIG_HOME/ghostty/config"
 ln -sf "$DOTFILES_DIR/tmux/tmux.conf" "$XDG_CONFIG_HOME/tmux/tmux.conf"
 ln -sf "$DOTFILES_DIR/zsh/zshrc" "$ZDOTDIR/.zshrc"
-ln -sf "$DOTFILES_DIR/zsh/zshenv" "$HOME/.zshenv"
 ln -sf "$DOTFILES_DIR/zsh/zsh_functions_and_widgets" "$ZDOTDIR/zsh_functions_and_widgets"
 ln -sf "$DOTFILES_DIR/starship/starship.toml" "$XDG_CONFIG_HOME/starship.toml"
 ln -sf "$DOTFILES_DIR/opencode/opencode.json" "$XDG_CONFIG_HOME/opencode/opencode.json"
