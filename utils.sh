@@ -11,13 +11,17 @@ sudo -v
 SUDO_REFRESH_PID=$!
 
 # XDG configuration - source from environment.d/xdg.conf
-DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-export DOTFILES_DIR
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 while IFS='=' read -r key value; do
   [[ -z "$key" || "$key" =~ ^# ]] && continue
   value="${value//\$HOME/$HOME}"
   export "$key"="$value"
-done < "$DOTFILES_DIR/environment.d/xdg.conf"
+done < "$SCRIPT_DIR/environment.d/xdg.conf"
+
+if [[ "$SCRIPT_DIR" != "$DOTFILES_DIR" ]]; then
+  echo "ERROR: $SCRIPT_DIR/environment.d/xdg.conf set DOTFILES_DIR to '$DOTFILES_DIR', but utils.sh is located in '$SCRIPT_DIR'" >&2
+  exit 1
+fi
 
 source "$DOTFILES_DIR/check_requirements.sh"
 
@@ -41,6 +45,7 @@ wait_err() {
 
 # Retry function for git clones
 # Clones to temp dir first, then replaces target only on success
+# example usage: retry_git_clone --depth 1 https://github.com/user/repo /path/to/clone/into
 retry_git_clone() {
   local max_attempts=3
   local attempt=1
@@ -77,6 +82,7 @@ retry_git_clone() {
   return 1
 }
 
+# Ran automatically on script exit to clean up background jobs
 cleanup_background_jobs() {
   for pid in "${ASYNC_PIDS[@]}"; do
     # Kill all descendants (children, grandchildren, etc.) recursively
