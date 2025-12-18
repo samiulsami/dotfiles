@@ -11,14 +11,11 @@ RESTORE_PID=""
 handle() {
     case $1 in
         # Workspace operations
-        workspace\>*|workspacev2\>*|focusedmon\>*|focusedmonv2\>*|\
-        moveworkspace\>*|moveworkspacev2\>*|activespecial\>*|activespecialv2\>*)
+        workspacev2\>*|focusedmonv2\>*|moveworkspacev2\>*|activespecialv2\>*)
             flash_border ;;
 
         # Window operations
-        activewindow\>*|activewindowv2\>*|movewindow\>*|movewindowv2\>*|\
-        openwindow\>*|closewindow\>*|fullscreen\>*|changefloatingmode\>*|\
-        urgent\>*|pin\>*)
+        activewindowv2\>*|movewindowv2\>*|closewindow\>*|changefloatingmode\>*|urgent\>*)
             flash_border ;;
 
         # Group operations (tabbed/stacked layout manipulation)
