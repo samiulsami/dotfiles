@@ -4,7 +4,6 @@
 
 set -euo pipefail
 
-# Request sudo credentials upfront
 sudo -v
 
 # Keep sudo alive in background for unattended installation
@@ -20,17 +19,19 @@ while IFS='=' read -r key value; do
   export "$key"="$value"
 done < "$DOTFILES_DIR/environment.d/xdg.conf"
 
-# Ensure required tools are available before proceeding
 source "$DOTFILES_DIR/check_requirements.sh"
 
 # Async job management
 declare -a ASYNC_PIDS=()
 
+# Run a command asynchronously and store its PID.
+# e.g; run_async some_command arg1 arg2
 run_async() {
   "$@" &
   ASYNC_PIDS+=($!)
 }
 
+# Wait for all async jobs to complete and check for errors
 wait_err() {
   for pid in "${ASYNC_PIDS[@]}"; do
     wait "$pid" || { echo "ERROR: Background job failed" >&2; exit 1; }
@@ -50,13 +51,11 @@ retry_git_clone() {
   # shellcheck disable=SC2064
   trap "rm -rf '$temp_dir'" RETURN
 
-  # Build args with temp destination instead of original
   local args=("${@:1:$#-1}" "$temp_dir/clone")
 
   while [ "$attempt" -le "$max_attempts" ]; do
     rm -rf "$temp_dir/clone"
     if git clone "${args[@]}"; then
-      # Clone succeeded - now safe to replace target
       if [ -e "$last_arg" ]; then
         if [ -n "$last_arg" ] && [ "$last_arg" != "/" ] && [ "$last_arg" != "$HOME" ] && \
           [ "$last_arg" != "$HOME/" ] && [[ "$last_arg" == "$HOME"* || "$last_arg" == "$XDG_CONFIG_HOME"* ]]; then
@@ -78,7 +77,6 @@ retry_git_clone() {
   return 1
 }
 
-# Cleanup function to kill all background jobs
 cleanup_background_jobs() {
   for pid in "${ASYNC_PIDS[@]}"; do
     # Kill all descendants (children, grandchildren, etc.) recursively
@@ -91,5 +89,4 @@ cleanup_background_jobs() {
   kill -9 "$SUDO_REFRESH_PID" 2>/dev/null || true
 }
 
-# Kill all background jobs on script exit or interruption
 trap cleanup_background_jobs EXIT INT TERM

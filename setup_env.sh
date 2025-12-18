@@ -20,7 +20,6 @@ if [ "$SHELL" != "$(readlink -f "$(which zsh)")" ]; then
         chsh -s "$(readlink -f "$(which zsh)")"
 fi
 
-# create directories
 echo "[$(date '+%H:%M:%S')] ==> Creating configuration directories..."
 mkdir -p "$XDG_CONFIG_HOME"/{dunst,ghostty,opencode,tmux,fontconfig/conf.d,hypr,wofi,waybar,environment.d} "$ZDOTDIR" "$XDG_CONFIG_HOME/tmux/plugins/" "$HOME/go"
 
@@ -42,7 +41,6 @@ if [ -n "$PERSONAL_EMAIL" ] && [ -n "$WORK_EMAIL" ]; then
 fi
 
 echo "[$(date '+%H:%M:%S')] ==> Setting up symlinks for configuration files..."
-# symlink config files for dunst, ghostty, tmux, zsh, opencode, ideavim, fontconfig, environment.d
 ln -sf "$DOTFILES_DIR/environment.d/xdg.conf" "$XDG_CONFIG_HOME/environment.d/xdg.conf"
 ln -sf "$DOTFILES_DIR/dunst/dunstrc" "$XDG_CONFIG_HOME/dunst/dunstrc"
 ln -sf "$DOTFILES_DIR/ghostty/config" "$XDG_CONFIG_HOME/ghostty/config"
@@ -54,7 +52,6 @@ ln -sf "$DOTFILES_DIR/opencode/opencode.json" "$XDG_CONFIG_HOME/opencode/opencod
 ln -sf "$DOTFILES_DIR/ideavimrc/.ideavimrc" "$HOME/.ideavimrc"
 ln -sf "$DOTFILES_DIR/fontconfig/conf.d/01-emoji.conf" "$XDG_CONFIG_HOME/fontconfig/conf.d/01-emoji.conf"
 
-# zsh plugins
 echo "[$(date '+%H:%M:%S')] ==> Cloning zsh plugins..."
 run_async retry_git_clone --depth 1 https://github.com/jeffreytse/zsh-vi-mode.git "$ZDOTDIR/zsh-vi-mode"
 run_async retry_git_clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions.git "$ZDOTDIR/zsh-autosuggestions"
@@ -62,11 +59,9 @@ run_async retry_git_clone --depth 1 https://github.com/zsh-users/zsh-syntax-high
 run_async retry_git_clone --depth 1 https://github.com/Aloxaf/fzf-tab.git "$ZDOTDIR/fzf-tab"
 run_async retry_git_clone --depth 1 https://github.com/zsh-users/zsh-completions.git "$ZDOTDIR/zsh-completions"
 
-# tmux plugins
 echo "[$(date '+%H:%M:%S')] ==> Cloning tmux plugins..."
 run_async retry_git_clone --depth 1 https://github.com/tmux-plugins/tmux-resurrect "$XDG_CONFIG_HOME/tmux/plugins/tmux-resurrect"
 
-# hyprland config
 echo "[$(date '+%H:%M:%S')] ==> Setting up Hyprland configuration..."
 ln -sf "$DOTFILES_DIR/hyprland/hyprland.conf" "$XDG_CONFIG_HOME/hypr/hyprland.conf"
 ln -sf "$DOTFILES_DIR/hyprland/hyprlock.conf" "$XDG_CONFIG_HOME/hypr/hyprlock.conf"
