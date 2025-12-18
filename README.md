@@ -79,8 +79,14 @@ xdg-open https://github.com/settings/ssh/new
 
 ### restore zsh-shell history (private repo)
 ```bash
-git clone --depth 1 git@github.com:samiulsami/shell-history-backup.git
-cp shell-history-backup/.zsh_history "$ZDOTDIR/zsh_history"
+git clone --depth 1 git@github.com:samiulsami/shell-history-backup.git $HOME/.local/share/shell-history-backup
+cp $HOME/.local/share/shell-history-backup/.zsh_history "$ZDOTDIR/zsh_history"
+```
+
+### setup wallpapers directory (private repo)
+```bash
+echo "[$(date '+%H:%M:%S')] ==> Cloning wallpapers repository..."
+git clone --depth 1 git@github.com:samiulsami/wallpapers.git $HOME/.local/share/wallpapers
 ```
 
 ## Additional Notes

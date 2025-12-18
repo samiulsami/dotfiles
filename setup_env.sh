@@ -61,12 +61,10 @@ run_async retry_git_clone --depth 1 https://github.com/zsh-users/zsh-autosuggest
 run_async retry_git_clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZDOTDIR/zsh-syntax-highlighting"
 run_async retry_git_clone --depth 1 https://github.com/Aloxaf/fzf-tab.git "$ZDOTDIR/fzf-tab"
 run_async retry_git_clone --depth 1 https://github.com/zsh-users/zsh-completions.git "$ZDOTDIR/zsh-completions"
-wait_err
 
 # tmux plugins
 echo "[$(date '+%H:%M:%S')] ==> Cloning tmux plugins..."
-retry_git_clone --depth 1 https://github.com/tmux-plugins/tmux-resurrect "$XDG_CONFIG_HOME/tmux/plugins/tmux-resurrect"
-tmux source-file "$XDG_CONFIG_HOME/tmux/tmux.conf"
+run_async retry_git_clone --depth 1 https://github.com/tmux-plugins/tmux-resurrect "$XDG_CONFIG_HOME/tmux/plugins/tmux-resurrect"
 
 # hyprland config
 echo "[$(date '+%H:%M:%S')] ==> Setting up Hyprland configuration..."
@@ -80,7 +78,12 @@ ln -sf "$DOTFILES_DIR/wofi/config" "$XDG_CONFIG_HOME/wofi/config"
 ln -sf "$DOTFILES_DIR/wofi/style.css" "$XDG_CONFIG_HOME/wofi/style.css"
 
 echo "[$(date '+%H:%M:%S')] ==> Downloading Neovim configuration..."
-retry_git_clone https://github.com/samiulsami/nvim.git "$XDG_CONFIG_HOME/nvim"
+run_async retry_git_clone https://github.com/samiulsami/nvim.git "$XDG_CONFIG_HOME/nvim"
+
+wait_err
+tmux source-file "$XDG_CONFIG_HOME/tmux/tmux.conf"
+
+echo
 
 echo "[$(date '+%H:%M:%S')] ==> Configuring Docker..."
 sudo groupadd docker 2>/dev/null || true
