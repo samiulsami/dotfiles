@@ -31,7 +31,7 @@
             "warning": 30,
             "critical": 15
         },
-        "tooltip-format": "Battery status"
+        "tooltip-format": "Battery: {capacity}%\nTime remaining: {time}"
     },
 
     "network": {
@@ -48,29 +48,16 @@
 
     "pulseaudio": {
         "format": "  {volume}%",
-        "tooltip-format": "{source_desc}",
-        "on-click": "pavucontrol",
-        "max-volume": 200,
-        "states": {
-            "normal": 49,
-            "vol50": 59,
-            "vol60": 69,
-            "vol70": 79,
-            "vol80": 89,
-            "vol90": 99,
-            "vol100": 119,
-            "vol120": 139,
-            "vol140": 159,
-            "vol160": 179,
-            "vol180": 200
-        }
+        "format-muted": "󰖁",
+        "tooltip-format": "Volume: {volume}%\nSuper+V: -5%\nSuper+Shift+V: +5%\nSuper+M: Toggle mute",
+        "on-click": "pavucontrol"
     },
 
     "pulseaudio#microphone": {
         "format": "{format_source}",
         "format-source": " {volume}%",
         "format-source-muted": " ",
-        "tooltip-format": "{source_desc}",
+        "tooltip-format": "Mic: {source_volume}%\nSuper+I: -5%\nSuper+Shift+I: +5%\nSuper+Shift+M: Toggle mute",
         "on-click": "pavucontrol"
     },
 

@@ -119,48 +119,8 @@ window#waybar {
     color: #e74c3c;
 }
 
-#pulseaudio.normal {
-    color: #ffffff;
-}
-
-#pulseaudio.vol50 {
-    color: #f9e79f;
-}
-
-#pulseaudio.vol60 {
-    color: #f7dc6f;
-}
-
-#pulseaudio.vol70 {
-    color: #f5b041;
-}
-
-#pulseaudio.vol80 {
-    color: #f39c12;
-}
-
-#pulseaudio.vol90 {
+#pulseaudio:not(.microphone).muted {
     color: #e74c3c;
-}
-
-#pulseaudio.vol100 {
-    color: #dc3545;
-}
-
-#pulseaudio.vol120 {
-    color: #c82333;
-}
-
-#pulseaudio.vol140 {
-    color: #b21f2d;
-}
-
-#pulseaudio.vol160 {
-    color: #9c1a25;
-}
-
-#pulseaudio.vol180 {
-    color: #85151e;
 }
 
 #submap {
