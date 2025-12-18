@@ -7,3 +7,5 @@ matching=fuzzy
 no_actions=true
 width=1000
 height=500
+key_down=Ctrl-n
+key_up=Ctrl-p

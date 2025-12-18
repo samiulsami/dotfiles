@@ -1,11 +1,12 @@
 /* Wofi style - transparent black with white text */
 
 window {
-    background-color: rgba(0, 0, 0, 0.85);
+    background-color: rgba(40, 45, 50, 0.90);
     color: #ffffff;
     font-family: "JetBrainsMono Nerd Font";
     font-size: 14px;
-    border: 1px solid #333333;
+    border: 1px solid #4a4a4a;
+    border-radius: 12px;
 
     /* Fade in animation */
     animation: fadeIn 0.15s ease-out;
@@ -60,7 +61,7 @@ window {
 }
 
 #entry:selected {
-    background-color: rgba(80, 80, 80, 0.6);
+    background-color: rgba(80, 80, 90, 0.8);
 }
 
 #img {
