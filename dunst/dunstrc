@@ -11,9 +11,9 @@
 
     # Geometry
     width = 450
-    height = 250
+    height = (0, 250)
     origin = top-right
-    offset = 10x10
+    offset = (10, 10)
     corner_radius = 0
 
     # Appearance
@@ -40,12 +40,12 @@
 [urgency_low]
     background = "#000000e6"
     foreground = "#aaaaaa"
-    timeout = 3
+    timeout = 1
 
 [urgency_normal]
     background = "#000000e6"
     foreground = "#ffffff"
-    timeout = 5
+    timeout = 1
 
 [urgency_critical]
     background = "#e74c3ce6"
