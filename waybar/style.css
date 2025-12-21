@@ -36,11 +36,13 @@ window#waybar {
 #cpu {
     padding: 0 10px;
     border-right: 1px solid #333333;
-    border-left: 1px solid #333333;
 }
 
 #tray {
-    padding: 0;
+    padding: 0 10px;
+    background-color: #2a2a2a;
+    border-radius: 4px;
+    margin: 2px 5px;
 }
 
 #tray > * {
@@ -133,7 +135,7 @@ window#waybar {
 #custom-dunst {
     padding: 0 10px;
     border-right: 1px solid #333333;
-    border-left: 1px solid #333333;
+    border-left: 3px double #333333;
 }
 
 #custom-dunst.paused {
