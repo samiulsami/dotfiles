@@ -89,18 +89,10 @@ echo "[$(date '+%H:%M:%S')] ==> Cloning wallpapers repository..."
 git clone --depth 1 git@github.com:samiulsami/wallpapers.git $XDG_DATA_HOME/wallpapers
 ```
 
-## Additional Notes
-
-For additional configuration and troubleshooting guides, see the [notes/](notes/) directory:
-- [Storage configuration](notes/storage/)
-- [Hardware configuration](notes/hardware/)
-- [System configuration](notes/system/)
-
 ## TODO
 
 - [ ] NOT automate this with ansible/stow/chezmoi/etc.
 - [ ] Add support for Debian based distros.
-- [ ] Consider wrapping the ```notes``` directory using Obsidian.
 
 ### References
 - [https://github.com/sysdevbd/sysdevbd.github.io/tree/master](https://github.com/sysdevbd/sysdevbd.github.io/tree/master)
