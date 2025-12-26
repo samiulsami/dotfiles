@@ -5,7 +5,7 @@
 REQUIRED_CMDS=(
   git wget curl tmux sed ln mkdir xrandr awk
   go make tar gzip sudo systemctl groupadd usermod
-  cp rm grep chsh readlink which zsh
+  cp rm grep chsh readlink which zsh tlp
   socat jq pactl brightnessctl wl-copy fzf fd bat zoxide dunstctl grim slurp swappy
 )
 

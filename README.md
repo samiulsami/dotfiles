@@ -36,7 +36,7 @@ sudo pacman -Syu --disable-download-timeout --needed \
   hyprland hyprpaper hypridle hyprlock hyprpolkitagent waybar grim slurp swappy wl-clipboard xdg-desktop-portal-wlr\
   bluez bluez-utils brightnessctl ttf-jetbrains-mono-nerd \
   gvfs ghostty docker docker-buildx jdk-openjdk maven go gopls golangci-lint gofumpt rustup clang \
-  kubectl helm cmake gettext unzip nvme-cli \
+  kubectl helm cmake gettext unzip nvme-cli tpl \
   texlive-basic texlive-latex texlive-latexrecommended texlive-latexextra texlive-fontsrecommended \
   noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra \
   stylua lua-language-server bash-language-server shellcheck shfmt \
