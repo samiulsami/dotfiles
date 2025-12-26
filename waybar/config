@@ -5,7 +5,7 @@
     // "output": ["HDMI-A-1"],
     "modules-left": ["hyprland/workspaces", "hyprland/submap"],
     "modules-center": ["tray"],
-    "modules-right": [ "custom/dunst", "cpu", "memory", "disk", "bluetooth", "network", "pulseaudio", "pulseaudio#microphone", "battery", "clock" ],
+    "modules-right": [ "custom/dunst", "cpu", "memory", "disk", "bluetooth", "network", "pulseaudio", "pulseaudio#microphone", "battery", "clock", "idle_inhibitor" ],
 
     "hyprland/workspaces": {
         "format": "{id}",
@@ -15,6 +15,16 @@
     "hyprland/submap": {
         "format": "{}",
         "max-length": 20
+    },
+
+    "idle_inhibitor": {
+            "format": "{icon}",
+            "format-icons": {
+                    "activated": "󰛊 ",
+                    "deactivated": "󰾫 "
+            },
+            "tooltip-format-activated": "Idle inhibitor: ON",
+            "tooltip-format-deactivated": "Idle inhibitor: OFF"
     },
 
     "clock": {

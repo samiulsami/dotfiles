@@ -141,3 +141,15 @@ window#waybar {
 #custom-dunst.paused {
     color: #e74c3c;
 }
+
+#idle_inhibitor {
+    padding: 0 10px;
+    border-left: 1px solid #333333;
+}
+
+#idle_inhibitor.activated {
+    color: #ffffff;
+    padding: 0 10px;
+    background-color: #ff0000;
+    font-weight: bold;
+}
