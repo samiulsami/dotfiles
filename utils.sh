@@ -60,7 +60,9 @@ retry_git_clone() {
 
   while [ "$attempt" -le "$max_attempts" ]; do
     rm -rf "$temp_dir/clone"
-    if git clone "${args[@]}"; then
+    echo "Attempt '$attempt': clone ${args[*]}"
+    if git clone "${args[@]}" --quiet; then
+      echo "Cloned: ${args[*]}"
       if [ -e "$last_arg" ]; then
         if [ -n "$last_arg" ] && [ "$last_arg" != "/" ] && [ "$last_arg" != "$HOME" ] && \
           [ "$last_arg" != "$HOME/" ] && [[ "$last_arg" == "$HOME"* || "$last_arg" == "$XDG_CONFIG_HOME"* ]]; then
