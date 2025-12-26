@@ -77,7 +77,7 @@ echo "[$(date '+%H:%M:%S')] ==> Downloading Neovim configuration..."
 run_async retry_git_clone https://github.com/samiulsami/nvim.git "$XDG_CONFIG_HOME/nvim"
 
 wait_err
-tmux source-file "$XDG_CONFIG_HOME/tmux/tmux.conf"
+pidof tmux && tmux source-file "$XDG_CONFIG_HOME/tmux/tmux.conf"
 
 echo
 
