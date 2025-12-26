@@ -11,7 +11,7 @@
 **Desktop**
 - <b>Launcher</b>: wofi
 - <b>Notifications</b>: dunst
-- <b>Screenshots</b>: grim + slurp + swappy
+- <b>Screenshots</b>: grim + slurp + swappy/satty
 - <b>Files</b>: nautilus
 
 **System**
@@ -33,7 +33,7 @@ sudo pacman -Syu --disable-download-timeout --needed \
   tealdeer base-devel git curl lsd wget fzf zsh starship tmux fd bat ripgrep zoxide npm \
   libnotify imv obs-studio wofi dunst pipewire wireplumber pavucontrol \
   gdm gnome-shell gnome-system-monitor gnome-shell-extension-dash-to-panel gnome-keyring gnome-control-center nautilus networkmanager socat \
-  hyprland hyprpaper hypridle hyprlock hyprpolkitagent waybar grim slurp swappy wl-clipboard xdg-desktop-portal-wlr\
+  hyprland hyprpaper hypridle hyprlock hyprpolkitagent waybar grim slurp swappy satty wl-clipboard xdg-desktop-portal-wlr\
   bluez bluez-utils brightnessctl ttf-jetbrains-mono-nerd \
   gvfs ghostty docker docker-buildx jdk-openjdk maven go gopls golangci-lint gofumpt rustup clang \
   kubectl helm cmake gettext unzip nvme-cli tpl \
