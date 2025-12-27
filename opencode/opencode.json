@@ -145,7 +145,7 @@
                 "history_next": "down"
         },
         "plugin": [
-                "opencode-antigravity-auth@1.2.5-beta.6"
+                "opencode-antigravity-auth@1.2.6"
         ],
         "provider": {
                 "google": {
