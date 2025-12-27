@@ -50,7 +50,7 @@ ln -sf "$DOTFILES_DIR/zsh/zsh_functions_and_widgets" "$ZDOTDIR/zsh_functions_and
 ln -sf "$DOTFILES_DIR/starship/starship.toml" "$XDG_CONFIG_HOME/starship.toml"
 ln -sf "$DOTFILES_DIR/opencode/opencode.json" "$XDG_CONFIG_HOME/opencode/opencode.json"
 ln -sf "$DOTFILES_DIR/ideavimrc/.ideavimrc" "$HOME/.ideavimrc"
-ln -sf "$DOTFILES_DIR/fontconfig/conf.d/01-emoji.conf" "$XDG_CONFIG_HOME/fontconfig/conf.d/01-emoji.conf"
+ln -sf "$DOTFILES_DIR/fontconfig/01-emoji.conf" "$XDG_CONFIG_HOME/fontconfig/conf.d/01-emoji.conf"
 
 echo "[$(date '+%H:%M:%S')] ==> Cloning zsh plugins..."
 run_async retry_git_clone --depth 1 https://github.com/jeffreytse/zsh-vi-mode.git "$ZDOTDIR/zsh-vi-mode"
