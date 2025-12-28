@@ -85,7 +85,6 @@ cp $XDG_DATA_HOME/shell-history-backup/zsh_history "$ZDOTDIR/zsh_history"
 
 ### setup wallpapers directory (private repo)
 ```bash
-echo "[$(date '+%H:%M:%S')] ==> Cloning wallpapers repository..."
 git clone --depth 1 git@github.com:samiulsami/wallpapers.git $XDG_DATA_HOME/wallpapers
 ```
 
