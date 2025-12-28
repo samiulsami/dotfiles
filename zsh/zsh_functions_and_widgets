@@ -123,20 +123,9 @@ tns() {
 
 # fuzzy search and paste path to dir
 fzf-dir-widget() {
-        if ! command -v fd >/dev/null; then
-                echo "fd not found"
-                return 1
-        fi
-
-        if ! command -v fzf >/dev/null; then
-                echo "fzf not found"
-                return 1
-        fi
-
-        local dir
-        dir=$(fd --type d --hidden --exclude .git | fzf -- --preview 'ls -l {}' --preview-window=right:40%) || return
-        LBUFFER+="$dir"
-        zle reset-prompt
+        FZF_CTRL_T_COMMAND='fd --type d --hidden --exclude .git' \
+        FZF_CTRL_T_OPTS='+m' \
+        fzf-file-widget
 }
 zle -N fzf-dir-widget
 bindkey -a '\ed' fzf-dir-widget
