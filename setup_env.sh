@@ -53,7 +53,6 @@ ln -sf "$DOTFILES_DIR/ideavimrc/.ideavimrc" "$HOME/.ideavimrc"
 ln -sf "$DOTFILES_DIR/fontconfig/01-emoji.conf" "$XDG_CONFIG_HOME/fontconfig/conf.d/01-emoji.conf"
 
 echo "[$(date '+%H:%M:%S')] ==> Cloning zsh plugins..."
-run_async retry_git_clone --depth 1 https://github.com/jeffreytse/zsh-vi-mode.git "$ZDOTDIR/zsh-vi-mode"
 run_async retry_git_clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions.git "$ZDOTDIR/zsh-autosuggestions"
 run_async retry_git_clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZDOTDIR/zsh-syntax-highlighting"
 run_async retry_git_clone --depth 1 https://github.com/Aloxaf/fzf-tab.git "$ZDOTDIR/fzf-tab"

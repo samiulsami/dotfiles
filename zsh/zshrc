@@ -32,14 +32,12 @@ bindkey -M menuselect '^P' up-line-or-history
 
 function vi-history-up-and-highlight() {
         zle vi-up-line-or-history
-        zle zle-line-init
         zle end-of-line
 }
 zle -N vi-history-up-and-highlight
 
 function vi-history-down-and-highlight() {
         zle vi-down-line-or-history
-        zle zle-line-init
         zle end-of-line
 }
 zle -N vi-history-down-and-highlight
@@ -47,7 +45,7 @@ zle -N vi-history-down-and-highlight
 bindkey -M vicmd 'k' vi-history-up-and-highlight
 bindkey -M vicmd 'j' vi-history-down-and-highlight
 
-KEYTIMEOUT=0
+KEYTIMEOUT=1
 
 setopt AUTO_CD
 setopt AUTO_PUSHD
@@ -82,33 +80,25 @@ ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=100
 source $ZDOTDIR/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-source $ZDOTDIR/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-ZVM_CURSOR_STYLE_ENABLED=false
-ZVM_ESCAPE_KEYTIMEOUT=0
+source <(fzf --zsh)
+export FZF_DEFAULT_COMMAND='fd --hidden --color=always'
+export FZF_DEFAULT_OPTS="--ansi ${FZF_DEFAULT_OPTS} --multi --cycle --tiebreak=length,begin,end"
+export FZF_DEFAULT_OPTS="--bind='ctrl-y:accept,ctrl-a:select-all,ctrl-d:deselect-all' ${FZF_DEFAULT_OPTS}"
+export FZF_PREVIEW_FILE_CMD='bat --color=always --style=numbers --line-range=:500'
 
-function my_init() {
-        source <(fzf --zsh)
-        export FZF_DEFAULT_COMMAND='fd --hidden --color=always'
-        export FZF_DEFAULT_OPTS="--ansi ${FZF_DEFAULT_OPTS} --multi --cycle --tiebreak=length,begin,end"
-        export FZF_DEFAULT_OPTS="--bind='ctrl-y:accept,ctrl-a:select-all,ctrl-d:deselect-all' ${FZF_DEFAULT_OPTS}"
-        export FZF_PREVIEW_FILE_CMD='bat --color=always --style=numbers --line-range=:500'
+bindkey -a '\er' fzf-history-widget
+bindkey '\er' fzf-history-widget
 
-        bindkey -a '\er' fzf-history-widget
-        bindkey '\er' fzf-history-widget
+bindkey '\ef' fzf-file-widget
 
-        bindkey -a '\ef' fzf-file-widget
-        bindkey '\ef' fzf-file-widget
+source $ZDOTDIR/fzf-tab/fzf-tab.plugin.zsh
+# zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+zstyle ':fzf-tab:*' use-fzf-default-opts yes
 
-        source $ZDOTDIR/fzf-tab/fzf-tab.plugin.zsh
-        # zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
-        zstyle ':fzf-tab:*' use-fzf-default-opts yes
+bindkey '\eo' vi-forward-word
+bindkey '^O' autosuggest-accept
+source $ZDOTDIR/zsh_functions_and_widgets
 
-	bindkey '\eo' vi-forward-word
-	bindkey '^O' autosuggest-accept
-        source $ZDOTDIR/zsh_functions_and_widgets
-}
-
-zvm_after_init_commands+=(my_init)
 #################################################################################
 
 alias ls='ls --color=always'
