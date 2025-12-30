@@ -40,6 +40,9 @@ if [ -n "$PERSONAL_EMAIL" ] && [ -n "$WORK_EMAIL" ]; then
         sed -i "s/email = .*/email = $WORK_EMAIL/" "$HOME/.gitconfig-work"
 fi
 
+echo "[$(date '+%H:%M:%S')] ==> Creating ~/.zshenv for TTY support..."
+echo "export ZDOTDIR=\"\$HOME${ZDOTDIR#"$HOME"}\"" >"$HOME/.zshenv"
+
 echo "[$(date '+%H:%M:%S')] ==> Setting up symlinks for configuration files..."
 ln -sf "$DOTFILES_DIR/environment.d/xdg.conf" "$XDG_CONFIG_HOME/environment.d/xdg.conf"
 ln -sf "$DOTFILES_DIR/dunst/dunstrc" "$XDG_CONFIG_HOME/dunst/dunstrc"
