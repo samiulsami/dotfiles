@@ -89,8 +89,6 @@ export FZF_PREVIEW_FILE_CMD='bat --color=always --style=numbers --line-range=:50
 bindkey -a '\er' fzf-history-widget
 bindkey '\er' fzf-history-widget
 
-bindkey '\ef' fzf-file-widget
-
 source $ZDOTDIR/fzf-tab/fzf-tab.plugin.zsh
 # zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 zstyle ':fzf-tab:*' use-fzf-default-opts yes

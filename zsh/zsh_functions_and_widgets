@@ -121,15 +121,6 @@ tns() {
         tmux switch-client -t "$session_name"
 }
 
-# fuzzy search and paste path to dir
-fzf-dir-widget() {
-        FZF_CTRL_T_COMMAND='fd --type d --hidden --exclude .git' \
-        FZF_CTRL_T_OPTS='+m' \
-        fzf-file-widget
-}
-zle -N fzf-dir-widget
-bindkey '\ed' fzf-dir-widget
-
 # search for a string in all files in the current directory
 exactgrep() {
         if ! command -v rg >/dev/null; then
