@@ -29,18 +29,20 @@
 ```bash
 set -euo pipefail
 
-sudo pacman -Syu --disable-download-timeout --needed \
-  tealdeer base-devel git curl lsd wget fzf zsh starship tmux fd bat ripgrep zoxide npm \
-  libnotify imv obs-studio wofi dunst pipewire wireplumber pavucontrol zathura zathura-pdf-mupdf \
-  gdm gnome-shell gnome-system-monitor btop gnome-shell-extension-dash-to-panel gnome-keyring gnome-control-center nautilus networkmanager socat \
-  hyprland hyprpaper hypridle hyprlock hyprpolkitagent waybar grim slurp swappy satty wl-clipboard xdg-desktop-portal-wlr\
-  bluez bluez-utils brightnessctl ttf-jetbrains-mono-nerd \
-  gvfs ghostty docker docker-buildx jdk-openjdk maven go gopls golangci-lint gofumpt rustup clang \
-  kubectl helm cmake gettext ouch nvme-cli tpl \
-  texlive-basic texlive-latex texlive-latexrecommended texlive-latexextra texlive-fontsrecommended \
-  noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra \
-  stylua lua-language-server bash-language-server shellcheck shfmt \
-  terraform tflint jq tree-sitter-cli yaml-language-server
+shell=(zsh starship tmux ghostty fzf fd bat ripgrep zoxide lsd tealdeer ouch jq socat)
+hypr=(hyprland hyprpaper hypridle hyprlock hyprpolkitagent waybar wofi dunst libnotify grim slurp swappy satty wl-clipboard xdg-desktop-portal-wlr)
+gnome=(gdm gnome-shell gnome-control-center gnome-keyring gnome-shell-extension-dash-to-panel nautilus gnome-system-monitor gvfs)
+system=(pipewire wireplumber pavucontrol bluez bluez-utils networkmanager brightnessctl tlp nvme-cli)
+apps=(btop imv obs-studio zathura zathura-pdf-mupdf)
+dev=(base-devel git curl wget npm cmake gettext docker docker-buildx kubectl helm terraform tree-sitter-cli)
+lang=(go jdk-openjdk maven rustup clang)
+lsp=(gopls lua-language-server bash-language-server yaml-language-server)
+linter=(golangci-lint shellcheck tflint)
+formatter=(gofumpt stylua shfmt)
+fonts=(ttf-jetbrains-mono-nerd noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra)
+tex=(texlive-basic texlive-latex texlive-latexrecommended texlive-latexextra texlive-fontsrecommended)
+
+sudo pacman -Syu --disable-download-timeout --needed ${shell[@]} ${hypr[@]} ${gnome[@]} ${system[@]} ${apps[@]} ${dev[@]} ${lang[@]} ${lsp[@]} ${linter[@]} ${formatter[@]} ${fonts[@]} ${tex[@]}
 
 sudo systemctl enable gdm
 
