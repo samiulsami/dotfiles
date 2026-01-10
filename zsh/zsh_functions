@@ -24,27 +24,6 @@ dockerrmi() {
 		| xargs -r docker rmi -f
 }
 
-# kill all processes matching the patterns
-pskill() {
-	if (($# == 0)); then
-		echo "Usage: pskill <pattern1> <pattern2> or pskill <pattern1,pattern2,...>"
-		return 1
-	fi
-
-	local patterns_array=()
-	for arg in "$@"; do
-		patterns_array+=("${arg//,/|}")
-	done
-
-	local final_pattern
-	IFS='|' final_pattern="${patterns_array[*]}"
-
-	ps aux | awk -v pat="$final_pattern" '
-	BEGIN { IGNORECASE = 1 }
-	$11 ~ pat { print $2 }
-	' | xargs -r sudo kill -9
-}
-
 # kill all processes on the specified ports
 killports() {
 	if (($# == 0)); then
