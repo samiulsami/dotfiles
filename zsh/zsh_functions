@@ -1,0 +1,79 @@
+# remove all images matching the patterns
+dockerrmi() {
+	if ! command -v docker >/dev/null; then
+		echo "docker not found"
+		return 1
+	fi
+
+	if (($# == 0)); then
+		echo "Usage: dockerrmi <pattern1> <pattern2> or dockerrmi <pattern1,pattern2,...>"
+		return 1
+	fi
+
+	local patterns_array=()
+	for arg in "$@"; do
+		patterns_array+=("${arg//,/|}")
+	done
+
+	local final_pattern
+	IFS='|' final_pattern="${patterns_array[*]}"
+
+	docker images | awk -v pattern="$final_pattern" '
+	BEGIN { IGNORECASE = 1 }
+	$1 ~ pattern || $2 ~ pattern { print $3 }
+	' | xargs -r docker rmi -f
+}
+
+# kill all processes matching the patterns
+pskill() {
+	if (($# == 0)); then
+		echo "Usage: pskill <pattern1> <pattern2> or pskill <pattern1,pattern2,...>"
+		return 1
+	fi
+
+	local patterns_array=()
+	for arg in "$@"; do
+		patterns_array+=("${arg//,/|}")
+	done
+
+	local final_pattern
+	IFS='|' final_pattern="${patterns_array[*]}"
+
+	ps aux | awk -v pat="$final_pattern" '
+	BEGIN { IGNORECASE = 1 }
+	$11 ~ pat { print $2 }
+	' | xargs -r sudo kill -9
+}
+
+# kill all processes on the specified ports
+killports() {
+	if (($# == 0)); then
+		echo "Usage: killports <pattern1> <pattern2> or killports <pattern1,pattern2,...>"
+		return 1
+	fi
+	local ports=$(IFS=,; echo "$*")
+	echo "Killing ports $ports"
+	sudo kill -9 $(sudo lsof -ti :$ports)
+}
+
+# fuzzy search and checkout git local/remote branches
+gb() {
+	local force=$1
+	local selected=$(git branch -va | fzf-tmux | awk '{print $1}')
+	[[ -z "$selected" ]] && return 1
+
+	[[ $force != "-f" && $force != "--force" ]] && force=""
+
+	if [[ $selected == remotes/* ]]; then
+		local remote_branch=${selected#remotes/}
+		local local_branch=${remote_branch#*/}
+
+		if git show-ref --verify --quiet "refs/heads/$local_branch"; then
+			git checkout $force "$local_branch"
+		else
+			git checkout -t $force "$remote_branch"
+		fi
+	else
+		git checkout $force "$selected"
+	fi
+}

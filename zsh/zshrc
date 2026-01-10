@@ -95,7 +95,49 @@ zstyle ':fzf-tab:*' use-fzf-default-opts yes
 
 bindkey '\eo' vi-forward-word
 bindkey '^O' autosuggest-accept
-source $ZDOTDIR/zsh_functions_and_widgets
+
+bindkey -M viins '^N' fzf-tab-complete
+bindkey -M viins '^P' fzf-tab-complete
+
+# stop word deletion at word boundaries
+backward-kill-word-strict() {
+	local wordchars="$WORDCHARS"
+	local i=${#LBUFFER}
+	local first=true
+	local delete_space=false
+
+	while ((i > 0)); do
+		local c="${LBUFFER[i]}"
+		if [[ "$c" == " " ]]; then
+			if [[ "$first" == true ]]; then
+				delete_space=true
+			elif [[ "$delete_space" != true ]]; then
+				break
+			fi
+		else
+			if [[ "$delete_space" == true ]]; then
+				break
+			fi
+			delete_space=false
+		fi
+
+		if [[ "$first" == true || "$wordchars" != *"$c"* || (("$delete_space" == true && "$c" == " ")) ]]; then
+			((i--))
+		else
+			break
+		fi
+		first=false
+	done
+	LBUFFER="${LBUFFER[1, i]}"
+}
+zle -N backward-kill-word-strict
+
+bindkey '^W' backward-kill-word-strict
+bindkey '^?' backward-delete-char
+bindkey '^H' backward-delete-char
+bindkey '^U' backward-kill-line
+
+[[ -f $ZDOTDIR/zsh_functions ]] && source $ZDOTDIR/zsh_functions
 
 #################################################################################
 
