@@ -18,10 +18,10 @@ dockerrmi() {
 	local final_pattern
 	IFS='|' final_pattern="${patterns_array[*]}"
 
-	docker images | awk -v pattern="$final_pattern" '
-	BEGIN { IGNORECASE = 1 }
-	$1 ~ pattern || $2 ~ pattern { print $3 }
-	' | xargs -r docker rmi -f
+	docker images --format '{{.Repository}}:{{.Tag}} {{.ID}}' \
+		| grep -iE "$final_pattern" \
+		| cut -d' ' -f2 \
+		| xargs -r docker rmi -f
 }
 
 # kill all processes matching the patterns
