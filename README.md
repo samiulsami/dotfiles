@@ -31,7 +31,7 @@ set -euo pipefail
 
 shell=(zsh starship tmux ghostty fzf fd bat ripgrep zoxide lsd tealdeer ouch jq socat)
 hypr=(hyprland hyprpaper hypridle hyprlock hyprpolkitagent waybar wofi dunst libnotify grim slurp swappy satty wl-clipboard xdg-desktop-portal-wlr)
-gnome=(gdm gnome-shell gnome-control-center gnome-keyring gnome-shell-extension-dash-to-panel nautilus gnome-system-monitor gvfs)
+gnome=(gdm gnome-shell gnome-control-center gnome-keyring gnome-shell-extension-dash-to-panel nautilus gvfs)
 system=(pipewire wireplumber pavucontrol bluez bluez-utils networkmanager brightnessctl tlp nvme-cli rclone)
 apps=(btop imv obs-studio zathura zathura-pdf-mupdf)
 dev=(base-devel git curl wget npm cmake gettext docker docker-buildx kubectl helm terraform tree-sitter-cli)
