@@ -51,11 +51,14 @@ cd /tmp/yay
 makepkg -si --noconfirm
 cd && rm -rf /tmp/yay
 
-yay -S --noconfirm --needed --removemake --cleanafter cloudflare-warp-bin kind-bin opencode-bin coursier
+yay -S --noconfirm --needed --removemake --cleanafter cloudflare-warp-bin kind-bin coursier
 sudo warp-cli registration new
 sudo systemctl disable warp-svc.service
 coursier setup --env
 coursier install metals
+
+# Not using the AUR as it allows for an easier time pinning versions via 'opencode upgrade v1.1.1'
+curl -fsSL https://opencode.ai/install | bash
 ```
 
 ## Environment Setup
