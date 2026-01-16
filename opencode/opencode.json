@@ -65,7 +65,6 @@
                         "docker info*": "allow",
                         "docker history*": "allow",
                         "docker stats*": "allow",
-                        "ps*": "allow",
                         "top*": "allow",
                         "jobs*": "allow",
                         "whoami*": "allow",
@@ -216,6 +215,29 @@
                                         "name": "Gemini 3 Pro Preview (Gemini CLI)",
                                         "limit": { "context": 1048576, "output": 65535 },
                                         "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
+                                }
+                        }
+                },
+                "llama.cpp": {
+                        "npm": "@ai-sdk/openai-compatible",
+                        "name": "llama-server (local)",
+                        "options": {
+                                "baseURL": "http://127.0.0.1:8080/v1"
+                        },
+                        "models": {
+                                "qwen3-coder:a3b": {
+                                        "name": "Qwen3-Coder: a3b-30b (local)",
+                                        "limit": {
+                                                "context": 32768,
+                                                "output": 4096
+                                        }
+                                },
+                                "gpt-oss-20b": {
+                                        "name": "GPT-OSS 20B (local)",
+                                        "limit": {
+                                                "context": 32768,
+                                                "output": 4096
+                                        }
                                 }
                         }
                 }
