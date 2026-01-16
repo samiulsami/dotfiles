@@ -8,7 +8,6 @@ sudo -v
 
 # Keep sudo alive in background for unattended installation
 (while true; do sudo -n true; sleep 50; kill -0 "$$" || exit; done) &
-SUDO_REFRESH_PID=$!
 
 # XDG configuration - source from environment.d/xdg.conf
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -84,17 +83,10 @@ retry_git_clone() {
   return 1
 }
 
-# Ran automatically on script exit to clean up background jobs
-cleanup_background_jobs() {
-  for pid in "${ASYNC_PIDS[@]}"; do
-    # Kill all descendants (children, grandchildren, etc.) recursively
-    pkill -9 -P "$pid" 2>/dev/null || true
-    # Kill the entire process group
-    kill -9 -"$pid" 2>/dev/null || true
-    # Kill the process itself in case it's not in a group
-    kill -9 "$pid" 2>/dev/null || true
-  done
-  kill -9 "$SUDO_REFRESH_PID" 2>/dev/null || true
+# Nuke all child processes upon receiving sigterm
+cleanup() {
+  trap - EXIT INT TERM
+  kill 0
 }
 
-trap cleanup_background_jobs EXIT INT TERM
+trap cleanup EXIT INT TERM
