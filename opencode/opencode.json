@@ -218,28 +218,5 @@
                                 }
                         }
                 },
-                "llama.cpp": {
-                        "npm": "@ai-sdk/openai-compatible",
-                        "name": "llama-server (local)",
-                        "options": {
-                                "baseURL": "http://127.0.0.1:8080/v1"
-                        },
-                        "models": {
-                                "qwen3-coder:a3b": {
-                                        "name": "Qwen3-Coder: a3b-30b (local)",
-                                        "limit": {
-                                                "context": 32768,
-                                                "output": 4096
-                                        }
-                                },
-                                "gpt-oss-20b": {
-                                        "name": "GPT-OSS 20B (local)",
-                                        "limit": {
-                                                "context": 32768,
-                                                "output": 4096
-                                        }
-                                }
-                        }
-                }
         }
 }
