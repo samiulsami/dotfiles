@@ -92,14 +92,14 @@
                 "general": {
                         "description": "Research agent for web searches and documentation lookups.",
                         "mode": "subagent",
-                        "model": "opencode/grok-code",
+                        "model": "google/gemini-3-flash-preview",
                         "prompt": "Research agent. Be concise.\n\nNEVER GUESS URLs - search first.\n\nSearch: https://lite.duckduckgo.com/lite/?q={query}\nBackup: https://www.bing.com/search?q={query}&format=rss\n\nWorkflow: Search → Extract URLs → Fetch → Synthesize\nPriority: official docs > Reddit/SO > blogs",
                         "tools": { "read": true, "webfetch": true }
                 },
                 "explore": {
                         "description": "Fast codebase explorer for file patterns, code search, and structure.",
                         "mode": "subagent",
-                        "model": "opencode/grok-code",
+                        "model": "google/gemini-3-flash-preview",
                         "prompt": "Codebase explorer. Use glob for files, grep for content, read to examine. Be thorough but efficient.",
                         "tools": { "read": true }
                 }
