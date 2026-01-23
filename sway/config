@@ -37,6 +37,9 @@ exec swayidle -w \
 # Autostart
 exec dunst
 exec waybar
+exec wl-paste --watch cliphist store
+
+bindsym $mod+Shift+c exec cliphist list | wofi -S dmenu | cliphist decode | wl-copy
 
 # Drag windows with mod + mouse
 floating_modifier $mod normal

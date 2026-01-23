@@ -6,7 +6,7 @@ sudo apt update && sudo apt install -y \
   build-essential libunwind-dev binutils-dev git curl wget zsh tmux fd-find bat ripgrep zoxide npm \
   libnotify-bin wofi dunst pavucontrol blueman brightnessctl git-gui \
   docker.io cmake gettext unzip xclip nvme-cli \
-  sway swaylock swayidle swaybg waybar grim slurp wl-clipboard xdg-desktop-portal-wlr
+  sway swaylock swayidle swaybg waybar grim slurp wl-clipboard cliphist xdg-desktop-portal-wlr
 
 sudo ln -sf $(which fdfind) /usr/bin/fd
 sudo ln -sf $(which batcat) /usr/bin/bat
