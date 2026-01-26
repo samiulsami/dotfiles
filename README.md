@@ -71,12 +71,23 @@ chmod +x ./setup_env.sh ./install_dev_tools.sh
 ```
 
 ### ssh keys
+ed25519 (preferred)
 ```bash
 set -euo pipefail
 EMAIL=$(git config user.email)
 ssh-keygen -t ed25519 -C "$EMAIL"  # Press enter 3 times
 eval "$(ssh-agent -s)" && ssh-add $HOME/.ssh/id_ed25519
 wl-copy < "$HOME/.ssh/id_ed25519.pub"
+printf "Public key copied. Add it to https://github.com/settings/ssh/new\n(Press enter to open)..."
+read
+xdg-open https://github.com/settings/ssh/new
+```
+rsa (legacy)
+```bash
+EMAIL=$(git config user.email)
+ssh-keygen -t rsa -b 4096 -C "$EMAIL"  # Press enter 3 times
+eval "$(ssh-agent -s)" && ssh-add $HOME/.ssh/id_rsa
+wl-copy < "$HOME/.ssh/id_rsa.pub"
 printf "Public key copied. Add it to https://github.com/settings/ssh/new\n(Press enter to open)..."
 read
 xdg-open https://github.com/settings/ssh/new
