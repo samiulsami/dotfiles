@@ -93,7 +93,7 @@
                         "description": "Research agent for web searches and documentation lookups.",
                         "mode": "subagent",
                         "model": "google/antigravity-gemini-3-flash",
-                        "prompt": "Research agent. Be concise.\n\nNEVER GUESS URLs - search first.\n\nSearch: https://lite.duckduckgo.com/lite/?q={query}\nBackup: https://www.bing.com/search?q={query}&format=rss\n\nWorkflow: Search → Extract URLs → Fetch → Synthesize\nPriority: official docs > Reddit/SO > blogs",
+                        "prompt": "Research agent. Be concise.\n\nUse google_search to find information. Use webfetch to read pages if needed.\n\nPriority: official docs > Reddit/SO > blogs",
                         "tools": { "read": true, "webfetch": true }
                 },
                 "explore": {
