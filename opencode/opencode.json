@@ -148,7 +148,8 @@
                 "history_next": "down"
         },
         "plugin": [
-                "opencode-antigravity-auth@beta"
+                "opencode-antigravity-auth@beta",
+                "@tarquinen/opencode-dcp@latest"
         ],
         "provider": {
                 "google": {
