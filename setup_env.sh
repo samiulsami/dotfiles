@@ -90,35 +90,35 @@ sudo systemctl start docker 2>/dev/null || true
 
 echo "[$(date '+%H:%M:%S')] ==> Configuring TLP battery charge threshold..."
 if command -v tlp >/dev/null 2>&1; then
-	sudo mkdir -p /etc/tlp.d
-	sudo cp "$DOTFILES_DIR/tlp/tlp.conf" /etc/tlp.d/01-battery.conf
-	sudo systemctl daemon-reload
-	sudo systemctl enable --now tlp.service
-	sudo tlp start
+        sudo mkdir -p /etc/tlp.d
+        sudo cp "$DOTFILES_DIR/tlp/tlp.conf" /etc/tlp.d/01-battery.conf
+        sudo systemctl daemon-reload
+        sudo systemctl enable --now tlp.service
+        sudo tlp start
 fi
 
 echo "[$(date '+%H:%M:%S')] ==> Configuring Sysstat (sar)..."
 if command -v sar >/dev/null 2>&1; then
-	sudo mkdir -p /etc/sysstat
-	sudo cp "$DOTFILES_DIR/sysstat/sysstat.conf" /etc/sysstat/sysstat
-	sudo cp "$DOTFILES_DIR/sysstat/sysstat-collect.timer" /etc/systemd/system/sysstat-collect.timer
+        sudo mkdir -p /etc/sysstat
+        sudo cp "$DOTFILES_DIR/sysstat/sysstat.conf" /etc/sysstat/sysstat
+        sudo cp "$DOTFILES_DIR/sysstat/sysstat-collect.timer" /etc/systemd/system/sysstat-collect.timer
 
-	sudo systemctl daemon-reload
-	sudo systemctl enable --now sysstat
-	sudo systemctl enable --now sysstat-collect.timer
+        sudo systemctl daemon-reload
+        sudo systemctl enable --now sysstat
+        sudo systemctl enable --now sysstat-collect.timer
 fi
 
 echo "[$(date '+%H:%M:%S')] ==> Configuring Atop..."
 if command -v atop >/dev/null 2>&1; then
-	sudo mkdir -p /etc/default
-	sudo cp "$DOTFILES_DIR/atop/atop" /etc/default/atop
+        sudo mkdir -p /etc/default
+        sudo cp "$DOTFILES_DIR/atop/atop" /etc/default/atop
 
-	# ensure the log directory exists (atop sometimes complains)
-	sudo mkdir -p /var/log/atop
+        # ensure the log directory exists (atop sometimes complains)
+        sudo mkdir -p /var/log/atop
 
-	sudo systemctl daemon-reload
-	sudo systemctl enable --now atop
-	sudo systemctl restart atop
+        sudo systemctl daemon-reload
+        sudo systemctl enable --now atop
+        sudo systemctl restart atop
 fi
 
 if command -v imv >/dev/null 2>&1; then
