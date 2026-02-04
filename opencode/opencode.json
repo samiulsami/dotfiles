@@ -1,5 +1,6 @@
 {
         "$schema": "https://opencode.ai/config.json",
+        "snapshot": false,
         "autoupdate": false,
         "tui": {
                 "scroll_speed": 15
@@ -148,8 +149,7 @@
                 "history_next": "down"
         },
         "plugin": [
-                "opencode-antigravity-auth@beta",
-                "@tarquinen/opencode-dcp@latest"
+                "opencode-antigravity-auth@beta"
         ],
         "provider": {
                 "google": {
