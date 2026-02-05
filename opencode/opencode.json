@@ -4,6 +4,7 @@
         "tui": {
                 "scroll_speed": 15
         },
+        "snapshot": false,
         "permission": {
                 "edit": "ask",
                 "webfetch": "ask",
