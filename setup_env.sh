@@ -52,6 +52,7 @@ ln -sf "$DOTFILES_DIR/zsh/zshrc" "$ZDOTDIR/.zshrc"
 ln -sf "$DOTFILES_DIR/zsh/zsh_functions" "$ZDOTDIR/zsh_functions"
 ln -sf "$DOTFILES_DIR/starship/starship.toml" "$XDG_CONFIG_HOME/starship.toml"
 ln -sf "$DOTFILES_DIR/opencode/opencode.json" "$XDG_CONFIG_HOME/opencode/opencode.json"
+ln -sf "$DOTFILES_DIR/opencode/AGENTS.md" "$XDG_CONFIG_HOME/opencode/AGENTS.md"
 ln -sf "$DOTFILES_DIR/ideavimrc/.ideavimrc" "$HOME/.ideavimrc"
 ln -sf "$DOTFILES_DIR/fontconfig/01-emoji.conf" "$XDG_CONFIG_HOME/fontconfig/conf.d/01-emoji.conf"
 
