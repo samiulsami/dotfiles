@@ -49,7 +49,7 @@ sudo systemctl enable gdm
 git clone --depth 1 https://aur.archlinux.org/yay.git /tmp/yay
 cd /tmp/yay
 makepkg -si --noconfirm
-cd && rm -rf /tmp/yay
+cd - && rm -rf /tmp/yay
 
 yay -S --noconfirm --needed --removemake --cleanafter google-chrome cloudflare-warp-bin kind-bin coursier
 sudo warp-cli registration new
