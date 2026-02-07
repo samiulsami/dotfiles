@@ -1,0 +1,20 @@
+{
+  "sound": false,
+  "notification": true,
+  "timeout": 2,
+  "showProjectName": true,
+  "events": {
+    "permission": { "sound": true, "notification": true },
+    "complete": { "sound": true, "notification": true },
+    "subagent_complete": { "sound": false, "notification": false },
+    "error": { "sound": true, "notification": true },
+    "question": { "sound": true, "notification": true }
+  },
+  "messages": {
+    "permission": "Needs permission",
+    "complete": "Has finished",
+    "subagent_complete": "Subagent task completed",
+    "error": "Encountered an error",
+    "question": "Has a question"
+  }
+}
