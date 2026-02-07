@@ -9,11 +9,13 @@
                 "edit": "ask",
                 "webfetch": "ask",
                 "bash": {
+                        "*": "ask",
                         "sudo *": "deny",
                         "rm *": "deny",
                         "* rm *": "deny",
                         "*/rm *": "deny",
-                        "*": "ask",
+                        "eval*": "deny",
+                        "*$(*": "deny",
                         "ls*": "allow",
                         "cat*": "allow",
                         "head*": "allow",
@@ -42,7 +44,6 @@
                         "git show*": "allow",
                         "git branch -D*": "ask",
                         "git branch*": "allow",
-                        "git tag*": "allow",
                         "git remote*": "allow",
                         "git config --get*": "allow",
                         "git config --list*": "allow",
@@ -149,7 +150,8 @@
                 "history_next": "down"
         },
         "plugin": [
-                "opencode-antigravity-auth@beta"
+                "opencode-antigravity-auth@beta",
+                "@mohak34/opencode-notifier@latest"
         ],
         "provider": {
                 "google": {
@@ -218,6 +220,6 @@
                                         "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
                                 }
                         }
-                },
+                }
         }
 }
