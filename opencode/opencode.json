@@ -151,7 +151,7 @@
         },
         "plugin": [
                 "opencode-antigravity-auth@beta",
-                "@mohak34/opencode-notifier@latest"
+                "@sahaj-b/opencode-notifier@0.1.14"
         ],
         "provider": {
                 "google": {
