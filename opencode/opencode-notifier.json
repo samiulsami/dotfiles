@@ -1,14 +1,14 @@
 {
   "sound": false,
   "notification": true,
-  "timeout": 2,
+  "timeout": 5,
   "showProjectName": true,
   "events": {
-    "permission": { "sound": true, "notification": true },
-    "complete": { "sound": true, "notification": true },
+    "permission": { "sound": false, "notification": true },
+    "complete": { "sound": false, "notification": true },
     "subagent_complete": { "sound": false, "notification": false },
-    "error": { "sound": true, "notification": true },
-    "question": { "sound": true, "notification": true }
+    "error": { "sound": false, "notification": true },
+    "question": { "sound": false, "notification": true }
   },
   "messages": {
     "permission": "Needs permission",
