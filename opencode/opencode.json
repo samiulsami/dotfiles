@@ -95,15 +95,15 @@
                         "description": "Research agent for web searches and documentation lookups.",
                         "mode": "subagent",
                         "model": "google/antigravity-gemini-3-flash",
-                        "prompt": "Research agent. Be concise.\n\nUse google_search to find information. Use webfetch to read pages if needed.\n\nPriority: official docs > Reddit/SO > blogs",
-                        "tools": { "read": true, "webfetch": true }
+                        "prompt": "Research agent. Be concise.\n\nUse google_search and websearch (Exa) to find information. Use webfetch to read pages if needed.\n\nPriority: official docs > Reddit/SO > blogs",
+                        "tools": { "read": true, "webfetch": true, "google_search": true, "websearch": true }
                 },
                 "explore": {
                         "description": "Fast codebase explorer for file patterns, code search, and structure.",
                         "mode": "subagent",
                         "model": "google/antigravity-gemini-3-flash",
-                        "prompt": "Codebase explorer. Use glob for files, grep for content, read to examine. Be thorough but efficient.",
-                        "tools": { "read": true }
+                        "prompt": "Codebase explorer. Use glob for files, grep for content, read to examine. Use codesearch, websearch (Exa), and google_search for external context. Be thorough but efficient.",
+                        "tools": { "read": true, "google_search": true, "websearch": true, "codesearch": true }
                 }
         },
         "keybinds": {
