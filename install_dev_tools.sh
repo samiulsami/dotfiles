@@ -12,8 +12,6 @@ if [ -z "$XDG_CONFIG_HOME" ] || [ -z "$XDG_DATA_HOME" ]; then
 	exit 1
 fi
 
-echo "[$(date '+%H:%M:%S')] ==> Installing development tools..."
-
 # Java LSP (Eclipse JDTLS). ref: https://github.com/mfussenegger/nvim-jdtls
 echo "[$(date '+%H:%M:%S')] ==> Downloading Eclipse JDTLS..."
 download_eclipse_jdtls() {

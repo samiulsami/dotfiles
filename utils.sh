@@ -60,6 +60,7 @@ run_async() {
 	shift
 
 	read -r -u 3 # Acquire token (blocks if pool is full)
+	printf '\033[36m[%s] ⧖ %s\033[0m\n' "$(date '+%H:%M:%S')" "$desc" >&2
 
 	(
 		# Return token on any exit (signals trigger exit, which triggers this trap)
@@ -68,7 +69,7 @@ run_async() {
 		local out exit_code attempt=1
 		while [[ $attempt -le $MAX_RETRIES ]]; do
 			out=$("$@" 2>&1) && {
-				printf '\033[32m✓ %s\033[0m\n' "$desc" >&2
+				printf '\033[32m[%s] ✓ %s\033[0m\n' "$(date '+%H:%M:%S')" "$desc" >&2
 				exit 0
 			}
 			exit_code=$?
