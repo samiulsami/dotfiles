@@ -76,3 +76,10 @@ gb() {
 		git checkout $force "$selected"
 	fi
 }
+
+# ask ai (opencode shell agent) for a command, then populate buffer for review
+# example usage:
+# ai count the total lines of code in all Golang files in this repo
+ai() {
+	print -z "$(opencode run --agent=shell "$*")"
+}
