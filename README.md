@@ -134,7 +134,7 @@ mvn -version
 
 ### Golang
 ```bash
-go_version=1.25.4
+go_version=1.25.7
 sudo rm -rf /usr/local/go
 mkdir -p $HOME/Downloads
 cd $HOME/Downloads
