@@ -1,19 +1,21 @@
 {
         "$schema": "https://opencode.ai/config.json",
-        "snapshot": false,
         "autoupdate": false,
         "tui": {
                 "scroll_speed": 15
         },
+        "snapshot": false,
         "permission": {
                 "edit": "ask",
                 "webfetch": "ask",
                 "bash": {
+                        "*": "ask",
                         "sudo *": "deny",
                         "rm *": "deny",
                         "* rm *": "deny",
                         "*/rm *": "deny",
-                        "*": "ask",
+                        "eval*": "deny",
+                        "*$(*": "deny",
                         "ls*": "allow",
                         "cat*": "allow",
                         "head*": "allow",
@@ -42,7 +44,6 @@
                         "git show*": "allow",
                         "git branch -D*": "ask",
                         "git branch*": "allow",
-                        "git tag*": "allow",
                         "git remote*": "allow",
                         "git config --get*": "allow",
                         "git config --list*": "allow",
@@ -94,15 +95,15 @@
                         "description": "Research agent for web searches and documentation lookups.",
                         "mode": "subagent",
                         "model": "google/antigravity-gemini-3-flash",
-                        "prompt": "Research agent. Be concise.\n\nUse google_search to find information. Use webfetch to read pages if needed.\n\nPriority: official docs > Reddit/SO > blogs",
-                        "tools": { "read": true, "webfetch": true }
+                        "prompt": "Research agent. Be concise.\n\nUse google_search and websearch (Exa) to find information. Use webfetch to read pages if needed.\n\nPriority: official docs > Reddit/SO > blogs",
+                        "tools": { "read": true, "webfetch": true, "google_search": true, "websearch": true }
                 },
                 "explore": {
                         "description": "Fast codebase explorer for file patterns, code search, and structure.",
                         "mode": "subagent",
                         "model": "google/antigravity-gemini-3-flash",
-                        "prompt": "Codebase explorer. Use glob for files, grep for content, read to examine. Be thorough but efficient.",
-                        "tools": { "read": true }
+                        "prompt": "Codebase explorer. Use glob for files, grep for content, read to examine. Use codesearch, websearch (Exa), and google_search for external context. Be thorough but efficient.",
+                        "tools": { "read": true, "google_search": true, "websearch": true, "codesearch": true }
                 }
         },
         "keybinds": {
@@ -149,11 +150,11 @@
                 "history_next": "down"
         },
         "plugin": [
-                "opencode-antigravity-auth@beta"
+                "opencode-antigravity-auth@beta",
+                "@sahaj-b/opencode-notifier@latest"
         ],
         "provider": {
                 "google": {
-                        "npm": "@ai-sdk/google",
                         "models": {
                                 "antigravity-gemini-3-pro": {
                                         "name": "Gemini 3 Pro (Antigravity)",
@@ -176,7 +177,7 @@
                                         }
                                 },
                                 "antigravity-claude-sonnet-4-5": {
-                                        "name": "Claude Sonnet 4.5 (Antigravity)",
+                                        "name": "Claude Sonnet 4.5 (no thinking) (Antigravity)",
                                         "limit": { "context": 200000, "output": 64000 },
                                         "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
                                 },
@@ -191,6 +192,15 @@
                                 },
                                 "antigravity-claude-opus-4-5-thinking": {
                                         "name": "Claude Opus 4.5 Thinking (Antigravity)",
+                                        "limit": { "context": 200000, "output": 64000 },
+                                        "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] },
+                                        "variants": {
+                                                "low": { "thinkingConfig": { "thinkingBudget": 8192 } },
+                                                "max": { "thinkingConfig": { "thinkingBudget": 32768 } }
+                                        }
+                                },
+                                "antigravity-claude-opus-4-6-thinking": {
+                                        "name": "Claude Opus 4.6 Thinking (Antigravity)",
                                         "limit": { "context": 200000, "output": 64000 },
                                         "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] },
                                         "variants": {

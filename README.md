@@ -64,6 +64,7 @@ sudo ln -sf $HOME/dotfiles/zsh/zshrc $ZDOTDIR/.zshrc
 sudo ln -sf $HOME/dotfiles/starship/starship.toml $XDG_CONFIG_HOME/starship.toml
 sudo ln -sf $HOME/dotfiles/zsh/zsh_functions $ZDOTDIR/zsh_functions
 sudo ln -sf $HOME/dotfiles/opencode/opencode.json $XDG_CONFIG_HOME/opencode/opencode.json
+sudo ln -sf $HOME/dotfiles/opencode/opencode-notifier.json "$XDG_CONFIG_HOME/opencode/opencode-notifier.json"
 
 # zsh plugins
 git clone --depth 1 https://github.com/jeffreytse/zsh-vi-mode.git $ZDOTDIR/.zsh/zsh-vi-mode
