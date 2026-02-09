@@ -16,6 +16,10 @@
                         "*/rm *": "deny",
                         "eval*": "deny",
                         "*$(*": "deny",
+                        "tldr*": "allow",
+                        "man*": "allow",
+                        "* --help": "allow",
+                        "help*": "allow",
                         "ls*": "allow",
                         "cat*": "allow",
                         "head*": "allow",
@@ -104,6 +108,13 @@
                         "model": "google/antigravity-gemini-3-flash",
                         "prompt": "Codebase explorer. Use glob for files, grep for content, read to examine. Use codesearch, websearch (Exa), and google_search for external context. Be thorough but efficient.",
                         "tools": { "read": true, "google_search": true, "websearch": true, "codesearch": true }
+                },
+                "shell": {
+                        "description": "[ONLY FOR USE VIA 'opencode run --agent=shell'. NOT FOR USE AS A SUBAGENT]. Shell expert that outputs concise shell commands using coreutils, fd, ripgrep, and fzf.",
+                        "mode": "primary",
+                        "model": "github-copilot/gpt-4o",
+                        "prompt": "You are a shell expert, proficient in coreutils usage. You also have access to fd, ripgrep, jq, yq (v3.4.3), and fzf. Output ONLY the shell command that achieves the goal. Be VERY concise. NO comments, NO backticks, NO explanations. JUST the shell command.",
+                        "tools": {}
                 }
         },
         "keybinds": {
