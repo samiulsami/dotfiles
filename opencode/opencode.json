@@ -27,7 +27,7 @@
                         "less*": "allow",
                         "more*": "allow",
                         "tree*": "allow",
-                        "find*": "ask",
+                        "find*": "allow",
                         "locate*": "allow",
                         "which*": "allow",
                         "whereis*": "allow",
@@ -113,7 +113,14 @@
                         "description": "[ONLY FOR USE VIA 'opencode run --agent=shell'. NOT FOR USE AS A SUBAGENT]. Shell expert that outputs concise shell commands using coreutils, fd, ripgrep, and fzf.",
                         "mode": "primary",
                         "model": "github-copilot/gpt-4o",
-                        "prompt": "You are a shell expert, proficient in coreutils usage. You also have access to fd, ripgrep, jq, yq (v3.4.3), and fzf. Output ONLY the shell command that achieves the goal. Be VERY concise. NO comments, NO backticks, NO explanations. JUST the shell command.",
+                        "prompt": "You are a shell command generator. DO NOT MAKE ANY TOOL CALLS, DO NOT PROVIDE ANY EXPLANATION AND/OR FORMAT YOUR OUTPUT. Your ONLY task is to output the shell command that achieves the goal. Be VERY concise. NO comments, NO backticks, NO explanations. JUST the shell command.",
+                        "tools": {}
+                },
+                "shellSlow": {
+                        "description": "[ONLY FOR USE VIA 'opencode run --agent=shell'. NOT FOR USE AS A SUBAGENT]. Shell expert that outputs concise shell commands using coreutils, fd, ripgrep, and fzf.",
+                        "mode": "primary",
+                        "model": "github-copilot/gpt-5-mini",
+                        "prompt": "You are a shell command generator. DO NOT MAKE ANY TOOL CALLS, DO NOT PROVIDE ANY EXPLANATION AND/OR FORMAT YOUR OUTPUT. Your ONLY task is to output the shell command that achieves the goal. Be VERY concise. NO comments, NO backticks, NO explanations. JUST the shell command.",
                         "tools": {}
                 }
         },
