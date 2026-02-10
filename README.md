@@ -92,7 +92,7 @@ xdg-open https://github.com/settings/ssh/new
 
 ### restore zsh-shell history (private repo)
 ```bash
-git clone --depth 1 git@github.com:samiulsami/shell-history-backup.git $XDG_DATA_HOME/shell-history-backup
+git clone --depth 1 ssh://git@codeberg.org/samiulsami/shell-history-backup.git $XDG_DATA_HOME/shell-history-backup
 cp $XDG_DATA_HOME/shell-history-backup/zsh_history "$ZDOTDIR/zsh_history"
 ```
 
