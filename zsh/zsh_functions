@@ -80,16 +80,7 @@ gb() {
 # ask ai (opencode shell agent) for a command, then populate buffer for review
 # example usage:
 # ai count the total lines of code in all Golang files in this repo
-# ai -s "find the last commit where the file 'test.lua' contained the word 'blueberry"
+# ai "find the last commit where the file 'test.lua' contained the word 'blueberry'"
 ai() {
-	local agent="shell"
-	if (( $# > 0 )); then
-		local last_arg="${@[-1]}"
-		if [[ "$last_arg" == "-s" ]]; then
-			agent="shellSlow"
-			set -- "${@:1:$(($#-1))}"
-		fi
-	fi
-
-	print -z "$(opencode run --agent=$agent "$*")"
+	print -z "$(opencode run --agent=shell "$*")"
 }
