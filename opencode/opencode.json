@@ -98,21 +98,21 @@
                 "general": {
                         "description": "Research agent for web searches and documentation lookups.",
                         "mode": "subagent",
-                        "model": "google/antigravity-gemini-3-flash",
-                        "prompt": "Research agent. Be concise.\n\nUse google_search and websearch (Exa) to find information. Use webfetch to read pages if needed.\n\nPriority: official docs > Reddit/SO > blogs",
+                        "model": "opencode/minimax-m2.5-free",
+                        "prompt": "Research agent. Be concise.\n\nUse websearch (Exa) to find information. Use webfetch to read pages if needed.\n\nPriority: official docs > Reddit/SO > blogs",
                         "tools": { "read": true, "webfetch": true, "google_search": true, "websearch": true }
                 },
                 "explore": {
                         "description": "Fast codebase explorer for file patterns, code search, and structure.",
                         "mode": "subagent",
-                        "model": "google/antigravity-gemini-3-flash",
-                        "prompt": "Codebase explorer. Use glob for files, grep for content, read to examine. Use codesearch, websearch (Exa), and google_search for external context. Be thorough but efficient.",
+                        "model": "opencode/minimax-m2.5-free",
+                        "prompt": "Codebase explorer. Use glob for files, grep for content, read to examine. Use codesearch, and websearch (Exa) for external context. Be thorough but efficient.",
                         "tools": { "read": true, "google_search": true, "websearch": true, "codesearch": true }
                 },
                 "shell": {
                         "description": "[ONLY FOR USE VIA 'opencode run --agent=shell'. NOT FOR USE AS A SUBAGENT]. Shell expert that outputs concise shell commands using coreutils, fd, ripgrep, and fzf.",
                         "mode": "primary",
-                        "model": "google/gemini-3-flash-preview",
+                        "model": "github-copilot/gpt-4o",
                         "prompt": "You are a shell command generator. DO NOT MAKE ANY TOOL CALLS, DO NOT PROVIDE ANY EXPLANATION AND/OR FORMAT YOUR OUTPUT. Your ONLY task is to output the shell command that achieves the goal. Be VERY concise. NO comments, NO backticks, NO explanations. JUST the shell command.",
                         "tools": {}
                 }
@@ -161,76 +161,6 @@
                 "history_next": "down"
         },
         "plugin": [
-                "opencode-antigravity-auth@beta",
                 "@sahaj-b/opencode-notifier@latest"
         ],
-        "provider": {
-                "google": {
-                        "models": {
-                                "antigravity-gemini-3-pro": {
-                                        "name": "Gemini 3 Pro (Antigravity)",
-                                        "limit": { "context": 1048576, "output": 65535 },
-                                        "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] },
-                                        "variants": {
-                                                "low": { "thinkingLevel": "low" },
-                                                "high": { "thinkingLevel": "high" }
-                                        }
-                                },
-                                "antigravity-gemini-3-flash": {
-                                        "name": "Gemini 3 Flash (Antigravity)",
-                                        "limit": { "context": 1048576, "output": 65536 },
-                                        "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] },
-                                        "variants": {
-                                                "minimal": { "thinkingLevel": "minimal" },
-                                                "low": { "thinkingLevel": "low" },
-                                                "medium": { "thinkingLevel": "medium" },
-                                                "high": { "thinkingLevel": "high" }
-                                        }
-                                },
-                                "antigravity-claude-sonnet-4-5": {
-                                        "name": "Claude Sonnet 4.5 (no thinking) (Antigravity)",
-                                        "limit": { "context": 200000, "output": 64000 },
-                                        "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
-                                },
-                                "antigravity-claude-sonnet-4-5-thinking": {
-                                        "name": "Claude Sonnet 4.5 Thinking (Antigravity)",
-                                        "limit": { "context": 200000, "output": 64000 },
-                                        "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] },
-                                        "variants": {
-                                                "low": { "thinkingConfig": { "thinkingBudget": 8192 } },
-                                                "max": { "thinkingConfig": { "thinkingBudget": 32768 } }
-                                        }
-                                },
-                                "antigravity-claude-opus-4-6-thinking": {
-                                        "name": "Claude Opus 4.6 Thinking (Antigravity)",
-                                        "limit": { "context": 200000, "output": 64000 },
-                                        "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] },
-                                        "variants": {
-                                                "low": { "thinkingConfig": { "thinkingBudget": 8192 } },
-                                                "max": { "thinkingConfig": { "thinkingBudget": 32768 } }
-                                        }
-                                },
-                                "gemini-2.5-flash": {
-                                        "name": "Gemini 2.5 Flash (Gemini CLI)",
-                                        "limit": { "context": 1048576, "output": 65536 },
-                                        "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
-                                },
-                                "gemini-2.5-pro": {
-                                        "name": "Gemini 2.5 Pro (Gemini CLI)",
-                                        "limit": { "context": 1048576, "output": 65536 },
-                                        "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
-                                },
-                                "gemini-3-flash-preview": {
-                                        "name": "Gemini 3 Flash Preview (Gemini CLI)",
-                                        "limit": { "context": 1048576, "output": 65536 },
-                                        "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
-                                },
-                                "gemini-3-pro-preview": {
-                                        "name": "Gemini 3 Pro Preview (Gemini CLI)",
-                                        "limit": { "context": 1048576, "output": 65535 },
-                                        "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
-                                }
-                        }
-                }
-        }
 }
