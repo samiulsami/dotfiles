@@ -1,5 +1,0 @@
-{
-  "keyMappings": "map <c-d> scrollPageDown\nmap <c-u> scrollPageUp\nmap <a-.> nextTab\nmap <a-,> previousTab\nmap <f> LinkHints.activateModeToOpenInNewTab",
-  "settingsVersion": "2.4.0",
-  "userDefinedLinkHintCss": "div > .vimiumHintMarker {\n  background: white !important;\n  border: 1px solid white !important;\n}\n\ndiv > .vimiumHintMarker span {\n  color: black !important;\n  font-weight: bold;\n  font-size: 14px;\n}"
-}
