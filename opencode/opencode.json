@@ -100,7 +100,7 @@
 			"command": [
 				"sh",
 				"-c",
-				"npx -y mcp-remote https://api.z.ai/api/mcp/web_search_prime/mcp --header \"Authorization: Bearer $Z_AI_API_KEY\""
+				"npx -y mcp-remote https://api.z.ai/api/mcp/web_search_prime/mcp --header \"Authorization: Bearer $(pass show zai/api-key)\""
 			],
 			"timeout": 30000
 		},
@@ -109,7 +109,7 @@
 			"command": [
 				"sh",
 				"-c",
-				"npx -y mcp-remote https://api.z.ai/api/mcp/web_reader/mcp --header \"Authorization: Bearer $Z_AI_API_KEY\""
+				"npx -y mcp-remote https://api.z.ai/api/mcp/web_reader/mcp --header \"Authorization: Bearer $(pass show zai/api-key)\""
 			],
 			"timeout": 30000
 		},
@@ -118,7 +118,7 @@
 			"command": [
 				"sh",
 				"-c",
-				"npx -y mcp-remote https://api.z.ai/api/mcp/zread/mcp --header \"Authorization: Bearer $Z_AI_API_KEY\""
+				"npx -y mcp-remote https://api.z.ai/api/mcp/zread/mcp --header \"Authorization: Bearer $(pass show zai/api-key)\""
 			],
 			"timeout": 30000
 		},
@@ -127,7 +127,7 @@
 			"command": [
 				"sh",
 				"-c",
-				"Z_AI_API_KEY=$Z_AI_API_KEY Z_AI_MODE=ZAI npx -y @z_ai/mcp-server"
+				"Z_AI_API_KEY=$(pass show zai/api-key) Z_AI_MODE=ZAI npx -y @z_ai/mcp-server"
 			],
 			"timeout": 30000
 		}
