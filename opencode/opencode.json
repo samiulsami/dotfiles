@@ -94,59 +94,27 @@
 			"helm version*": "allow"
 		}
 	},
-	"mcp": {
-		"zai-web-search": {
-			"type": "local",
-			"command": [
-				"sh",
-				"-c",
-				"npx -y mcp-remote https://api.z.ai/api/mcp/web_search_prime/mcp --header \"Authorization: Bearer $(pass show zai/api-key)\""
-			]
-		},
-		"zai-web-reader": {
-			"type": "local",
-			"command": [
-				"sh",
-				"-c",
-				"npx -y mcp-remote https://api.z.ai/api/mcp/web_reader/mcp --header \"Authorization: Bearer $(pass show zai/api-key)\""
-			]
-		},
-		"zai-zread": {
-			"type": "local",
-			"command": [
-				"sh",
-				"-c",
-				"npx -y mcp-remote https://api.z.ai/api/mcp/zread/mcp --header \"Authorization: Bearer $(pass show zai/api-key)\""
-			]
-		}
-	},
 	"agent": {
 		"general": {
-			"description": "Research agent for web searches and documentation lookups.",
+			"description": "Research agent for web searches and documentation lookups. Uses Exa search as primary source.",
 			"mode": "subagent",
 			"model": "zai-coding-plan/glm-4.7",
-			"prompt": "Research agent. Be concise.\n\nSearch tools priority:\n1. websearch (Exa) - fast, good for recent info\n2. zai-web-search/webSearchPrime (Z.ai) - alternative search\n3. zai-web-reader/webReader - read specific pages deeply\n4. zai-zread/search_doc - for GitHub repos\n5. webfetch - fallback for page content\n\nPriority: official docs > Reddit/SO > blogs",
+			"prompt": "Research agent. Be concise.\n\nSearch tools priority:\n1. websearch (Exa) - PRIMARY for all searches\n2. webfetch - SPARINGLY, only for specific page content when Exa results need more detail\n\nPriority: official docs > Reddit/SO > blogs",
 			"tools": {
 				"read": true,
 				"webfetch": true,
-				"websearch": true,
-				"zai-web-search": true,
-				"zai-web-reader": true,
-				"zai-zread": true
+				"websearch": true
 			}
 		},
 		"explore": {
-			"description": "Fast codebase explorer for file patterns, code search, and structure.",
+			"description": "Fast codebase explorer for file patterns, code search, and structure. Uses Exa search for external context.",
 			"mode": "subagent",
 			"model": "zai-coding-plan/glm-4.7",
-			"prompt": "Codebase explorer. Use glob for files, grep for content, read to examine.\n\nExternal context tools:\n- codesearch (Exa) - programming docs/examples\n- websearch (Exa) - general web search\n- zai-web-search/webSearchPrime (Z.ai) - alternative search\n- zai-web-reader/webReader - read specific pages\n- zai-zread - explore GitHub repos (search_doc, get_repo_structure, read_file)\n\nBe thorough but efficient.",
+			"prompt": "Codebase explorer. Use glob for files, grep for content, read to examine.\n\nExternal context tools:\n- codesearch (Exa) - PRIMARY for programming docs/examples\n- websearch (Exa) - PRIMARY for general web search\n- webfetch - SPARINGLY, only when Exa results need more detail\n\nBe thorough but efficient.",
 			"tools": {
 				"read": true,
 				"websearch": true,
-				"codesearch": true,
-				"zai-web-search": true,
-				"zai-web-reader": true,
-				"zai-zread": true
+				"codesearch": true
 			}
 		},
 		"shell": {
