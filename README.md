@@ -4,7 +4,7 @@
 ```bash
 sudo apt update && sudo apt install -y \
   build-essential libunwind-dev binutils-dev git curl wget zsh tmux fd-find bat ripgrep zoxide npm \
-  libnotify-bin wofi dunst pavucontrol blueman brightnessctl git-gui \
+  libnotify-bin pass wofi dunst pavucontrol blueman brightnessctl git-gui \
   docker.io cmake gettext unzip xclip nvme-cli \
   sway swaylock swayidle swaybg waybar grim slurp wl-clipboard cliphist xdg-desktop-portal-wlr
 
@@ -89,6 +89,12 @@ sudo ln -sf $HOME/dotfiles/sway/config $XDG_CONFIG_HOME/sway/config
 # waybar
 sudo ln -sf $HOME/dotfiles/waybar/config $XDG_CONFIG_HOME/waybar/config
 sudo ln -sf $HOME/dotfiles/waybar/style.css $XDG_CONFIG_HOME/waybar/style.css
+```
+
+### Setup pass with gpg key
+```bash
+gpg --full-generate-key --keyid-format long # follow the prompts to generate a new key
+pass init < press tab to complete with gpg key> # or copy paste the key id (below sec)
 ```
 
 ### JetBrainsMono Nerd Font
