@@ -45,7 +45,7 @@ bindsym $mod+Shift+c exec cliphist list | wofi -S dmenu | cliphist decode | wl-c
 floating_modifier $mod normal
 
 # Keybindings
-bindsym $mod+Return exec ghostty
+bindsym $mod+Return exec wezterm
 bindsym $mod+Shift+w kill
 bindsym $mod+d exec "pidof wofi || (swaymsg fullscreen disable; wofi)"
 
