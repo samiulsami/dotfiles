@@ -3,7 +3,7 @@
 ### APT Packages
 ```bash
 sudo apt update && sudo apt install -y \
-  build-essential libunwind-dev binutils-dev git curl wget zsh fd-find bat ripgrep zoxide npm \
+  build-essential libunwind-dev binutils-dev mpv git curl wget zsh fd-find bat ripgrep zoxide npm \
   libnotify-bin pass wofi dunst pavucontrol blueman brightnessctl git-gui \
   docker.io cmake gettext unzip xclip nvme-cli \
   sway swaylock swayidle swaybg waybar grim slurp wl-clipboard cliphist xdg-desktop-portal-wlr
