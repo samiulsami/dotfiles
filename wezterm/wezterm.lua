@@ -44,7 +44,7 @@ config.window_background_opacity = 0.92
 config.font_size = 11
 config.harfbuzz_features = { "calt=0", "liga=0", "dlig=0" }
 
-config.scrollback_lines = 100000
+config.scrollback_lines = 10000
 config.enable_csi_u_key_encoding = true
 
 config.enable_tab_bar = false
@@ -54,7 +54,6 @@ config.inactive_pane_hsb = {
 	brightness = 1,
 }
 
-config.animation_fps = 1
 config.cursor_blink_ease_in = "Linear"
 config.cursor_blink_ease_out = "Linear"
 config.visual_bell = {}
