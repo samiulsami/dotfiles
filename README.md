@@ -33,11 +33,9 @@ sudo apt update && sudo apt install cloudflare-warp -y
 sudo warp-cli registration new
 ```
 
-### WezTerm
+### Foot
 ```bash
-curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --yes --dearmor -o /usr/share/keyrings/wezterm-fury.gpg
-echo "deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *"| sudo tee /etc/apt/sources.list.d/wezterm.list
-sudo apt update && sudo apt install wezterm -y
+sudo apt install foot
 ```
 
 ### Tmux (with SIXEL support)
@@ -68,12 +66,12 @@ export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
 export ZDOTDIR=${ZDOTDIR:-$HOME/.config/zsh}
 
-mkdir -p $XDG_CONFIG_HOME/{wofi,zsh,dunst,sway,waybar,wezterm,opencode,tmux} $XDG_CONFIG_HOME/tmux/plugins/
+mkdir -p $XDG_CONFIG_HOME/{wofi,zsh,dunst,sway,waybar,foot,opencode,tmux} $XDG_CONFIG_HOME/tmux/plugins/
 
-# symlink config files for wofi, dunst, wezterm, tmux, zsh, starship, opencode
+# symlink config files for wofi, dunst, foot, tmux, zsh, starship, opencode
 sudo ln -sf $HOME/dotfiles/wofi/config $XDG_CONFIG_HOME/wofi/config
 sudo ln -sf $HOME/dotfiles/dunst/dunstrc $XDG_CONFIG_HOME/dunst/dunstrc
-sudo ln -sf $HOME/dotfiles/wezterm/wezterm.lua $XDG_CONFIG_HOME/wezterm/wezterm.lua
+sudo ln -sf $HOME/dotfiles/foot/foot.ini $XDG_CONFIG_HOME/foot/foot.ini
 sudo ln -sf $HOME/dotfiles/tmux/tmux.conf $XDG_CONFIG_HOME/tmux/tmux.conf
 sudo ln -sf $HOME/dotfiles/zsh/zshenv $HOME/.zshenv
 sudo ln -sf $HOME/dotfiles/zsh/zshrc $ZDOTDIR/.zshrc
