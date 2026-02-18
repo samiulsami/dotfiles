@@ -77,6 +77,15 @@ gb() {
 	fi
 }
 
+# play video in terminal via sixel output
+mpvt() {
+	if (($# == 0)); then
+		echo "Usage: mpvt <file> [mpv-options...]"
+		return 1
+	fi
+	mpv -vo=sixel --vo-sixel-buffered --profile=sw-fast --really-quiet "$@"
+}
+
 # ask ai (opencode shell agent) for a command, then populate buffer for review
 # example usage:
 # ai count the total lines of code in all Golang files in this repo
