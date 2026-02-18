@@ -156,9 +156,13 @@ export MAVEN_HOME=/usr/lib/mvn/maven
 export PATH=$MAVEN_HOME/bin:$PATH
 export PATH=$HOME/.local/share/coursier/bin:$PATH
 export NVIM_NO_TRANSPARENCY=true
+
 export OPENCODE_ENABLE_EXA=true
 export PATH=$HOME/.opencode/bin:$PATH
+
 . "$HOME/.cargo/env"
+
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 FNM_PATH="$XDG_DATA_HOME/fnm"
 if [ -d "$FNM_PATH" ]; then
