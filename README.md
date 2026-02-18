@@ -3,7 +3,7 @@
 ### APT Packages
 ```bash
 sudo apt update && sudo apt install -y \
-  build-essential libunwind-dev binutils-dev git curl wget zsh tmux fd-find bat ripgrep zoxide npm \
+  build-essential libunwind-dev binutils-dev git curl wget zsh fd-find bat ripgrep zoxide npm \
   libnotify-bin pass wofi dunst pavucontrol blueman brightnessctl git-gui \
   docker.io cmake gettext unzip xclip nvme-cli \
   sway swaylock swayidle swaybg waybar grim slurp wl-clipboard cliphist xdg-desktop-portal-wlr
@@ -38,6 +38,22 @@ sudo warp-cli registration new
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)"
 sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/bin/ghostty 50
 sudo update-alternatives --config x-terminal-emulator
+```
+
+### Tmux (with SIXEL support)
+```bash
+git clone --depth 1 https://github.com/tmux/tmux.git $HOME/tmux
+cd $HOME/tmux
+./autogen.sh
+./configure --enable-sixel
+make
+sudo make install
+cd $HOME/dotfiles
+```
+
+Verify SIXEL support:
+```bash
+tmux display-message -p '#{sixel_support}'
 ```
 
 ### Starship
