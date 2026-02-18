@@ -4,7 +4,7 @@
 - <b>Display Manager</b>: gdm
 - <b>Window Manager</b>: hyprland
 - <b>Desktop Environment</b>: gnome
-- <b>Terminal</b>: ghostty
+- <b>Terminal</b>: foot
 - <b>Shell</b>: zsh + tmux
 - <b>Editor</b>: neovim
 
@@ -29,7 +29,7 @@
 ```bash
 set -euo pipefail
 
-shell=(zsh starship tmux ghostty fzf fd bat ripgrep zoxide lsd tealdeer ouch jq socat)
+shell=(zsh starship tmux foot fzf fd bat ripgrep zoxide lsd tealdeer ouch jq socat)
 hypr=(hyprland hyprpaper hypridle hyprlock hyprpolkitagent waybar wofi dunst libnotify grim slurp swappy satty wl-clipboard cliphist xdg-desktop-portal-wlr)
 gnome=(gdm gnome-shell gnome-control-center gnome-keyring gnome-shell-extension-dash-to-panel nautilus gvfs)
 system=(pipewire wireplumber pavucontrol bluez bluez-utils pass networkmanager brightnessctl tlp nvme-cli)
