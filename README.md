@@ -33,13 +33,6 @@ sudo apt update && sudo apt install cloudflare-warp -y
 sudo warp-cli registration new
 ```
 
-### Ghostty
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)"
-sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/bin/ghostty 50
-sudo update-alternatives --config x-terminal-emulator
-```
-
 ### WezTerm
 ```bash
 curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --yes --dearmor -o /usr/share/keyrings/wezterm-fury.gpg
@@ -75,12 +68,11 @@ export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
 export ZDOTDIR=${ZDOTDIR:-$HOME/.config/zsh}
 
-mkdir -p $XDG_CONFIG_HOME/{wofi,zsh,dunst,sway,waybar,ghostty,wezterm,opencode,tmux} $XDG_CONFIG_HOME/tmux/plugins/
+mkdir -p $XDG_CONFIG_HOME/{wofi,zsh,dunst,sway,waybar,wezterm,opencode,tmux} $XDG_CONFIG_HOME/tmux/plugins/
 
-# symlink config files for wofi, dunst, ghostty, wezterm, tmux, zsh, starship, opencode
+# symlink config files for wofi, dunst, wezterm, tmux, zsh, starship, opencode
 sudo ln -sf $HOME/dotfiles/wofi/config $XDG_CONFIG_HOME/wofi/config
 sudo ln -sf $HOME/dotfiles/dunst/dunstrc $XDG_CONFIG_HOME/dunst/dunstrc
-sudo ln -sf $HOME/dotfiles/ghostty/config $XDG_CONFIG_HOME/ghostty/config
 sudo ln -sf $HOME/dotfiles/wezterm/wezterm.lua $XDG_CONFIG_HOME/wezterm/wezterm.lua
 sudo ln -sf $HOME/dotfiles/tmux/tmux.conf $XDG_CONFIG_HOME/tmux/tmux.conf
 sudo ln -sf $HOME/dotfiles/zsh/zshenv $HOME/.zshenv
