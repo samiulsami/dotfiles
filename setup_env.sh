@@ -21,7 +21,7 @@ if [ "$SHELL" != "$(readlink -f "$(which zsh)")" ]; then
 fi
 
 echo "[$(date '+%H:%M:%S')] ==> Creating configuration directories..."
-mkdir -p "$XDG_CONFIG_HOME"/{dunst,foot,opencode,tmux,fontconfig/conf.d,hypr,wofi,waybar,environment.d} "$ZDOTDIR" "$XDG_CONFIG_HOME/tmux/plugins/" "$HOME/go"
+mkdir -p "$XDG_CONFIG_HOME"/{dunst,foot,opencode,tmux,fontconfig/conf.d,hypr,wofi,waybar,environment.d} "$ZDOTDIR" "$XDG_CONFIG_HOME/tmux/plugins/" "$HOME/go" "$HOME/.gemini/policies"
 
 echo "[$(date '+%H:%M:%S')] ==> Configuring git email addresses..."
 echo ""
@@ -54,6 +54,8 @@ ln -sf "$DOTFILES_DIR/starship/starship.toml" "$XDG_CONFIG_HOME/starship.toml"
 ln -sf "$DOTFILES_DIR/opencode/opencode.json" "$XDG_CONFIG_HOME/opencode/opencode.json"
 ln -sf "$DOTFILES_DIR/opencode/opencode-notifier.json" "$XDG_CONFIG_HOME/opencode/opencode-notifier.json"
 ln -sf "$DOTFILES_DIR/opencode/AGENTS.md" "$XDG_CONFIG_HOME/opencode/AGENTS.md"
+ln -sf "$DOTFILES_DIR/gemini/settings.json" "$HOME/.gemini/settings.json"
+ln -sf "$DOTFILES_DIR/gemini/gemini-rules.toml" "$HOME/.gemini/policies/gemini-rules.toml"
 ln -sf "$DOTFILES_DIR/ideavimrc/.ideavimrc" "$HOME/.ideavimrc"
 ln -sf "$DOTFILES_DIR/fontconfig/01-emoji.conf" "$XDG_CONFIG_HOME/fontconfig/conf.d/01-emoji.conf"
 

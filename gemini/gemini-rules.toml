@@ -1,0 +1,135 @@
+# Default ask for editing and web fetching
+[[rule]]
+toolName = "replace"
+decision = "ask_user"
+priority = 10
+
+[[rule]]
+toolName = "write_file"
+decision = "ask_user"
+priority = 10
+
+[[rule]]
+toolName = "web_fetch"
+decision = "ask_user"
+priority = 10
+
+# Default ask for shell commands
+[[rule]]
+toolName = "run_shell_command"
+decision = "ask_user"
+priority = 10
+
+# Deny rules from opencode bash permissions (highest priority)
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "sudo"
+decision = "deny"
+deny_message = "Sudo is strictly blocked by policy."
+priority = 1000
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "rm"
+decision = "deny"
+deny_message = "rm is strictly blocked by policy."
+priority = 1000
+
+[[rule]]
+toolName = "run_shell_command"
+argsPattern = '"command":".* rm .*"'
+decision = "deny"
+deny_message = "rm is strictly blocked by policy."
+priority = 1000
+
+[[rule]]
+toolName = "run_shell_command"
+argsPattern = '"command":".*/rm .*"'
+decision = "deny"
+deny_message = "rm is strictly blocked by policy."
+priority = 1000
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "eval"
+decision = "deny"
+deny_message = "eval is blocked by policy."
+priority = 1000
+
+[[rule]]
+toolName = "run_shell_command"
+argsPattern = '"command":".*\\$\\(.*"'
+decision = "deny"
+deny_message = "Command substitution is blocked by policy."
+priority = 1000
+
+# Specific ask rule from opencode: git branch -D*
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "git branch -D"
+decision = "ask_user"
+priority = 500
+
+# Allow rules from opencode bash permissions (medium priority)
+[[rule]]
+toolName = "run_shell_command"
+argsPattern = '"command":".* --help"'
+decision = "allow"
+priority = 100
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = [
+    "tldr", "man", "help", "ls", "cat", "head", "tail", "less", "more", "tree",
+    "find", "locate", "which", "whereis", "pwd", "df", "stat", "ps", "file",
+    "grep", "pgrep", "rg", "sort", "uniq", "wc", "top", "jobs", "whoami",
+    "groups", "uname", "uptime", "date"
+]
+decision = "allow"
+priority = 100
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = [
+    "git status", "git diff", "git log", "git show", "git branch",
+    "git remote", "git config --get", "git config --list", "git blame",
+    "git ls-files"
+]
+decision = "allow"
+priority = 100
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = [
+    "kubectl get", "kubectl describe", "kubectl logs", "kubectl explain",
+    "kubectl version", "kubectl config view", "kubectl config current-context",
+    "kubectl config get-contexts", "kubectl top", "kubectl api-resources"
+]
+decision = "allow"
+priority = 100
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = [
+    "docker ps", "docker images", "docker logs", "docker inspect",
+    "docker version", "docker info", "docker history", "docker stats"
+]
+decision = "allow"
+priority = 100
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = [
+    "npm list", "npm info", "pip list", "pip show", "cargo --version",
+    "go version", "java -version", "node --version", "python --version"
+]
+decision = "allow"
+priority = 100
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = [
+    "helm list", "helm status", "helm get", "helm history", "helm version"
+]
+decision = "allow"
+priority = 100
