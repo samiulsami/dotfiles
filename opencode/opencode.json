@@ -98,7 +98,7 @@
 		"general": {
 			"description": "Research agent for web searches and documentation lookups. Uses Exa search as primary source.",
 			"mode": "subagent",
-			"model": "zai-coding-plan/glm-4.7",
+			"model": "zai-coding-plan/glm-5",
 			"prompt": "Research agent. Be concise.\n\nSearch tools priority:\n1. websearch (Exa) - PRIMARY for all searches\n2. webfetch - SPARINGLY, only for specific page content when Exa results need more detail\n\nPriority: official docs > Reddit/SO > blogs",
 			"tools": {
 				"read": true,
@@ -109,7 +109,7 @@
 		"explore": {
 			"description": "Fast codebase explorer for file patterns, code search, and structure. Uses Exa search for external context.",
 			"mode": "subagent",
-			"model": "zai-coding-plan/glm-4.7",
+			"model": "zai-coding-plan/glm-5",
 			"prompt": "Codebase explorer. Use glob for files, grep for content, read to examine.\n\nExternal context tools:\n- codesearch (Exa) - PRIMARY for programming docs/examples\n- websearch (Exa) - PRIMARY for general web search\n- webfetch - SPARINGLY, only when Exa results need more detail\n\nBe thorough but efficient.",
 			"tools": {
 				"read": true,
