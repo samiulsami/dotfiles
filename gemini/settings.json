@@ -1,0 +1,83 @@
+{
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    },
+    "disableYoloMode": true,
+    "blockGitExtensions": true,
+    "folderTrust": {
+      "enabled": false
+    },
+    "environmentVariableRedaction": {
+      "enabled": true
+    },
+    "experimental": {
+      "enableAgents": true
+    }
+  },
+  "general": {
+    "vimMode": true,
+    "enableAutoUpdate": false,
+    "debugKeystrokeLogging": true,
+    "sessionRetention": {
+      "enabled": true
+    },
+    "enablePromptCompletion": true
+  },
+  "ui": {
+    "customThemes": {
+      "MyCustomTheme": {
+        "name": "MyCustomTheme",
+        "type": "custom",
+        "background": {
+          "primary": "#ffffff"
+        },
+        "text": {
+          "primary": "#f0f0f0",
+          "secondary": "#ffffff"
+        }
+      }
+    },
+    "theme": "ANSI",
+    "autoThemeSwitching": false,
+    "useBackgroundColor": true,
+    "terminalBackgroundPollingInterval": 1
+  },
+  "keybindings": [
+    {
+      "command": "terminal.openEditor",
+      "key": "ctrl+x"
+    }
+  ],
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "name": "permission-notify",
+            "type": "command",
+            "command": "sh -c 'if grep -q ToolPermission; then notify-send \"Gemini CLI\" \"Needs permission\"; fi'"
+          }
+        ]
+      }
+    ],
+    "AfterAgent": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "name": "reply-notify",
+            "type": "command",
+            "command": "notify-send \"Gemini CLI\" \"Has finished\""
+          }
+        ]
+      }
+    ]
+  },
+  "tools": {
+    "shell": {
+      "showColor": true
+    }
+  }
+}
