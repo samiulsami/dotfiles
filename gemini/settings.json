@@ -11,9 +11,7 @@
     "environmentVariableRedaction": {
       "enabled": true
     },
-    "experimental": {
-      "enableAgents": true
-    }
+    "enablePermanentToolApproval": true
   },
   "general": {
     "vimMode": true,
@@ -22,7 +20,9 @@
     "sessionRetention": {
       "enabled": true
     },
-    "enablePromptCompletion": true
+    "enablePromptCompletion": false,
+    "defaultApprovalMode": "default",
+    "preferredEditor": "neovim"
   },
   "ui": {
     "customThemes": {
@@ -41,7 +41,16 @@
     "theme": "ANSI",
     "autoThemeSwitching": false,
     "useBackgroundColor": true,
-    "terminalBackgroundPollingInterval": 1
+    "terminalBackgroundPollingInterval": 60,
+    "showMemoryUsage": true,
+    "showModelInfoInChat": true,
+    "showCitations": true,
+    "hideFooter": false,
+    "footer": {
+      "hideContextPercentage": false
+    },
+    "hideBanner": false,
+    "inlineThinkingMode": "full"
   },
   "keybindings": [
     {
@@ -78,6 +87,16 @@
   "tools": {
     "shell": {
       "showColor": true
-    }
+    },
+    "disableLLMCorrection": false
+  },
+  "output": {
+    "format": "text"
+  },
+  "experimental": {
+    "plan": true
+  },
+  "model": {
+    "disableLoopDetection": true
   }
 }
