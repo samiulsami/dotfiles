@@ -3,10 +3,9 @@
 # Verify required tools exist before running setup scripts.
 
 REQUIRED_CMDS=(
-        git wget curl tmux sed ln mkdir xrandr awk
-        go make tar gzip sudo systemctl groupadd usermod
-        cp rm grep chsh readlink which zsh tlp
-        socat jq pactl brightnessctl wl-copy fzf fd bat zoxide dunstctl grim slurp swappy
+        git wget curl tmux sed ln mkdir awk
+        make tar gzip cp rm grep chsh readlink which zsh
+        jq fzf fd bat zoxide nvim tex termux-info
 )
 
 missing=()

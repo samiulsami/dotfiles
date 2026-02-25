@@ -20,9 +20,11 @@
     "enableAutoUpdate": false,
     "debugKeystrokeLogging": true,
     "sessionRetention": {
-      "enabled": true
+      "enabled": true,
+      "maxAge": "30d",
+      "warningAcknowledged": true
     },
-    "enablePromptCompletion": true
+    "enablePromptCompletion": false
   },
   "ui": {
     "customThemes": {
@@ -49,35 +51,13 @@
       "key": "ctrl+x"
     }
   ],
-  "hooks": {
-    "Notification": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "name": "permission-notify",
-            "type": "command",
-            "command": "sh -c 'if grep -q ToolPermission; then notify-send \"Gemini CLI\" \"Needs permission\"; fi'"
-          }
-        ]
-      }
-    ],
-    "AfterAgent": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "name": "reply-notify",
-            "type": "command",
-            "command": "notify-send \"Gemini CLI\" \"Has finished\""
-          }
-        ]
-      }
-    ]
-  },
   "tools": {
     "shell": {
       "showColor": true
     }
+  },
+  "model": {
+    "name": "gemini-3.1-pro-preview"
   }
 }
+

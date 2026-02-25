@@ -2,7 +2,7 @@
 
 # Source shared utilities
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-echo "Requires sudo privileges for setting up the environment"
+source "$SCRIPT_DIR/check_requirements.sh"
 source "$SCRIPT_DIR/utils.sh"
 
 if [ -z "$XDG_CONFIG_HOME" ] || [ -z "$XDG_DATA_HOME" ]; then
@@ -17,11 +17,11 @@ echo "[$(date '+%H:%M:%S')] ==> Using ZDOTDIR at $ZDOTDIR"
 # Change shell to zsh if not already
 if [ "$SHELL" != "$(readlink -f "$(which zsh)")" ]; then
 	echo "[$(date '+%H:%M:%S')] ==> Setting default shell to zsh..."
-	chsh -s "$(readlink -f "$(which zsh)")"
+	chsh -s zsh
 fi
 
 echo "[$(date '+%H:%M:%S')] ==> Creating configuration directories..."
-mkdir -p "$XDG_CONFIG_HOME"/{dunst,foot,opencode,tmux,fontconfig/conf.d,hypr,wofi,waybar,environment.d} "$ZDOTDIR" "$XDG_CONFIG_HOME/tmux/plugins/" "$HOME/go" "$HOME/.gemini/policies"
+mkdir -p "$XDG_CONFIG_HOME"/{tmux,environment.d} "$ZDOTDIR" "$XDG_CONFIG_HOME/tmux/plugins/" "$HOME/go" "$HOME/.gemini/policies"
 
 echo "[$(date '+%H:%M:%S')] ==> Configuring git email addresses..."
 echo ""
@@ -40,24 +40,17 @@ if [ -n "$PERSONAL_EMAIL" ] && [ -n "$WORK_EMAIL" ]; then
 	sed -i "s/email = .*/email = $WORK_EMAIL/" "$HOME/.gitconfig-work"
 fi
 
-echo "[$(date '+%H:%M:%S')] ==> Creating ~/.zshenv for TTY support..."
-echo "export ZDOTDIR=\"\$HOME${ZDOTDIR#"$HOME"}\"" >"$HOME/.zshenv"
+echo "[$(date '+%H:%M:%S')] ==> Setting system-wide ZDOTDIR for Termux..."
+echo "export ZDOTDIR=\"\$HOME${ZDOTDIR#"$HOME"}\"" > "$PREFIX/etc/zshenv"
 
 echo "[$(date '+%H:%M:%S')] ==> Setting up symlinks for configuration files..."
 ln -sf "$DOTFILES_DIR/environment.d/xdg.conf" "$XDG_CONFIG_HOME/environment.d/xdg.conf"
-ln -sf "$DOTFILES_DIR/dunst/dunstrc" "$XDG_CONFIG_HOME/dunst/dunstrc"
-ln -sf "$DOTFILES_DIR/foot/foot.ini" "$XDG_CONFIG_HOME/foot/foot.ini"
 ln -sf "$DOTFILES_DIR/tmux/tmux.conf" "$XDG_CONFIG_HOME/tmux/tmux.conf"
 ln -sf "$DOTFILES_DIR/zsh/zshrc" "$ZDOTDIR/.zshrc"
 ln -sf "$DOTFILES_DIR/zsh/zsh_functions" "$ZDOTDIR/zsh_functions"
 ln -sf "$DOTFILES_DIR/starship/starship.toml" "$XDG_CONFIG_HOME/starship.toml"
-ln -sf "$DOTFILES_DIR/opencode/opencode.json" "$XDG_CONFIG_HOME/opencode/opencode.json"
-ln -sf "$DOTFILES_DIR/opencode/opencode-notifier.json" "$XDG_CONFIG_HOME/opencode/opencode-notifier.json"
-ln -sf "$DOTFILES_DIR/opencode/AGENTS.md" "$XDG_CONFIG_HOME/opencode/AGENTS.md"
 ln -sf "$DOTFILES_DIR/gemini/settings.json" "$HOME/.gemini/settings.json"
 ln -sf "$DOTFILES_DIR/gemini/gemini-rules.toml" "$HOME/.gemini/policies/gemini-rules.toml"
-ln -sf "$DOTFILES_DIR/ideavimrc/.ideavimrc" "$HOME/.ideavimrc"
-ln -sf "$DOTFILES_DIR/fontconfig/01-emoji.conf" "$XDG_CONFIG_HOME/fontconfig/conf.d/01-emoji.conf"
 
 echo "[$(date '+%H:%M:%S')] ==> Cloning zsh plugins..."
 run_async "clone zsh-autosuggestions" git_clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions.git "$ZDOTDIR/zsh-autosuggestions"
@@ -68,17 +61,6 @@ run_async "clone zsh-completions" git_clone --depth 1 https://github.com/zsh-use
 echo "[$(date '+%H:%M:%S')] ==> Cloning tmux plugins..."
 run_async "clone tmux-resurrect" git_clone --depth 1 https://github.com/tmux-plugins/tmux-resurrect "$XDG_CONFIG_HOME/tmux/plugins/tmux-resurrect"
 
-echo "[$(date '+%H:%M:%S')] ==> Setting up Hyprland configuration..."
-ln -sf "$DOTFILES_DIR/hyprland/hyprland.conf" "$XDG_CONFIG_HOME/hypr/hyprland.conf"
-ln -sf "$DOTFILES_DIR/hyprland/hyprlock.conf" "$XDG_CONFIG_HOME/hypr/hyprlock.conf"
-ln -sf "$DOTFILES_DIR/hyprland/hypridle.conf" "$XDG_CONFIG_HOME/hypr/hypridle.conf"
-ln -sf "$DOTFILES_DIR/hyprland/hyprpaper.conf" "$XDG_CONFIG_HOME/hypr/hyprpaper.conf"
-ln -sf "$DOTFILES_DIR/hyprland/border-flash.sh" "$XDG_CONFIG_HOME/hypr/border-flash.sh"
-ln -sf "$DOTFILES_DIR/waybar/config" "$XDG_CONFIG_HOME/waybar/config"
-ln -sf "$DOTFILES_DIR/waybar/style.css" "$XDG_CONFIG_HOME/waybar/style.css"
-ln -sf "$DOTFILES_DIR/wofi/config" "$XDG_CONFIG_HOME/wofi/config"
-ln -sf "$DOTFILES_DIR/wofi/style.css" "$XDG_CONFIG_HOME/wofi/style.css"
-
 echo "[$(date '+%H:%M:%S')] ==> Downloading Neovim configuration..."
 run_async "clone nvim config" git_clone https://github.com/samiulsami/nvim.git "$XDG_CONFIG_HOME/nvim"
 
@@ -87,7 +69,5 @@ pidof tmux && tmux source-file "$XDG_CONFIG_HOME/tmux/tmux.conf"
 
 echo
 
-echo "[$(date '+%H:%M:%S')] ==> Configuring Docker..."
-
 echo "[$(date '+%H:%M:%S')] ==> Installation complete!"
-echo "Please reboot for all changes to take effect."
+echo "Please restart Termux for all changes to take effect."

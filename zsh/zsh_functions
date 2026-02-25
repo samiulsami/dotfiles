@@ -1,29 +1,3 @@
-# remove all images matching the patterns
-dockerrmi() {
-	if ! command -v docker >/dev/null; then
-		echo "docker not found"
-		return 1
-	fi
-
-	if (($# == 0)); then
-		echo "Usage: dockerrmi <pattern1> <pattern2> or dockerrmi <pattern1,pattern2,...>"
-		return 1
-	fi
-
-	local patterns_array=()
-	for arg in "$@"; do
-		patterns_array+=("${arg//,/|}")
-	done
-
-	local final_pattern
-	IFS='|' final_pattern="${patterns_array[*]}"
-
-	docker images --format '{{.Repository}}:{{.Tag}} {{.ID}}' \
-		| grep -iE "$final_pattern" \
-		| cut -d' ' -f2 \
-		| xargs -r docker rmi -f
-}
-
 # create and switch to a new tmux session from the current directory
 # works inside tmux sessions
 tns() {
@@ -52,7 +26,7 @@ killports() {
 	fi
 	local ports=$(IFS=,; echo "$*")
 	echo "Killing ports $ports"
-	sudo kill -9 $(sudo lsof -ti :$ports)
+	kill -9 $(lsof -ti :$ports)
 }
 
 # fuzzy search and checkout git local/remote branches
@@ -86,10 +60,4 @@ mpvt() {
 	mpv -vo=sixel --vo-sixel-buffered --profile=sw-fast --really-quiet "$@"
 }
 
-# ask ai (opencode shell agent) for a command, then populate buffer for review
-# example usage:
-# ai count the total lines of code in all Golang files in this repo
-# ai "find the last commit where the file 'test.lua' contained the word 'blueberry'"
-ai() {
-	print -z "$(opencode run --agent=shell "$*")"
-}
+

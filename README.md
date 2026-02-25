@@ -1,68 +1,31 @@
-# dotfiles
+# dotfiles (Termux Edition)
 
 **Core**
-- <b>Display Manager</b>: gdm
-- <b>Window Manager</b>: hyprland
-- <b>Desktop Environment</b>: gnome
-- <b>Terminal</b>: foot
+- <b>Terminal Environment</b>: Termux
 - <b>Shell</b>: zsh + tmux
 - <b>Editor</b>: neovim
 
-**Desktop**
-- <b>Launcher</b>: wofi
-- <b>Notifications</b>: dunst
-- <b>Screenshots</b>: grim + slurp + swappy/satty
-- <b>Files</b>: nautilus
-
-**System**
-- <b>Audio</b>: pavucontrol
-- <b>Bluetooth</b>: bluez
-- <b>Network</b>: NetworkManager
-- <b>VPN</b>: Cloudflare Warp
-
 **Utilities**
-- fzf, fd, bat, ripgrep, zoxide, lsd, etc.
+- fzf, fd, bat, ripgrep, zoxide, lsd, jq, etc.
+- Gemini CLI
 
 ## Package Installation
 
-### pacman and yay
+### Termux pkg
 ```bash
 set -euo pipefail
 
-shell=(zsh starship tmux foot fzf fd bat ripgrep zoxide lsd tealdeer ouch jq socat)
-hypr=(hyprland hyprpaper hypridle hyprlock hyprpolkitagent waybar wofi dunst libnotify grim slurp swappy satty wl-clipboard cliphist xdg-desktop-portal-wlr)
-gnome=(gdm gnome-shell gnome-control-center gnome-keyring gnome-shell-extension-dash-to-panel nautilus gvfs)
-system=(pipewire wireplumber pavucontrol bluez bluez-utils pass networkmanager brightnessctl tlp nvme-cli)
-apps=(atop btop htop systat imv mpv obs-studio zathura zathura-pdf-mupdf)
-dev=(base-devel git curl wget npm cmake gettext docker docker-buildx kubectl helm terraform tree-sitter-cli aws-cli-v2 eksctl gemini)
-lang=(go jdk-openjdk maven rustup clang)
-lsp=(gopls bash-language-server yaml-language-server)
-linter=(golangci-lint shellcheck tflint)
-formatter=(gofumpt stylua shfmt)
-fonts=(ttf-jetbrains-mono-nerd noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra)
-tex=(texlive-basic texlive-latex texlive-latexrecommended texlive-latexextra texlive-fontsrecommended)
+shell=(zsh starship tmux fzf fd bat ripgrep zoxide lsd tealdeer jq socat)
+dev=(git curl wget nodejs neovim termux-api texlive-installer golang python rust build-essential cmake lua51 luajit lsof tree-sitter-parsers stylua proot-distro)
 
-sudo pacman -Syu --disable-download-timeout --needed ${shell[@]} ${hypr[@]} ${gnome[@]} ${system[@]} ${apps[@]} ${dev[@]} ${lang[@]} ${lsp[@]} ${linter[@]} ${formatter[@]} ${fonts[@]} ${tex[@]}
+pkg install -y ${shell[@]} ${dev[@]}
 
-sudo systemctl enable gdm
-
-git clone --depth 1 https://aur.archlinux.org/yay.git /tmp/yay
-cd /tmp/yay
-makepkg -si --noconfirm
-cd - && rm -rf /tmp/yay
-
-yay -S --noconfirm --needed --removemake --cleanafter google-chrome cloudflare-warp-bin kind-bin coursier
-sudo warp-cli registration new
-sudo systemctl disable warp-svc.service
-coursier setup --env
-coursier install metals
-
-curl -fsSL https://opencode.ai/install | bash
+# Install Gemini CLI
+npm install -g @google/gemini-cli --ignore-scripts
 ```
 
 ## Environment Setup
 ### config files, plugins, and tools
-<i>Unattended installation after providing sudo password and email(s)</i>
 ```bash
 chmod +x ./setup_env.sh ./install_dev_tools.sh
 ./setup_env.sh
@@ -76,20 +39,20 @@ set -euo pipefail
 EMAIL=$(git config user.email)
 ssh-keygen -t ed25519 -C "$EMAIL"  # Press enter 3 times
 eval "$(ssh-agent -s)" && ssh-add $HOME/.ssh/id_ed25519
-wl-copy < "$HOME/.ssh/id_ed25519.pub"
+termux-clipboard-set < "$HOME/.ssh/id_ed25519.pub"
 printf "Public key copied. Add it to https://github.com/settings/ssh/new\n(Press enter to open)..."
 read
-xdg-open https://github.com/settings/ssh/new
+termux-open-url https://github.com/settings/ssh/new
 ```
 rsa (legacy)
 ```bash
 EMAIL=$(git config user.email)
 ssh-keygen -t rsa -b 4096 -C "$EMAIL"  # Press enter 3 times
 eval "$(ssh-agent -s)" && ssh-add $HOME/.ssh/id_rsa
-wl-copy < "$HOME/.ssh/id_rsa.pub"
+termux-clipboard-set < "$HOME/.ssh/id_rsa.pub"
 printf "Public key copied. Add it to https://github.com/settings/ssh/new\n(Press enter to open)..."
 read
-xdg-open https://github.com/settings/ssh/new
+termux-open-url https://github.com/settings/ssh/new
 ```
 
 ### restore zsh-shell history (private repo)
@@ -98,15 +61,6 @@ git clone --depth 1 ssh://git@codeberg.org/samiulsami/shell-history-backup.git $
 cp $XDG_DATA_HOME/shell-history-backup/zsh_history "$ZDOTDIR/zsh_history"
 ```
 
-### setup wallpapers directory (private repo)
-```bash
-git clone --depth 1 git@github.com:samiulsami/wallpapers.git $XDG_DATA_HOME/wallpapers
-```
-
 ## TODO
 
 - [ ] NOT automate this with ansible/stow/chezmoi/etc.
-- [ ] Add support for Debian based distros.
-
-### References
-- [https://github.com/sysdevbd/sysdevbd.github.io/tree/master](https://github.com/sysdevbd/sysdevbd.github.io/tree/master)

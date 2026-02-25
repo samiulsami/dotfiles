@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-# Install development tools (language servers, debuggers, etc.)
+# Install development tools
 
 # Source shared utilities
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-echo "Requires sudo privileges for installing some development tools"
+source "$SCRIPT_DIR/check_requirements.sh"
 source "$SCRIPT_DIR/utils.sh"
 
 if [ -z "$XDG_CONFIG_HOME" ] || [ -z "$XDG_DATA_HOME" ]; then
@@ -12,34 +12,8 @@ if [ -z "$XDG_CONFIG_HOME" ] || [ -z "$XDG_DATA_HOME" ]; then
 	exit 1
 fi
 
-# Java LSP (Eclipse JDTLS). ref: https://github.com/mfussenegger/nvim-jdtls
-echo "[$(date '+%H:%M:%S')] ==> Downloading Eclipse JDTLS..."
-download_eclipse_jdtls() {
-	rm -f "$XDG_DATA_HOME/tmp_jdtls.tar.gz"
-	wget --retry-connrefused --waitretry=1 --timeout=20 -t 3 \
-		https://www.eclipse.org/downloads/download.php?file=/jdtls/snapshots/jdt-language-server-latest.tar.gz -O "$XDG_DATA_HOME/tmp_jdtls.tar.gz"
-	rm -rf "$XDG_DATA_HOME/eclipse_jdtls"
-	mkdir -p "$XDG_DATA_HOME/eclipse_jdtls"
-	tar -xzf "$XDG_DATA_HOME/tmp_jdtls.tar.gz" -C "$XDG_DATA_HOME/eclipse_jdtls"
-	rm -f "$XDG_DATA_HOME/tmp_jdtls.tar.gz"
-}
-run_async "download Eclipse JDTLS" download_eclipse_jdtls
-
-# Go tools
-echo "[$(date '+%H:%M:%S')] ==> Installing Go tools..."
-run_async "install gopls" go install golang.org/x/tools/gopls@latest
-
-# Build Neovim from source
-echo "[$(date '+%H:%M:%S')] ==> Cloning Neovim repository..."
-run_async "clone neovim" git_clone --depth 1 https://github.com/neovim/neovim.git "$XDG_DATA_HOME/neovim"
-wait_all
-
-echo "[$(date '+%H:%M:%S')] ==> Building Neovim from source..."
-cd "$XDG_DATA_HOME/neovim" || exit 1
-make CMAKE_BUILD_TYPE=RelWithDebInfo
-sudo make install
-cd "$DOTFILES_DIR"
-sudo rm -rf "$XDG_DATA_HOME/neovim"
+echo "[$(date '+%H:%M:%S')] ==> Installing Gemini CLI..."
+npm install -g @google/gemini-cli --ignore-scripts
 
 echo "[$(date '+%H:%M:%S')] ==> Installing Neovim plugins..."
 nvim --headless "+Lazy! sync" +qa
