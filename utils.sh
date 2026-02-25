@@ -4,15 +4,6 @@
 
 set -euo pipefail
 
-sudo -v
-
-# Keep sudo alive in background for unattended installation
-(while true; do
-	sudo -n true
-	sleep 50
-	kill -0 "$$" || exit
-done) &
-
 # XDG configuration - source from environment.d/xdg.conf
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 while IFS='=' read -r key value; do
@@ -26,7 +17,6 @@ if [[ "$SCRIPT_DIR" != "$DOTFILES_DIR" ]]; then
 	exit 1
 fi
 
-source "$DOTFILES_DIR/check_requirements.sh"
 
 # Async job management with FIFO-based worker pool
 MAX_WORKERS=${MAX_WORKERS:-30}
