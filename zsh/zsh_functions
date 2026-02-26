@@ -60,4 +60,9 @@ mpvt() {
 	mpv -vo=sixel --vo-sixel-buffered --profile=sw-fast --really-quiet "$@"
 }
 
+# Run opencode-ai inside Arch Linux proot container for glibc compatibility
+opencode() {
+	proot-distro login archlinux --termux-home --work-dir "$(pwd)" --env OPENCODE_ENABLE_EXA=true -- opencode "$@"
+}
+
 

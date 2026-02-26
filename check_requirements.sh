@@ -5,7 +5,7 @@
 REQUIRED_CMDS=(
         git wget curl tmux sed ln mkdir awk
         make tar gzip cp rm grep chsh readlink which zsh
-        jq fzf fd bat zoxide nvim tex termux-info
+        jq fzf fd bat zoxide nvim tex termux-info proot-distro
 )
 
 missing=()

@@ -15,6 +15,15 @@ fi
 echo "[$(date '+%H:%M:%S')] ==> Installing Gemini CLI..."
 npm install -g @google/gemini-cli --ignore-scripts
 
+echo "[$(date '+%H:%M:%S')] ==> Setting up Arch Linux Proot for opencode-ai..."
+if ! proot-distro list | grep -q "archlinux.*installed"; then
+	proot-distro install archlinux
+fi
+
+if ! proot-distro login archlinux -- which opencode >/dev/null 2>&1; then
+	proot-distro login archlinux -- bash -c "rm -f /var/lib/pacman/db.lck && pacman -Syu --noconfirm nodejs npm && npm install -g opencode-ai"
+fi
+
 echo "[$(date '+%H:%M:%S')] ==> Installing Neovim plugins..."
 nvim --headless "+Lazy! sync" +qa
 

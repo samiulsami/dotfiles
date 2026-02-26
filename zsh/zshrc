@@ -156,6 +156,8 @@ PATH=$PATH:$HOME/.local/bin
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
 
+export OPENCODE_ENABLE_EXA=true
+
 if command -v nvim >/dev/null; then
         export EDITOR='nvim -f'
         export KUBE_EDITOR='nvim -f'

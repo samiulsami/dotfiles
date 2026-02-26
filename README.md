@@ -7,7 +7,7 @@
 
 **Utilities**
 - fzf, fd, bat, ripgrep, zoxide, lsd, jq, etc.
-- Gemini CLI
+- Gemini CLI, OpenCode
 
 ## Package Installation
 
@@ -60,6 +60,25 @@ termux-open-url https://github.com/settings/ssh/new
 git clone --depth 1 ssh://git@codeberg.org/samiulsami/shell-history-backup.git $XDG_DATA_HOME/shell-history-backup
 cp $XDG_DATA_HOME/shell-history-backup/zsh_history "$ZDOTDIR/zsh_history"
 ```
+
+## Arch Linux Proot (for opencode-ai)
+
+Due to GLIBC incompatibilities in native Termux, `opencode-ai` is run inside an Arch Linux container.
+
+### Setup
+1.  **Install Arch**:
+    ```bash
+    proot-distro install archlinux
+    ```
+2.  **Provision Arch**:
+    ```bash
+    proot-distro login archlinux -- bash -c "pacman -Syu --noconfirm npm && npm install -g opencode-ai"
+    ```
+3.  **Usage**:
+    The `opencode` command is wrapped in `zsh/zsh_functions` to run inside the container automatically while mapping your Termux home directory:
+    ```bash
+    opencode --help
+    ```
 
 ## TODO
 
