@@ -4,7 +4,6 @@ fpath=($ZDOTDIR/zsh-completions/src $fpath)
 autoload -U +X bashcompinit && bashcompinit
 autoload -Uz compinit
 compinit -C
-
 zstyle ':completion:*:git-checkout:*' sort false
 zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
@@ -21,6 +20,9 @@ zstyle ':completion:*' matcher-list '' \
         'r:|?=** m:{a-z\-}={A-Z\_}'
 
 zmodload zsh/complist
+
+bindkey -v
+
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -a "k" .up-line-or-history
