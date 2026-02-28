@@ -62,7 +62,7 @@ mpvt() {
 
 # Run opencode-ai inside Arch Linux proot container for glibc compatibility
 opencode() {
-	proot-distro login archlinux --termux-home --work-dir "$(pwd)" --env OPENCODE_ENABLE_EXA=true -- opencode "$@"
+	proot-distro login archlinux --termux-home --bind "$PWD:$PWD" --work-dir "$PWD" --env OPENCODE_ENABLE_EXA=true -- opencode "$@"
 }
 
 

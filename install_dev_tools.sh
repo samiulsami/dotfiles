@@ -12,9 +12,6 @@ if [ -z "$XDG_CONFIG_HOME" ] || [ -z "$XDG_DATA_HOME" ]; then
 	exit 1
 fi
 
-echo "[$(date '+%H:%M:%S')] ==> Installing Gemini CLI..."
-npm install -g @google/gemini-cli --ignore-scripts
-
 echo "[$(date '+%H:%M:%S')] ==> Setting up Arch Linux Proot for opencode-ai..."
 if ! proot-distro list | grep -q "archlinux.*installed"; then
 	proot-distro install archlinux
