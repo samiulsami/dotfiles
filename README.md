@@ -29,7 +29,7 @@
 ```bash
 set -euo pipefail
 
-shell=(zsh starship tmux foot fzf fd bat ripgrep zoxide lsd tealdeer ouch jq socat)
+shell=(zsh starship tmux foot fzf fd bat ripgrep zoxide tree lsd tealdeer ouch jq socat)
 hypr=(hyprland hyprpaper hypridle hyprlock hyprpolkitagent waybar wofi dunst libnotify grim slurp swappy satty wl-clipboard cliphist xdg-desktop-portal-wlr)
 gnome=(gdm gnome-shell gnome-control-center gnome-keyring gnome-shell-extension-dash-to-panel nautilus gvfs)
 system=(pipewire wireplumber pavucontrol bluez bluez-utils pass networkmanager brightnessctl tlp nvme-cli)
