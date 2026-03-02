@@ -16,7 +16,7 @@
 set -euo pipefail
 
 shell=(zsh starship tmux fzf fd bat ripgrep zoxide lsd tealdeer jq socat)
-dev=(git curl wget nodejs neovim termux-api texlive-installer golang python rust build-essential cmake lua51 luajit lsof tree-sitter-parsers stylua proot-distro)
+dev=(git curl wget nodejs neovim termux-api golang python rust build-essential cmake lua51 luajit lsof tree-sitter-parsers stylua proot-distro)
 
 pkg install -y ${shell[@]} ${dev[@]}
 
@@ -61,9 +61,9 @@ git clone --depth 1 ssh://git@codeberg.org/samiulsami/shell-history-backup.git $
 cp $XDG_DATA_HOME/shell-history-backup/zsh_history "$ZDOTDIR/zsh_history"
 ```
 
-## Arch Linux Proot (for opencode-ai)
+## Arch Linux Proot (for opencode-ai + LaTeX)
 
-Due to GLIBC incompatibilities in native Termux, `opencode-ai` is run inside an Arch Linux container.
+Due to GLIBC incompatibilities in native Termux, tools like `opencode-ai` and `pdflatex` are run inside an Arch Linux container.
 
 ### Setup
 1.  **Install Arch**:
@@ -72,12 +72,13 @@ Due to GLIBC incompatibilities in native Termux, `opencode-ai` is run inside an 
     ```
 2.  **Provision Arch**:
     ```bash
-    proot-distro login archlinux -- bash -c "pacman -Syu --noconfirm npm && npm install -g opencode-ai"
+    proot-distro login archlinux -- bash -lc "rm -f /var/lib/pacman/db.lck && pacman -Syu --noconfirm npm texlive-basic texlive-latex texlive-latexrecommended texlive-latexextra texlive-fontsrecommended && npm install -g opencode-ai"
     ```
 3.  **Usage**:
-    The `opencode` command is wrapped in `zsh/zsh_functions` to run inside the container automatically while mapping your Termux home directory:
+    The `opencode` and `pdflatex` commands are wrapped in `zsh/zsh_functions` to run inside the container automatically while mapping your Termux home directory:
     ```bash
     opencode --help
+    pdflatex -output-directory=/tmp samiul_islam_cv.tex && mv /tmp/samiul_islam_cv.pdf .
     ```
 
 ## TODO

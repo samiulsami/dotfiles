@@ -65,4 +65,13 @@ opencode() {
 	proot-distro login archlinux --termux-home --bind "$PWD:$PWD" --work-dir "$PWD" --env OPENCODE_ENABLE_EXA=true -- opencode "$@"
 }
 
+# Run pdflatex inside Arch Linux proot container
+pdflatex() {
+	if [[ -f /etc/arch-release ]]; then
+		command pdflatex "$@"
+		return
+	fi
+
+	proot-distro login archlinux --termux-home --bind "$PWD:$PWD" --work-dir "$PWD" -- pdflatex "$@"
+}
 
