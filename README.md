@@ -78,6 +78,7 @@ sudo ln -sf $HOME/dotfiles/zsh/zshrc $ZDOTDIR/.zshrc
 sudo ln -sf $HOME/dotfiles/starship/starship.toml $XDG_CONFIG_HOME/starship.toml
 sudo ln -sf $HOME/dotfiles/zsh/zsh_functions $ZDOTDIR/zsh_functions
 sudo ln -sf $HOME/dotfiles/opencode/opencode.json $XDG_CONFIG_HOME/opencode/opencode.json
+sudo ln -sf $HOME/dotfiles/opencode/tui.json $XDG_CONFIG_HOME/opencode/tui.json
 sudo ln -sf $HOME/dotfiles/opencode/opencode-notifier.json $XDG_CONFIG_HOME/opencode/opencode-notifier.json
 sudo ln -sf $HOME/dotfiles/settings.json $HOME/.gemini/settings.json
 sudo ln -sf $HOME/dotfiles/gemini-rules.toml $HOME/.gemini/policies/gemini-rules.toml
