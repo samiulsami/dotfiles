@@ -21,7 +21,7 @@ if [ "$SHELL" != "$(readlink -f "$(which zsh)")" ]; then
 fi
 
 echo "[$(date '+%H:%M:%S')] ==> Creating configuration directories..."
-mkdir -p "$XDG_CONFIG_HOME"/{tmux,environment.d,opencode} "$ZDOTDIR" "$XDG_CONFIG_HOME/tmux/plugins/" "$HOME/go" "$HOME/.gemini/policies"
+mkdir -p "$XDG_CONFIG_HOME"/{tmux,environment.d,opencode,opencode/commands} "$ZDOTDIR" "$XDG_CONFIG_HOME/tmux/plugins/" "$HOME/go" "$HOME/.gemini/policies"
 
 echo "[$(date '+%H:%M:%S')] ==> Configuring git email addresses..."
 echo ""
@@ -53,6 +53,7 @@ ln -sf "$DOTFILES_DIR/gemini/settings.json" "$HOME/.gemini/settings.json"
 ln -sf "$DOTFILES_DIR/gemini/gemini-rules.toml" "$HOME/.gemini/policies/gemini-rules.toml"
 ln -sf "$DOTFILES_DIR/opencode/opencode.json" "$XDG_CONFIG_HOME/opencode/opencode.json"
 ln -sf "$DOTFILES_DIR/opencode/tui.json" "$XDG_CONFIG_HOME/opencode/tui.json"
+ln -sf "$DOTFILES_DIR/opencode/commands/research.md" "$XDG_CONFIG_HOME/opencode/commands/research.md"
 
 echo "[$(date '+%H:%M:%S')] ==> Cloning zsh plugins..."
 run_async "clone zsh-autosuggestions" git_clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions.git "$ZDOTDIR/zsh-autosuggestions"
