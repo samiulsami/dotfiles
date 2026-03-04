@@ -24,24 +24,37 @@ echo "[$(date '+%H:%M:%S')] ==> Creating configuration directories..."
 mkdir -p "$XDG_CONFIG_HOME"/{tmux,environment.d,opencode,opencode/commands} "$ZDOTDIR" "$XDG_CONFIG_HOME/tmux/plugins/" "$HOME/go" "$HOME/.gemini/policies"
 
 echo "[$(date '+%H:%M:%S')] ==> Configuring git email addresses..."
-echo ""
-echo "Personal email will be used for all directories except for $HOME/work/ and its subdirectories."
-echo "Work email will be used for $HOME/work/ and its subdirectories."
-echo "LEAVE EMPTY TO SKIP GIT CONFIGURATION."
-read -rp "Enter your personal email address: " PERSONAL_EMAIL
-read -rp "Enter your work email address: " WORK_EMAIL
+EXISTING_GLOBAL_GIT_EMAIL=$(git config --global --get user.email || true)
+if [ -n "$EXISTING_GLOBAL_GIT_EMAIL" ]; then
+	echo "[$(date '+%H:%M:%S')] ==> Global git email already set to '$EXISTING_GLOBAL_GIT_EMAIL'. Skipping git email setup."
+else
+	echo ""
+	echo "Personal email will be used for all directories except for $HOME/work/ and its subdirectories."
+	echo "Work email will be used for $HOME/work/ and its subdirectories."
+	echo "LEAVE EMPTY TO SKIP GIT CONFIGURATION."
 
-if [ -n "$PERSONAL_EMAIL" ] && [ -n "$WORK_EMAIL" ]; then
-	rm -f "$HOME/.gitconfig" "$HOME/.gitconfig-work"
-	cp "$DOTFILES_DIR/git/.gitconfig" "$HOME/.gitconfig"
-	cp "$DOTFILES_DIR/git/.gitconfig-work" "$HOME/.gitconfig-work"
+	read -rp "Enter your personal email address: " PERSONAL_EMAIL
+	read -rp "Enter your work email address: " WORK_EMAIL
 
-	sed -i "s/email = .*/email = $PERSONAL_EMAIL/" "$HOME/.gitconfig"
-	sed -i "s/email = .*/email = $WORK_EMAIL/" "$HOME/.gitconfig-work"
+	if [ -n "$PERSONAL_EMAIL" ] && [ -z "$WORK_EMAIL" ]; then
+		WORK_EMAIL="$PERSONAL_EMAIL"
+	fi
+
+	if [ -n "$PERSONAL_EMAIL" ]; then
+		rm -f "$HOME/.gitconfig"
+		cp "$DOTFILES_DIR/git/.gitconfig" "$HOME/.gitconfig"
+		sed -i "s/email = .*/email = $PERSONAL_EMAIL/" "$HOME/.gitconfig"
+	fi
+
+	if [ -n "$WORK_EMAIL" ]; then
+		rm -f "$HOME/.gitconfig-work"
+		cp "$DOTFILES_DIR/git/.gitconfig-work" "$HOME/.gitconfig-work"
+		sed -i "s/email = .*/email = $WORK_EMAIL/" "$HOME/.gitconfig-work"
+	fi
 fi
 
 echo "[$(date '+%H:%M:%S')] ==> Setting system-wide ZDOTDIR for Termux..."
-echo "export ZDOTDIR=\"\$HOME${ZDOTDIR#"$HOME"}\"" > "$PREFIX/etc/zshenv"
+echo "export ZDOTDIR=\"\$HOME${ZDOTDIR#"$HOME"}\"" >"$PREFIX/etc/zshenv"
 
 echo "[$(date '+%H:%M:%S')] ==> Setting up symlinks for configuration files..."
 ln -sf "$DOTFILES_DIR/environment.d/xdg.conf" "$XDG_CONFIG_HOME/environment.d/xdg.conf"

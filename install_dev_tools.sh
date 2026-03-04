@@ -12,13 +12,14 @@ if [ -z "$XDG_CONFIG_HOME" ] || [ -z "$XDG_DATA_HOME" ]; then
 	exit 1
 fi
 
-echo "[$(date '+%H:%M:%S')] ==> Setting up Arch Linux Proot for opencode-ai..."
+echo "[$(date '+%H:%M:%S')] ==> Setting up Arch Linux Proot for opencode-ai and LaTeX..."
 if ! proot-distro list | grep -q "archlinux.*installed"; then
 	proot-distro install archlinux
 fi
 
-if ! proot-distro login archlinux -- which opencode >/dev/null 2>&1; then
-	proot-distro login archlinux -- bash -c "rm -f /var/lib/pacman/db.lck && pacman -Syu --noconfirm nodejs npm && npm install -g opencode-ai"
+if ! proot-distro login archlinux -- bash -lc "command -v opencode >/dev/null 2>&1 && command -v pdflatex >/dev/null 2>&1"; then
+	echo "[$(date '+%H:%M:%S')] ==> Provisioning Arch packages..."
+	proot-distro login archlinux -- bash -lc "set -euo pipefail; rm -f /var/lib/pacman/db.lck; pacman -Syu --noconfirm --needed npm texlive-basic texlive-latex texlive-latexrecommended texlive-latexextra texlive-fontsrecommended; if ! command -v opencode >/dev/null 2>&1; then npm install -g opencode-ai; fi"
 fi
 
 echo "[$(date '+%H:%M:%S')] ==> Installing Neovim plugins..."
