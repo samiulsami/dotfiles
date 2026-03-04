@@ -61,11 +61,15 @@ curl -fsSL https://opencode.ai/install | bash
 ```
 
 ## Environment Setup
-### config files, plugins, and tools
-<i>Unattended installation after providing sudo password and email(s)</i>
+### config files, plugins
 ```bash
-chmod +x ./setup_env.sh ./install_dev_tools.sh
+chmod +x ./setup_env.sh
 ./setup_env.sh
+```
+
+### dev tools
+```bash
+chmod +x ./install_dev_tools.sh
 ./install_dev_tools.sh
 ```
 
