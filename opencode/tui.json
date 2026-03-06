@@ -1,8 +1,8 @@
 {
 	"$schema": "https://opencode.ai/tui.json",
-	"scroll_speed": 15,
+	"scroll_speed": 2,
 	"scroll_acceleration": {
-		"enabled": false
+		"enabled": true
 	},
 	"keybinds": {
 		"leader": "ctrl+x",
