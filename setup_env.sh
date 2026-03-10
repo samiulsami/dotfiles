@@ -21,7 +21,11 @@ if [ "$SHELL" != "$(readlink -f "$(which zsh)")" ]; then
 fi
 
 echo "[$(date '+%H:%M:%S')] ==> Creating configuration directories..."
-mkdir -p "$XDG_CONFIG_HOME"/{dunst,foot,opencode,opencode/commands,tmux,fontconfig/conf.d,hypr,wofi,waybar,environment.d} "$ZDOTDIR" "$XDG_CONFIG_HOME/tmux/plugins/" "$HOME/go" "$HOME/.gemini/policies"
+mkdir -p "$XDG_CONFIG_HOME"/{dunst,foot,opencode,opencode/commands,tmux,fontconfig/conf.d,hypr,wofi,waybar,environment.d} \
+	"$ZDOTDIR" \
+	"$XDG_CONFIG_HOME/tmux/plugins/" \
+	"$HOME/go" \
+	"$HOME/.gemini/policies"
 
 EXISTING_GLOBAL_GIT_EMAIL=$(git config --global --get user.email || true)
 if [ -n "$EXISTING_GLOBAL_GIT_EMAIL" ]; then
