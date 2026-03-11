@@ -2,7 +2,6 @@
 
 # Source shared utilities
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$SCRIPT_DIR/check_requirements.sh"
 source "$SCRIPT_DIR/utils.sh"
 
 if [ -z "$XDG_CONFIG_HOME" ] || [ -z "$XDG_DATA_HOME" ]; then
@@ -17,17 +16,21 @@ echo "[$(date '+%H:%M:%S')] ==> Using ZDOTDIR at $ZDOTDIR"
 # Change shell to zsh if not already
 if [ "$SHELL" != "$(readlink -f "$(which zsh)")" ]; then
 	echo "[$(date '+%H:%M:%S')] ==> Setting default shell to zsh..."
-	chsh -s zsh
+	chsh -s "$(readlink -f "$(which zsh)")"
 fi
 
 echo "[$(date '+%H:%M:%S')] ==> Creating configuration directories..."
-mkdir -p "$XDG_CONFIG_HOME"/{tmux,environment.d,opencode,opencode/commands} "$ZDOTDIR" "$XDG_CONFIG_HOME/tmux/plugins/" "$HOME/go" "$HOME/.gemini/policies"
+mkdir -p "$XDG_CONFIG_HOME"/{tmux,environment.d,opencode,opencode/commands} \
+	"$ZDOTDIR" \
+	"$XDG_CONFIG_HOME/tmux/plugins/" \
+	"$HOME/go" \
+	"$HOME/.gemini/policies"
 
-echo "[$(date '+%H:%M:%S')] ==> Configuring git email addresses..."
 EXISTING_GLOBAL_GIT_EMAIL=$(git config --global --get user.email || true)
 if [ -n "$EXISTING_GLOBAL_GIT_EMAIL" ]; then
 	echo "[$(date '+%H:%M:%S')] ==> Global git email already set to '$EXISTING_GLOBAL_GIT_EMAIL'. Skipping git email setup."
 else
+	echo "[$(date '+%H:%M:%S')] ==> Configuring git email addresses..."
 	echo ""
 	echo "Personal email will be used for all directories except for $HOME/work/ and its subdirectories."
 	echo "Work email will be used for $HOME/work/ and its subdirectories."

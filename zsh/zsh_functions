@@ -74,4 +74,3 @@ pdflatex() {
 
 	proot-distro login archlinux --termux-home --bind "$PWD:$PWD" --work-dir "$PWD" -- pdflatex "$@"
 }
-

@@ -4,7 +4,6 @@
 
 # Source shared utilities
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$SCRIPT_DIR/check_requirements.sh"
 source "$SCRIPT_DIR/utils.sh"
 
 if [ -z "$XDG_CONFIG_HOME" ] || [ -z "$XDG_DATA_HOME" ]; then
@@ -13,7 +12,10 @@ if [ -z "$XDG_CONFIG_HOME" ] || [ -z "$XDG_DATA_HOME" ]; then
 fi
 
 echo "[$(date '+%H:%M:%S')] ==> Setting up Arch Linux Proot for opencode-ai and LaTeX..."
-if ! proot-distro list | grep -q "archlinux.*installed"; then
+
+if proot-distro login archlinux -- true >/dev/null 2>&1; then
+	echo "[$(date '+%H:%M:%S')] ==> Arch Linux Proot already installed. Skipping install."
+else
 	proot-distro install archlinux
 fi
 

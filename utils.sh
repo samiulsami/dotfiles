@@ -17,6 +17,8 @@ if [[ "$SCRIPT_DIR" != "$DOTFILES_DIR" ]]; then
 	exit 1
 fi
 
+source "$DOTFILES_DIR/check_requirements.sh"
+
 
 # Async job management with FIFO-based worker pool
 MAX_WORKERS=${MAX_WORKERS:-30}
@@ -33,11 +35,28 @@ rm "$FIFO"
 # Seed the token bucket with MAX_WORKERS tokens
 for ((i = 0; i < MAX_WORKERS; i++)); do echo >&3; done
 
+stop_process_tree() {
+	local pid="$1"
+	local children_file="/proc/$pid/task/$pid/children"
+	local child
+
+	if [[ -r "$children_file" ]]; then
+		for child in $(<"$children_file"); do
+			stop_process_tree "$child"
+		done
+	fi
+
+	kill -9 "$pid" 2>/dev/null || true
+}
+
 # Nuke all child processes and clean up temp files
 cleanup() {
 	trap - EXIT INT TERM
+	local pid
 	exec 3>&- 2>/dev/null || true
-	kill 0 2>/dev/null || true
+	for pid in "${ASYNC_PIDS[@]:-}"; do
+		stop_process_tree "$pid"
+	done
 	rm -f "$FAIL_LOG"
 }
 
