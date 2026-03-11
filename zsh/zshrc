@@ -21,6 +21,9 @@ zstyle ':completion:*' matcher-list '' \
         'r:|?=** m:{a-z\-}={A-Z\_}'
 
 zmodload zsh/complist
+
+bindkey -v
+
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -a "k" .up-line-or-history
