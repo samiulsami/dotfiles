@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Flash active border blue on layout changes
 
-readonly TIMEOUT=0.5  # seconds to show blue border
+readonly TIMEOUT=0.25  # seconds to show blue border
 readonly BLUE="rgba(4488ddee)"
 readonly BLACK="rgba(000000ff)"
 
