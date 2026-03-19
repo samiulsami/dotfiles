@@ -34,7 +34,7 @@ hypr=(hyprland hyprpaper hypridle hyprlock hyprpolkitagent waybar wofi dunst lib
 gnome=(gdm gnome-shell gnome-control-center gnome-keyring gnome-shell-extension-dash-to-panel nautilus gvfs)
 system=(pipewire wireplumber pavucontrol bluez bluez-utils pass networkmanager brightnessctl tlp nvme-cli)
 apps=(atop btop htop sysstat imv mpv obs-studio zathura zathura-pdf-mupdf)
-dev=(base-devel git curl wget npm cmake gettext docker docker-buildx kubectl helm terraform tree-sitter-cli aws-cli-v2 eksctl gemini)
+dev=(base-devel git curl wget npm cmake gettext docker docker-buildx kubectl helm terraform tree-sitter-cli aws-cli-v2 eksctl opencode gemini)
 lang=(go jdk-openjdk maven rustup clang)
 lsp=(gopls bash-language-server yaml-language-server)
 linter=(golangci-lint shellcheck tflint)
@@ -56,8 +56,6 @@ sudo warp-cli registration new
 sudo systemctl disable warp-svc.service
 coursier setup --env
 coursier install metals
-
-curl -fsSL https://opencode.ai/install | bash
 ```
 
 ## Environment Setup
