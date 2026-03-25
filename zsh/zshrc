@@ -160,8 +160,7 @@ if command -v nvim >/dev/null; then
         export EDITOR='nvim -f'
         export KUBE_EDITOR='nvim -f'
         export MANPAGER="nvim +Man!"
-elif command -v bat >/dev/null; then
-        export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+        alias note='nvim "$(date "+%Y-%m-%d_%H-%M-%S").md"'
 fi
 
 if command -v golangci-lint >/dev/null; then
