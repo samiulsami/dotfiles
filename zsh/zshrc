@@ -159,7 +159,6 @@ export PATH=$JAVA_HOME/bin:$PATH
 export MAVEN_HOME=/usr/lib/mvn/maven
 export PATH=$MAVEN_HOME/bin:$PATH
 export PATH=$HOME/.local/share/coursier/bin:$PATH
-export NVIM_NO_TRANSPARENCY=true
 
 export OPENCODE_ENABLE_EXA=true
 export PATH=$HOME/.opencode/bin:$PATH
@@ -178,8 +177,7 @@ if command -v nvim >/dev/null; then
         export EDITOR='nvim -f'
         export KUBE_EDITOR='nvim -f'
         export MANPAGER="nvim +Man!"
-elif command -v bat >/dev/null; then
-        export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+        alias note='nvim "$(date "+%Y-%m-%d_%H-%M-%S").md"'
 fi
 
 if command -v golangci-lint >/dev/null; then
