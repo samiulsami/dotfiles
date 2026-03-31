@@ -189,6 +189,9 @@ fi
 if command -v kubectl >/dev/null; then
         source <(kubectl completion zsh)
 fi
+if command -v gh >/dev/null; then
+  source <(gh completion -s zsh)
+fi
 if command -v helm >/dev/null; then
         source <(helm completion zsh)
 fi
