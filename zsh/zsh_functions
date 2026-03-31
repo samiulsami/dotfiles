@@ -90,3 +90,16 @@ mpvt() {
 ai() {
 	print -z "$(opencode run --agent=shell "$*")"
 }
+
+# clear screen without wiping tmux scrollback; use -f to clear tmux pane history too
+clear() {
+	if [[ -n "$TMUX" ]]; then
+		if [[ "$1" == "-f" ]]; then
+			shift
+			tmux clear-history
+		fi
+		printf '\033[H\033[2J'
+	else
+		command clear "$@"
+	fi
+}
