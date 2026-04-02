@@ -93,6 +93,7 @@ git clone --depth 1 https://github.com/zsh-users/zsh-completions.git $ZDOTDIR/.z
 
 # tmux plugins
 git clone --depth 1 https://github.com/tmux-plugins/tmux-resurrect $XDG_CONFIG_HOME/tmux/plugins/tmux-resurrect
+git clone --depth 1 git@github.com:spywhere/tmux-named-snapshot.git $XDG_CONFIG_HOME/tmux/plugins/tmux-named-snapshot
 tmux source $XDG_CONFIG_HOME/tmux/tmux.conf
 
 # fzf
@@ -107,6 +108,8 @@ sudo ln -sf $HOME/dotfiles/sway/config $XDG_CONFIG_HOME/sway/config
 sudo ln -sf $HOME/dotfiles/waybar/config $XDG_CONFIG_HOME/waybar/config
 sudo ln -sf $HOME/dotfiles/waybar/style.css $XDG_CONFIG_HOME/waybar/style.css
 ```
+
+After reloading tmux, `Prefix + Ctrl-s` prompts for a snapshot name and `Prefix + Ctrl-r` opens a restore popup for named snapshots.
 
 ### Setup pass with gpg key
 ```bash
