@@ -84,6 +84,7 @@ run_async "clone zsh-completions" git_clone --depth 1 https://github.com/zsh-use
 
 echo "[$(date '+%H:%M:%S')] ==> Cloning tmux plugins..."
 run_async "clone tmux-resurrect" git_clone --depth 1 https://github.com/tmux-plugins/tmux-resurrect "$XDG_CONFIG_HOME/tmux/plugins/tmux-resurrect"
+run_async "clone tmux-named-snapshot" git_clone --depth 1 git@github.com:spywhere/tmux-named-snapshot.git "$XDG_CONFIG_HOME/tmux/plugins/tmux-named-snapshot"
 
 echo "[$(date '+%H:%M:%S')] ==> Setting up Hyprland configuration..."
 ln -sf "$DOTFILES_DIR/hyprland/hyprland.conf" "$XDG_CONFIG_HOME/hypr/hyprland.conf"
