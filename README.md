@@ -77,6 +77,7 @@ sudo ln -sf $HOME/dotfiles/zsh/zshenv $HOME/.zshenv
 sudo ln -sf $HOME/dotfiles/zsh/zshrc $ZDOTDIR/.zshrc
 sudo ln -sf $HOME/dotfiles/starship/starship.toml $XDG_CONFIG_HOME/starship.toml
 sudo ln -sf $HOME/dotfiles/zsh/zsh_functions $ZDOTDIR/zsh_functions
+sudo ln -sf $HOME/dotfiles/opencode/AGENTS.md "$XDG_CONFIG_HOME/opencode/AGENTS.md"
 sudo ln -sf $HOME/dotfiles/opencode/opencode.json $XDG_CONFIG_HOME/opencode/opencode.json
 sudo ln -sf $HOME/dotfiles/opencode/tui.json $XDG_CONFIG_HOME/opencode/tui.json
 sudo ln -sf $HOME/dotfiles/opencode/commands/research.md $XDG_CONFIG_HOME/opencode/commands/research.md
