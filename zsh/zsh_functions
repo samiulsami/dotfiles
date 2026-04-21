@@ -96,6 +96,7 @@ clear() {
 	if [[ -n "$TMUX" ]]; then
 		if [[ "$1" == "-f" ]]; then
 			shift
+			command clear
 			tmux clear-history
 		fi
 		printf '\033[H\033[2J'
