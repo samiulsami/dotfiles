@@ -4,15 +4,19 @@
 
 set -euo pipefail
 
-sudo -v
+NOSUDO=${NOSUDO:-0}
 
-# Keep sudo alive in background for unattended installation
-(while true; do
-	sudo -n true
-	sleep 50
-	kill -0 "$$" || exit
-done) &
-SUDO_KEEPALIVE_PID=$!
+if [[ "$NOSUDO" != "1" ]]; then
+	sudo -v
+
+	# Keep sudo alive in background for unattended installation
+	(while true; do
+		sudo -n true
+		sleep 50
+		kill -0 "$$" || exit
+	done) &
+	SUDO_KEEPALIVE_PID=$!
+fi
 
 # XDG configuration - source from environment.d/xdg.conf
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
