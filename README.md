@@ -221,6 +221,42 @@ git config --global user.email <your-email@domain.com>
 git config --global --add url."git@github.com:".insteadOf "https://github.com/"
 ```
 
+### Kernel Mail
+```bash
+# prerequisites
+sudo apt update && sudo apt install -y aerc lei b4
+
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+export EMAIL="$(git config --global --get user.email)"
+
+test -n "$EMAIL"
+
+mkdir -p "$HOME/mail/kernel" "$XDG_CONFIG_HOME/aerc"
+
+cat > "$XDG_CONFIG_HOME/aerc/accounts.conf" <<EOF
+[kernel]
+source = maildir://$HOME/mail/kernel
+default = staging
+from = Samiul Islam <$EMAIL>
+EOF
+
+chmod 600 "$XDG_CONFIG_HOME/aerc/accounts.conf"
+
+lei q -o "$HOME/mail/kernel/staging" -I https://lore.kernel.org/all \
+  'l:linux-staging.lists.linux.dev AND rt:35.days.ago..'
+
+lei q -o "$HOME/mail/kernel/janitors" -I https://lore.kernel.org/all \
+  'l:kernel-janitors.vger.kernel.org AND rt:35.days.ago..'
+
+lei q -o "$HOME/mail/kernel/kernelnewbies" -I https://lore.kernel.org/all \
+  'l:kernelnewbies.kernelnewbies.org AND rt:35.days.ago..'
+
+lei q -o "$HOME/mail/kernel/lkml" -I https://lore.kernel.org/all \
+  'l:linux-kernel.vger.kernel.org AND rt:1.day.ago..'
+
+lei up --all
+```
+
 ### Docker
 ```bash
 sudo groupadd docker
