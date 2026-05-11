@@ -51,7 +51,7 @@ cd /tmp/yay
 makepkg -si --noconfirm
 cd - && rm -rf /tmp/yay
 
-yay -S --noconfirm --needed --removemake --cleanafter google-chrome cloudflare-warp-bin kind-bin coursier
+yay -Syu --noconfirm --needed --removemake --cleanafter google-chrome cloudflare-warp-bin kind-bin coursier flux-bin
 sudo warp-cli registration new
 sudo systemctl disable warp-svc.service
 coursier setup --env
