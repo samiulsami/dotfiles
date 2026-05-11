@@ -30,7 +30,7 @@ local function flash_border_step()
     hl.dispatch(hl.dsp.window.set_prop({ prop = "active_border_color", value = color }))
 end
 
-border_flash_timer = hl.timer(flash_border_step, { timeout = 50, type = "repeat" })
+border_flash_timer = hl.timer(flash_border_step, { timeout = 75, type = "repeat" })
 border_flash_timer:set_enabled(false)
 
 local function flash_border()
