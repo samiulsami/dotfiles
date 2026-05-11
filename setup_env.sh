@@ -88,6 +88,7 @@ run_async "clone tmux-resurrect" git_clone --depth 1 https://github.com/tmux-plu
 run_async "clone tmux-named-snapshot" git_clone --depth 1 git@github.com:spywhere/tmux-named-snapshot.git "$XDG_CONFIG_HOME/tmux/plugins/tmux-named-snapshot"
 
 echo "[$(date '+%H:%M:%S')] ==> Setting up Hyprland configuration..."
+ln -sf "$DOTFILES_DIR/hyprland/hyprland.lua" "$XDG_CONFIG_HOME/hypr/hyprland.lua"
 ln -sf "$DOTFILES_DIR/hyprland/hyprland.conf" "$XDG_CONFIG_HOME/hypr/hyprland.conf"
 ln -sf "$DOTFILES_DIR/hyprland/hyprlock.conf" "$XDG_CONFIG_HOME/hypr/hyprlock.conf"
 ln -sf "$DOTFILES_DIR/hyprland/hypridle.conf" "$XDG_CONFIG_HOME/hypr/hypridle.conf"
