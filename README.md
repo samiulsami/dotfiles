@@ -51,7 +51,9 @@ cd /tmp/yay
 makepkg -si --noconfirm
 cd - && rm -rf /tmp/yay
 
-yay -Syu --noconfirm --needed --removemake --cleanafter google-chrome cloudflare-warp-bin kind-bin coursier flux-bin kubecolor
+yay -Syu --noconfirm --needed --removemake --cleanafter google-chrome cloudflare-warp-bin kind-bin coursier kubecolor
+#TODO: use the AUR for flux when fixed
+curl -s https://fluxcd.io/install.sh | sudo bash
 sudo warp-cli registration new
 sudo systemctl disable warp-svc.service
 coursier setup --env
