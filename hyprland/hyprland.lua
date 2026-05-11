@@ -1,10 +1,57 @@
+-- Found through `hyprctl monitors`
 local mon1 = "HDMI-A-1"
 local mon2 = "eDP-1"
 local mod = "SUPER"
 local terminal = "foot"
+local border_flash_colors = {
+    "rgba(4488ddee)",
+    "rgba(3366a6f2)",
+    "rgba(22446ff7)",
+    "rgba(112237fb)",
+    "rgba(000000ff)",
+}
+local border_normal = border_flash_colors[#border_flash_colors]
+local border_flash_index = 0
+local border_flash_timer
 
 local function exec(cmd)
     return hl.dsp.exec_cmd(cmd)
+end
+
+local function flash_border_step()
+    border_flash_index = border_flash_index + 1
+    local color = border_flash_colors[border_flash_index]
+
+    if not color then
+        border_flash_timer:set_enabled(false)
+        return
+    end
+
+    hl.dispatch(hl.dsp.window.set_prop({ prop = "active_border_color", value = color }))
+end
+
+border_flash_timer = hl.timer(flash_border_step, { timeout = 50, type = "repeat" })
+border_flash_timer:set_enabled(false)
+
+local function flash_border()
+    border_flash_index = 0
+    border_flash_timer:set_enabled(false)
+    flash_border_step()
+    border_flash_timer:set_enabled(true)
+end
+
+local function change_zoom(multiplier)
+    local zoom = hl.get_config("cursor.zoom_factor")
+
+    if type(zoom) ~= "number" then
+        return
+    end
+
+    hl.config({
+        cursor = {
+            zoom_factor = math.max(zoom * multiplier, 1.0),
+        },
+    })
 end
 
 -- Monitor config (adjust to your setup)
@@ -33,8 +80,8 @@ hl.config({
         gaps_out = 0,
         border_size = 1,
         col = {
-            active_border = "rgba(000000ff)",
-            inactive_border = "rgba(000000ff)",
+            active_border = border_normal,
+            inactive_border = border_normal,
         },
         layout = "dwindle",
     },
@@ -95,9 +142,18 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("dunst")
     hl.exec_cmd("waybar")
     hl.exec_cmd("hypridle")
-    hl.exec_cmd("$XDG_CONFIG_HOME/hypr/border-flash.sh")
     hl.exec_cmd("wl-paste --watch cliphist store")
 end)
+
+for _, event in ipairs({
+    "window.active",
+    "workspace.active",
+    "workspace.move_to_monitor",
+    "monitor.focused",
+    "keybinds.submap",
+}) do
+    hl.on(event, flash_border)
+end
 
 -- Keybindings
 hl.bind(mod .. " + Return", exec(terminal))
@@ -109,17 +165,15 @@ hl.bind(mod .. " + SHIFT + Space", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mod .. " + Space", hl.dsp.window.cycle_next({}))
 
 -- Whole-screen zoom
-hl.bind(
-    mod .. " + mouse_down",
-    exec("hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor -j | jq '.float * 2')"),
-    { mouse = true }
-)
-hl.bind(
-    mod .. " + mouse_up",
-    exec("hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor -j | jq '[(.float / 2), 1] | max')"),
-    { mouse = true }
-)
-hl.bind(mod .. " + mouse:274", exec("hyprctl -q keyword cursor:zoom_factor 1.0"), { mouse = true })
+hl.bind(mod .. " + mouse_down", function() change_zoom(2.0) end, { mouse = true })
+hl.bind(mod .. " + mouse_up", function() change_zoom(0.5) end, { mouse = true })
+hl.bind(mod .. " + mouse:274", function()
+    hl.config({
+        cursor = {
+            zoom_factor = 1.0,
+        },
+    })
+end, { mouse = true })
 
 -- Vim navigation
 for _, pair in ipairs({
@@ -210,8 +264,14 @@ hl.bind(mod .. " + C", exec("dunstctl close-all"))
 hl.bind(mod .. " + Escape", exec("loginctl lock-session"))
 
 -- Group/tabbed layout
-hl.bind(mod .. " + W", hl.dsp.group.toggle())
-hl.bind(mod .. " + S", hl.dsp.layout("togglesplit"))
+hl.bind(mod .. " + W", function()
+    hl.dispatch(hl.dsp.group.toggle())
+    flash_border()
+end)
+hl.bind(mod .. " + S", function()
+    hl.dispatch(hl.dsp.layout("togglesplit"))
+    flash_border()
+end)
 hl.bind(mod .. " + SHIFT + S", exec("dunstctl set-paused toggle && pkill -RTMIN+1 waybar"))
 
 hl.bind(mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
