@@ -146,7 +146,7 @@ bindkey '^U' backward-kill-line
 #################################################################################
 
 alias ls='ls --color=always'
-alias kc="kubectl"
+alias kc="kubecolor"
 alias imv="imv-wayland"
 
 PATH=$PATH:$HOME/.local/bin
@@ -189,6 +189,7 @@ if command -v dlv >/dev/null; then
 fi
 if command -v kubectl >/dev/null; then
         source <(kubectl completion zsh)
+	compdef kubecolor=kubectl
 fi
 if command -v gh >/dev/null; then
   source <(gh completion -s zsh)

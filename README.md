@@ -201,6 +201,15 @@ chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 ```
 
+### Kubecolor
+```bash
+sudo apt-get update
+sudo apt-get install apt-transport-https wget --yes
+wget -O /tmp/kubecolor.deb https://kubecolor.github.io/packages/deb/pool/main/k/kubecolor/kubecolor_$(wget -q -O- https://kubecolor.github.io/packages/deb/version)_$(dpkg --print-architecture).deb
+sudo dpkg -i /tmp/kubecolor.deb
+sudo apt update
+```
+
 ### kind
 ```bash
 curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.29.0/kind-linux-amd64
