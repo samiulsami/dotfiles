@@ -33,6 +33,11 @@ sudo apt update && sudo apt install cloudflare-warp -y
 sudo warp-cli registration new
 ```
 
+### Flux CLI
+```bash
+curl -s https://fluxcd.io/install.sh | sudo bash
+```
+
 ### Foot
 ```bash
 sudo apt install foot
