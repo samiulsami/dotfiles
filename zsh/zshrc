@@ -147,6 +147,7 @@ bindkey '^U' backward-kill-line
 
 alias ls='ls --color=always'
 alias kc="kubectl"
+alias imv="imv-wayland"
 
 PATH=$PATH:$HOME/.local/bin
 
@@ -194,6 +195,9 @@ if command -v gh >/dev/null; then
 fi
 if command -v helm >/dev/null; then
         source <(helm completion zsh)
+fi
+if command -v flux >/dev/null; then
+        source <(flux completion zsh)
 fi
 
 if command -v zoxide >/dev/null; then
