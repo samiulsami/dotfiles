@@ -261,7 +261,7 @@ hl.bind(mod .. " + A", exec("dunstctl action"))
 hl.bind(mod .. " + C", exec("dunstctl close-all"))
 
 -- Lock screen (triggers hypridle lock_cmd which turns off display)
-hl.bind(mod .. " + Escape", exec("loginctl lock-session"))
+hl.bind(mod .. " + Escape", exec("hyprlock"))
 
 -- Group/tabbed layout
 hl.bind(mod .. " + W", function()
