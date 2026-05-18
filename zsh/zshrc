@@ -181,24 +181,34 @@ if command -v nvim >/dev/null; then
         alias note='nvim "$(date "+%Y-%m-%d_%H-%M-%S").md"'
 fi
 
-if command -v golangci-lint >/dev/null; then
-        source <(golangci-lint completion zsh)
-fi
-if command -v dlv >/dev/null; then
-        source <(dlv completion zsh)
-fi
+load_completion_if_exists() {
+	local cmd="$1"
+	local script="$2"
+
+	command -v "$cmd" >/dev/null || return
+	source <(${(z)script})
+}
+
+typeset -a completion_specs=(
+	golangci-lint 'golangci-lint completion zsh'
+	dlv 'dlv completion zsh'
+	gh 'gh completion -s zsh'
+	kubectl 'kubectl completion zsh'
+	helm 'helm completion zsh'
+	flux 'flux completion zsh'
+)
+
+local cmd script
+for cmd script in $completion_specs; do
+	load_completion_if_exists "$cmd" "$script"
+done
+
 if command -v kubectl >/dev/null; then
-        source <(kubectl completion zsh)
 	compdef kubecolor=kubectl
 fi
-if command -v gh >/dev/null; then
-  source <(gh completion -s zsh)
-fi
-if command -v helm >/dev/null; then
-        source <(helm completion zsh)
-fi
-if command -v flux >/dev/null; then
-        source <(flux completion zsh)
+
+if command -v terraform >/dev/null; then
+        complete -o nospace -C $(which terraform) terraform
 fi
 
 if command -v zoxide >/dev/null; then
