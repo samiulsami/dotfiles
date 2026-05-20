@@ -1,0 +1,3 @@
+timeout 300 'swaylock -u --color 000000'
+timeout 305 'hyprctl dispatch "hl.dsp.dpms({ action = \"disable\" })"' resume 'hyprctl dispatch "hl.dsp.dpms({ action = \"enable\" })"'
+before-sleep 'swaylock -u --color 000000'

@@ -21,7 +21,7 @@ if [ "$SHELL" != "$(readlink -f "$(which zsh)")" ]; then
 fi
 
 echo "[$(date '+%H:%M:%S')] ==> Creating configuration directories..."
-mkdir -p "$XDG_CONFIG_HOME"/{dunst,foot,opencode,opencode/commands,tmux,fontconfig/conf.d,hypr,wofi,waybar,environment.d} \
+mkdir -p "$XDG_CONFIG_HOME"/{dunst,foot,opencode,opencode/commands,tmux,fontconfig/conf.d,hypr,swayidle,wofi,waybar,environment.d} \
 	"$ZDOTDIR" \
 	"$XDG_CONFIG_HOME/tmux/plugins/" \
 	"$HOME/go" \
@@ -89,9 +89,8 @@ run_async "clone tmux-named-snapshot" git_clone --depth 1 git@github.com:spywher
 echo "[$(date '+%H:%M:%S')] ==> Setting up Hyprland configuration..."
 ln -sf "$DOTFILES_DIR/hyprland/hyprland.lua" "$XDG_CONFIG_HOME/hypr/hyprland.lua"
 ln -sf "$DOTFILES_DIR/hyprland/hyprland.conf" "$XDG_CONFIG_HOME/hypr/hyprland.conf"
-ln -sf "$DOTFILES_DIR/hyprland/hyprlock.conf" "$XDG_CONFIG_HOME/hypr/hyprlock.conf"
-ln -sf "$DOTFILES_DIR/hyprland/hypridle.conf" "$XDG_CONFIG_HOME/hypr/hypridle.conf"
 ln -sf "$DOTFILES_DIR/hyprland/hyprpaper.conf" "$XDG_CONFIG_HOME/hypr/hyprpaper.conf"
+ln -sf "$DOTFILES_DIR/swayidle/config" "$XDG_CONFIG_HOME/swayidle/config"
 ln -sf "$DOTFILES_DIR/waybar/config" "$XDG_CONFIG_HOME/waybar/config"
 ln -sf "$DOTFILES_DIR/waybar/style.css" "$XDG_CONFIG_HOME/waybar/style.css"
 ln -sf "$DOTFILES_DIR/wofi/config" "$XDG_CONFIG_HOME/wofi/config"

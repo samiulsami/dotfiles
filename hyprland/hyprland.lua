@@ -141,7 +141,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("gnome-keyring-daemon --start --components=secrets")
     hl.exec_cmd("dunst")
     hl.exec_cmd("waybar")
-    hl.exec_cmd("hypridle")
+    hl.exec_cmd("swayidle -w")
     hl.exec_cmd("wl-paste --watch cliphist store")
 end)
 
@@ -260,8 +260,8 @@ hl.bind(mod .. " + P", exec("dunstctl close"))
 hl.bind(mod .. " + A", exec("dunstctl action"))
 hl.bind(mod .. " + C", exec("dunstctl close-all"))
 
--- Lock screen (triggers hypridle lock_cmd which turns off display)
-hl.bind(mod .. " + Escape", exec("hyprlock"))
+-- Lock screen using the same flow as the working Sway setup.
+hl.bind(mod .. " + Escape", exec("sh -c \"dunstctl set-paused true; hyprctl dispatch 'hl.dsp.dpms({ action = \\\"disable\\\" })'; swaylock -u --color 000000; hyprctl dispatch 'hl.dsp.dpms({ action = \\\"enable\\\" })'; dunstctl set-paused false\""))
 
 -- Group/tabbed layout
 hl.bind(mod .. " + W", function()
