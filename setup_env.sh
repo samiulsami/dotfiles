@@ -25,7 +25,7 @@ mkdir -p "$XDG_CONFIG_HOME"/{dunst,foot,opencode,opencode/commands,tmux,fontconf
 	"$ZDOTDIR" \
 	"$XDG_CONFIG_HOME/tmux/plugins/" \
 	"$HOME/go" \
-	"$HOME/.gemini/policies"
+	"$HOME/.gemini/antigravity-cli"
 
 EXISTING_GLOBAL_GIT_EMAIL=$(git config --global --get user.email || true)
 if [ -n "$EXISTING_GLOBAL_GIT_EMAIL" ]; then
@@ -73,8 +73,7 @@ ln -sf "$DOTFILES_DIR/opencode/opencode.json" "$XDG_CONFIG_HOME/opencode/opencod
 ln -sf "$DOTFILES_DIR/opencode/tui.json" "$XDG_CONFIG_HOME/opencode/tui.json"
 ln -sf "$DOTFILES_DIR/opencode/opencode-notifier.json" "$XDG_CONFIG_HOME/opencode/opencode-notifier.json"
 ln -sf "$DOTFILES_DIR/opencode/commands/research.md" "$XDG_CONFIG_HOME/opencode/commands/research.md"
-ln -sf "$DOTFILES_DIR/gemini/settings.json" "$HOME/.gemini/settings.json"
-ln -sf "$DOTFILES_DIR/gemini/gemini-rules.toml" "$HOME/.gemini/policies/gemini-rules.toml"
+ln -sf "$DOTFILES_DIR/antigravity/settings.json" "$HOME/.gemini/antigravity-cli/settings.json"
 ln -sf "$DOTFILES_DIR/fontconfig/01-emoji.conf" "$XDG_CONFIG_HOME/fontconfig/conf.d/01-emoji.conf"
 
 echo "[$(date '+%H:%M:%S')] ==> Cloning zsh plugins..."
