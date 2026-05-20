@@ -71,7 +71,7 @@ export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
 export ZDOTDIR=${ZDOTDIR:-$HOME/.config/zsh}
 
-mkdir -p $XDG_CONFIG_HOME/{wofi,zsh,dunst,sway,waybar,foot,opencode,tmux} $XDG_CONFIG_HOME/tmux/plugins/ $HOME/.gemini/policies/ $XDG_CONFIG_HOME/opencode/commands/
+mkdir -p $XDG_CONFIG_HOME/{wofi,zsh,dunst,sway,waybar,foot,opencode,tmux} $XDG_CONFIG_HOME/tmux/plugins/ $HOME/.gemini/policies/ $HOME/.gemini/antigravity-cli/ $XDG_CONFIG_HOME/opencode/commands/
 
 # symlink config files for wofi, dunst, foot, tmux, zsh, starship, opencode
 sudo ln -sf $HOME/dotfiles/wofi/config $XDG_CONFIG_HOME/wofi/config
@@ -88,6 +88,7 @@ sudo ln -sf $HOME/dotfiles/opencode/tui.json $XDG_CONFIG_HOME/opencode/tui.json
 sudo ln -sf $HOME/dotfiles/opencode/commands/research.md $XDG_CONFIG_HOME/opencode/commands/research.md
 sudo ln -sf $HOME/dotfiles/settings.json $HOME/.gemini/settings.json
 sudo ln -sf $HOME/dotfiles/gemini-rules.toml $HOME/.gemini/policies/gemini-rules.toml
+sudo ln -sf $HOME/dotfiles/antigravity/settings.json $HOME/.gemini/antigravity-cli/settings.json
 
 # zsh plugins
 git clone --depth 1 https://github.com/jeffreytse/zsh-vi-mode.git $ZDOTDIR/.zsh/zsh-vi-mode
@@ -225,6 +226,11 @@ curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 |
 ### OpenCode
 ```bash
 curl -fsSL https://opencode.ai/install | bash
+```
+
+### Antigravity CLI (Gemini CLI)
+```bash
+curl -fsSL https://antigravity.google/cli/install.sh | bash
 ```
 
 ### Git & GitHub
