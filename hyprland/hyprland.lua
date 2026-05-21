@@ -261,7 +261,7 @@ hl.bind(mod .. " + A", exec("dunstctl action"))
 hl.bind(mod .. " + C", exec("dunstctl close-all"))
 
 -- Lock screen using the same flow as the working Sway setup.
-hl.bind(mod .. " + Escape", exec("sh -c \"dunstctl set-paused true; hyprctl dispatch 'hl.dsp.dpms({ action = \\\"disable\\\" })'; swaylock -u --color 000000; hyprctl dispatch 'hl.dsp.dpms({ action = \\\"enable\\\" })'; dunstctl set-paused false\""))
+hl.bind(mod .. " + Escape", exec("dunstctl set-paused true; hyprctl dispatch 'hl.dsp.dpms({ action = \"disable\" })'; swaylock -u --color 000000; hyprctl dispatch 'hl.dsp.dpms({ action = \"enable\" })'; dunstctl set-paused false"))
 
 -- Group/tabbed layout
 hl.bind(mod .. " + W", function()
