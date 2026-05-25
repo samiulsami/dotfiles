@@ -3,6 +3,9 @@
 	"autoupdate": false,
 	"snapshot": false,
 	"permission": {
+		"external_directory": {
+			"~/**": "allow"
+		},
 		"edit": "ask",
 		"webfetch": "ask",
 		"bash": {
@@ -169,7 +172,7 @@
 		"shell": {
 			"description": "[ONLY FOR USE VIA 'opencode run --agent=shell'. NOT FOR USE AS A SUBAGENT]. Shell expert that outputs concise shell commands using coreutils, fd, ripgrep, and fzf.",
 			"mode": "primary",
-			"model": "github-copilot/gpt-4o",
+			"model": "github-copilot/claude-haiku-4.5",
 			"prompt": "You are a shell command generator. DO NOT MAKE ANY TOOL CALLS, DO NOT PROVIDE ANY EXPLANATION AND/OR FORMAT YOUR OUTPUT. Your ONLY task is to output the shell command that achieves the goal. Be VERY concise. NO comments, NO backticks, NO explanations. JUST the shell command.",
 			"tools": {}
 		}
