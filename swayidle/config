@@ -1,3 +1,2 @@
-timeout 300 'dunstctl set-paused true; hyprctl dispatch "hl.dsp.dpms({ action = \"disable\" })"; swaylock -u --color 000000; hyprctl dispatch "hl.dsp.dpms({ action = \"enable\" })"; dunstctl set-paused false'
-timeout 5 'pidof swaylock && hyprctl dispatch "hl.dsp.dpms({ action = \"disable\" })"'
+timeout 300 'pidof swaylock || (dunstctl set-paused true; hyprctl dispatch "hl.dsp.dpms({ action = \"disable\" })"; swaylock -u --color 000000; hyprctl dispatch "hl.dsp.dpms({ action = \"enable\" })"; dunstctl set-paused false)'
 before-sleep 'pidof swaylock || swaylock -f -u --color 000000'
