@@ -29,7 +29,7 @@ input type:keyboard {
 
 # Idle and lock
 exec swayidle -w \
-    timeout 300 'dunstctl set-paused true; swaymsg "output * dpms off"; swaylock -u --color 000000; swaymsg "output * dpms on"; dunstctl set-paused false' \
+    timeout 300 'pidof swaylock || (dunstctl set-paused true; swaymsg "output * dpms off"; swaylock -u --color 000000; swaymsg "output * dpms on"; dunstctl set-paused false)' \
     before-sleep 'pidof swaylock || swaylock -f -u --color 000000'
 
 # Autostart
