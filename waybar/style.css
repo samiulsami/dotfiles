@@ -61,6 +61,10 @@ window#waybar {
     color: #26A65B;
 }
 
+#battery.plugged {
+    color: #5dade2;
+}
+
 #battery.warning:not(.charging) {
     color: #f39c12;
 }
