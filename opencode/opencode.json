@@ -150,6 +150,7 @@
 		"general": {
 			"description": "Research agent for web searches and documentation lookups. Uses Exa search as primary source.",
 			"mode": "subagent",
+			"model": "opencode-go/mimo-v2.5",
 			"prompt": "Research agent. Be concise and evidence-first.\n\nRules:\n- Prefer official sources and primary documentation.\n- Cite source URLs for factual claims.\n- If a claim is not supported by sources, say unknown. Do not guess.\n\nSearch tools priority:\n1. websearch (Exa) - PRIMARY for discovery\n2. webfetch - SPARINGLY, only to verify exact wording from a specific page\n\nSource quality order:\nofficial docs > vendor docs > standards/specs > reputable technical publications > community posts",
 			"tools": {
 				"read": true,
@@ -160,6 +161,7 @@
 		"explore": {
 			"description": "Fast codebase explorer for file patterns, code search, and structure. Uses Exa search for external context.",
 			"mode": "subagent",
+			"model": "opencode-go/mimo-v2.5",
 			"prompt": "Codebase research agent. Prioritize speed, precision, and low-hallucination summaries.\n\nRules:\n- Ground findings in repository evidence (file paths and line numbers when available).\n- If something is not found in the repo, state not found. Do not infer missing code.\n- Keep outputs compact and structured for handoff to the main model.\n\nTool usage:\n- glob for file discovery\n- grep for pattern search\n- read for confirmation and minimal context\n- codesearch/websearch only for external API or library docs, not for repo facts",
 			"tools": {
 				"glob": true,

@@ -78,6 +78,7 @@ sudo ln -sf $HOME/dotfiles/wofi/config $XDG_CONFIG_HOME/wofi/config
 sudo ln -sf $HOME/dotfiles/dunst/dunstrc $XDG_CONFIG_HOME/dunst/dunstrc
 sudo ln -sf $HOME/dotfiles/foot/foot.ini $XDG_CONFIG_HOME/foot/foot.ini
 sudo ln -sf $HOME/dotfiles/tmux/tmux.conf $XDG_CONFIG_HOME/tmux/tmux.conf
+sudo ln -sf $HOME/dotfiles/tmux/scripts $XDG_CONFIG_HOME/tmux/scripts
 sudo ln -sf $HOME/dotfiles/zsh/zshenv $HOME/.zshenv
 sudo ln -sf $HOME/dotfiles/zsh/zshrc $ZDOTDIR/.zshrc
 sudo ln -sf $HOME/dotfiles/starship/starship.toml $XDG_CONFIG_HOME/starship.toml
@@ -111,6 +112,7 @@ sudo ln -sf $HOME/dotfiles/sway/config $XDG_CONFIG_HOME/sway/config
 
 # waybar
 sudo ln -sf $HOME/dotfiles/waybar/config $XDG_CONFIG_HOME/waybar/config
+sudo ln -sf $HOME/dotfiles/waybar/dunst.sh $XDG_CONFIG_HOME/waybar/dunst.sh
 sudo ln -sf $HOME/dotfiles/waybar/style.css $XDG_CONFIG_HOME/waybar/style.css
 ```
 

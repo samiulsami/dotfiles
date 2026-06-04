@@ -36,6 +36,7 @@
         "interval": 10,
         "format": "{icon} {capacity}%",
         "format-charging": "󰂄 {capacity}%",
+        "format-plugged": "󰂄 {capacity}%",
         "format-full": "󰂄 {capacity}%",
         "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
         "states": {
@@ -115,7 +116,7 @@
     },
 
     "custom/dunst": {
-        "exec": "dunstctl is-paused | grep -q true && echo '{\"text\": \"󰂛\", \"class\": \"paused\"}' || echo '{\"text\": \"󰂚\", \"class\": \"active\"}'",
+        "exec": "${XDG_CONFIG_HOME:-$HOME/.config}/waybar/dunst.sh",
         "return-type": "json",
         "signal": 1,
         "interval": "once",
