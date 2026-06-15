@@ -1,5 +1,5 @@
 config_version = 2
-default_model = "deepseek-pro/deepseek-v4-pro"
+default_model = "deepseek-flash/deepseek-v4-flash"
 language = "en"
 
 [ui]
