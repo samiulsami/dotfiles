@@ -85,11 +85,6 @@ mpvt() {
 	fi
 	mpv -vo=sixel --vo-sixel-buffered --profile=sw-fast --really-quiet "$@"
 }
-# example usage:
-# ai count the total lines of code in all Golang files in this repo
-ai() {
-	print -z "$(opencode run --agent=shell "$*")"
-}
 
 # clear screen without wiping tmux scrollback; use -f to clear tmux pane history too
 clear() {
