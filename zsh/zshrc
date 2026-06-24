@@ -178,6 +178,7 @@ typeset -a completion_specs=(
 	kubectl 'kubectl completion zsh'
 	helm 'helm completion zsh'
 	flux 'flux completion zsh'
+	ast-grep 'ast-grep completions zsh'
 )
 
 local cmd script
