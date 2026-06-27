@@ -240,6 +240,6 @@
 		}
 	},
 	"plugin": [
-		"@sahaj-b/opencode-notifier@latest"
+		"@mohak34/opencode-notifier@latest"
 	]
 }
