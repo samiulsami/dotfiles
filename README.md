@@ -87,6 +87,7 @@ sudo ln -sf $HOME/dotfiles/opencode/AGENTS.md "$XDG_CONFIG_HOME/opencode/AGENTS.
 sudo ln -sf $HOME/dotfiles/opencode/opencode.json $XDG_CONFIG_HOME/opencode/opencode.json
 sudo ln -sf $HOME/dotfiles/opencode/tui.json $XDG_CONFIG_HOME/opencode/tui.json
 sudo ln -sf $HOME/dotfiles/opencode/commands/research.md $XDG_CONFIG_HOME/opencode/commands/research.md
+sudo ln -sfn $HOME/dotfiles/opencode/skills $XDG_CONFIG_HOME/opencode/skills
 sudo ln -sf $HOME/dotfiles/antigravity/settings.json $HOME/.gemini/antigravity-cli/settings.json
 
 # zsh plugins

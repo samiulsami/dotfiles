@@ -2,12 +2,65 @@
 	"$schema": "https://opencode.ai/config.json",
 	"autoupdate": false,
 	"snapshot": false,
+	"lsp": true,
 	"permission": {
-		"external_directory": {
-			"~/**": "allow"
+		"read": {
+			"*": "allow",
+			"~/.ssh/**": "deny",
+			"~/.gnupg/**": "deny",
+			"~/.aws/**": "deny",
+			"~/.azure/**": "deny",
+			"~/.kube/**": "deny",
+			"~/.docker/**": "deny",
+			"~/.config/gcloud/**": "deny",
+			".env*": "deny",
+			"**/.env*": "deny",
+			"*.pem": "deny",
+			"**/*.pem": "deny",
+			"*.key": "deny",
+			"**/*.key": "deny",
+			"*.p12": "deny",
+			"**/*.p12": "deny",
+			"*.jks": "deny",
+			"**/*.jks": "deny",
+			"*credentials*": "deny",
+			"**/*credentials*": "deny"
 		},
-		"edit": "ask",
-		"webfetch": "ask",
+		"external_directory": {
+			"~/**": "allow",
+			"~/.ssh/**": "deny",
+			"~/.gnupg/**": "deny",
+			"~/.aws/**": "deny",
+			"~/.azure/**": "deny",
+			"~/.kube/**": "deny",
+			"~/.docker/**": "deny",
+			"~/.config/gcloud/**": "deny"
+		},
+		"edit": {
+			"*": "ask",
+			"~/.ssh/**": "deny",
+			"~/.gnupg/**": "deny",
+			"~/.aws/**": "deny",
+			"~/.azure/**": "deny",
+			"~/.kube/**": "deny",
+			"~/.docker/**": "deny",
+			"~/.config/gcloud/**": "deny",
+			".env*": "deny",
+			"**/.env*": "deny",
+			"*.pem": "deny",
+			"**/*.pem": "deny",
+			"*.key": "deny",
+			"**/*.key": "deny",
+			"*.p12": "deny",
+			"**/*.p12": "deny",
+			"*.jks": "deny",
+			"**/*.jks": "deny",
+			"*credentials*": "deny",
+			"**/*credentials*": "deny"
+		},
+		"webfetch": "allow",
+		"websearch": "allow",
+		"lsp": "allow",
 		"bash": {
 			"*": "ask",
 			"tldr*": "allow",
@@ -86,7 +139,17 @@
 			"helm history*": "allow",
 			"helm version*": "allow",
 			"git branch -D*": "ask",
-			"sudo *": "deny",
+			"chmod -R *": "ask",
+			"chmod 000 *": "ask",
+			"chmod 0 *": "ask",
+			"chown *": "ask",
+			"killall *": "ask",
+			"pkill *": "ask",
+			"kill -9 *": "ask",
+			"git push --force*": "ask",
+			"git push -f*": "ask",
+			"git checkout -- *": "ask",
+			"git restore *": "ask",
 			"rm *": "deny",
 			"* rm *": "deny",
 			"*/rm *": "deny",
@@ -142,47 +205,62 @@
 			"* git clean *": "deny",
 			"git reset --hard*": "deny",
 			"* git reset --hard*": "deny",
-			"git rebase *": "deny",
-			"* git rebase *": "deny",
-			"git merge *": "deny",
-			"* git merge *": "deny",
-			"* git checkout *": "deny",
-			"git checkout *": "deny",
-			"git cherry-pick *": "deny",
-			"* git cherry-pick *": "deny",
 			"eval*": "deny",
 			"*$(*": "deny",
 			"*PRODUCTION*": "deny",
-			"*PROD*": "deny"
+			"*PROD*": "deny",
+			"sudo *": "deny",
+			"* sudo *": "deny",
+			"*/sudo *": "deny"
 		}
 	},
 	"agent": {
 		"general": {
 			"description": "Research agent for web searches and documentation lookups. Uses Exa search as primary source.",
 			"mode": "subagent",
-			"model": "opencode-go/mimo-v2.5",
-			"prompt": "Research agent. Be concise and evidence-first.\n\nRules:\n- Prefer official sources and primary documentation.\n- Cite source URLs for factual claims.\n- If a claim is not supported by sources, say unknown. Do not guess.\n\nSearch tools priority:\n1. websearch (Exa) - PRIMARY for discovery\n2. webfetch - SPARINGLY, only to verify exact wording from a specific page\n\nSource quality order:\nofficial docs > vendor docs > standards/specs > reputable technical publications > community posts",
-			"tools": {
-				"read": true,
-				"webfetch": true,
-				"websearch": true
+			"model": "opencode-go/deepseek-v4-flash",
+			"prompt": "Research agent. Be concise and evidence-first.\n\nRules:\n- Use websearch for discovery. Use webfetch only for exact wording from a known page.\n- Prefer official docs, specs, and vendor sources.\n- Cite source URLs for factual claims.\n- If sources do not support a claim, say unknown. Do not guess.\n- Return compact findings for handoff; avoid broad background.",
+			"permission": {
+				"edit": "deny",
+				"bash": "deny",
+				"webfetch": "allow",
+				"websearch": "allow"
 			}
 		},
 		"explore": {
-			"description": "Fast codebase explorer for file patterns, code search, and structure. Uses Exa search for external context.",
+			"description": "Fast read-only codebase explorer for file patterns, code search, and structure.",
 			"mode": "subagent",
-			"model": "opencode-go/mimo-v2.5",
-			"prompt": "Codebase research agent. Prioritize speed, precision, and low-hallucination summaries.\n\nRules:\n- Ground findings in repository evidence (file paths and line numbers when available).\n- If something is not found in the repo, state not found. Do not infer missing code.\n- Keep outputs compact and structured for handoff to the main model.\n\nTool usage:\n- glob for file discovery\n- grep for pattern search\n- read for confirmation and minimal context\n- codesearch/websearch only for external API or library docs, not for repo facts",
-			"tools": {
-				"glob": true,
-				"grep": true,
-				"read": true,
-				"websearch": true,
-				"codesearch": true
+			"model": "opencode-go/deepseek-v4-flash",
+			"prompt": "Codebase research agent. Prioritize speed, precision, and low-hallucination summaries.\n\nRules:\n- Use glob for file discovery, grep for pattern search, and read only for confirmation or minimal context.\n- Ground findings in repository evidence with file paths and line numbers when available.\n- If something is not found in the repo, state not found. Do not infer missing code.\n- Use websearch only for external API or library docs, never for repo facts.\n- Return compact findings for handoff; do not edit files.",
+			"permission": {
+				"grep": {
+					"*": "allow",
+					"~/.ssh/**": "deny",
+					"~/.gnupg/**": "deny",
+					"~/.aws/**": "deny",
+					"~/.azure/**": "deny",
+					"~/.kube/**": "deny",
+					"~/.docker/**": "deny",
+					"~/.config/gcloud/**": "deny",
+					".env*": "deny",
+					"**/.env*": "deny",
+					"*.pem": "deny",
+					"**/*.pem": "deny",
+					"*.key": "deny",
+					"**/*.key": "deny",
+					"*.p12": "deny",
+					"**/*.p12": "deny",
+					"*.jks": "deny",
+					"**/*.jks": "deny",
+					"*credentials*": "deny",
+					"**/*credentials*": "deny"
+				},
+				"edit": "deny",
+				"bash": "deny"
 			}
 		}
 	},
 	"plugin": [
-		"@sahaj-b/opencode-notifier@latest"
+		"@mohak34/opencode-notifier@latest"
 	]
 }
