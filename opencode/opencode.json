@@ -233,29 +233,6 @@
 			"model": "opencode-go/deepseek-v4-flash",
 			"prompt": "Codebase research agent. Prioritize speed, precision, and low-hallucination summaries.\n\nRules:\n- Use glob for file discovery, grep for pattern search, and read only for confirmation or minimal context.\n- Ground findings in repository evidence with file paths and line numbers when available.\n- If something is not found in the repo, state not found. Do not infer missing code.\n- Use websearch only for external API or library docs, never for repo facts.\n- Return compact findings for handoff; do not edit files.",
 			"permission": {
-				"read": {
-					"*": "allow",
-					"~/.ssh/**": "deny",
-					"~/.gnupg/**": "deny",
-					"~/.aws/**": "deny",
-					"~/.azure/**": "deny",
-					"~/.kube/**": "deny",
-					"~/.docker/**": "deny",
-					"~/.config/gcloud/**": "deny",
-					".env*": "deny",
-					"**/.env*": "deny",
-					"*.pem": "deny",
-					"**/*.pem": "deny",
-					"*.key": "deny",
-					"**/*.key": "deny",
-					"*.p12": "deny",
-					"**/*.p12": "deny",
-					"*.jks": "deny",
-					"**/*.jks": "deny",
-					"*credentials*": "deny",
-					"**/*credentials*": "deny"
-				},
-				"glob": "allow",
 				"grep": {
 					"*": "allow",
 					"~/.ssh/**": "deny",
@@ -279,8 +256,7 @@
 					"**/*credentials*": "deny"
 				},
 				"edit": "deny",
-				"bash": "deny",
-				"websearch": "allow"
+				"bash": "deny"
 			}
 		}
 	},
