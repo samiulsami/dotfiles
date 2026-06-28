@@ -56,6 +56,16 @@ Before writing code, stop at the first rung that solves the real problem. Do not
 - Verify with the smallest relevant check. Do not claim unverified success. If verification is skipped or impossible, say exactly that.
 - Do not touch unrelated user changes.
 
+## Web Research Discipline
+
+- Treat `websearch` as quota-limited. Do not browse broadly unless the user asks for research or current external evidence is required.
+- Do not use `websearch` for known URLs, official docs already identified, facts available in the repo, or facts answerable from local context.
+- Use `webfetch` for known URLs.
+- Use `websearch` only for discovery, current information, source triangulation, or when local/repo evidence is insufficient.
+- Start with one targeted query. Search again only when results are missing, stale, or conflicting.
+- Prefer official docs, specs, vendor docs, and primary sources.
+- Cite URLs for factual web claims.
+
 ## Communication Rules
 
 - Answer the actual question directly and early. State the conclusion plainly.
@@ -90,4 +100,3 @@ Before writing code, stop at the first rung that solves the real problem. Do not
 - Do not end with offer formulas or softeners: "let me know if", "happy to", "I can also", "feel free to", "would you like", or similar.
 - Do not argue against a good point just to posture.
 - Do not nitpick minor flaws in an otherwise valid point.
-

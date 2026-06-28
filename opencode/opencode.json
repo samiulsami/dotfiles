@@ -58,7 +58,8 @@
 			"*credentials*": "deny",
 			"**/*credentials*": "deny"
 		},
-		"webfetch": "ask",
+		"webfetch": "allow",
+		"websearch": "allow",
 		"lsp": "allow",
 		"bash": {
 			"*": "ask",
