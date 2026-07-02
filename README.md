@@ -71,7 +71,7 @@ export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
 export ZDOTDIR=${ZDOTDIR:-$HOME/.config/zsh}
 
-mkdir -p $XDG_CONFIG_HOME/{wofi,zsh,dunst,sway,waybar,foot,opencode,tmux} $XDG_CONFIG_HOME/tmux/plugins/ $HOME/.gemini/antigravity-cli/ $XDG_CONFIG_HOME/opencode/commands/
+mkdir -p $XDG_CONFIG_HOME/{wofi,zsh,dunst,sway,waybar,foot,opencode,opencode/agent,tmux} $XDG_CONFIG_HOME/tmux/plugins/ $HOME/.gemini/antigravity-cli/ $XDG_CONFIG_HOME/opencode/commands/
 
 # symlink config files for wofi, dunst, foot, tmux, zsh, starship, opencode
 sudo ln -sf $HOME/dotfiles/wofi/config $XDG_CONFIG_HOME/wofi/config
@@ -86,6 +86,10 @@ sudo ln -sf $HOME/dotfiles/zsh/zsh_functions $ZDOTDIR/zsh_functions
 sudo ln -sf $HOME/dotfiles/opencode/AGENTS.md "$XDG_CONFIG_HOME/opencode/AGENTS.md"
 sudo ln -sf $HOME/dotfiles/opencode/opencode.json $XDG_CONFIG_HOME/opencode/opencode.json
 sudo ln -sf $HOME/dotfiles/opencode/tui.json $XDG_CONFIG_HOME/opencode/tui.json
+sudo ln -sf $HOME/dotfiles/opencode/agent/implementation.md $XDG_CONFIG_HOME/opencode/agent/implementation.md
+sudo ln -sf $HOME/dotfiles/opencode/agent/research-low.md $XDG_CONFIG_HOME/opencode/agent/research-low.md
+sudo ln -sf $HOME/dotfiles/opencode/agent/research-medium.md $XDG_CONFIG_HOME/opencode/agent/research-medium.md
+sudo ln -sf $HOME/dotfiles/opencode/agent/research-heavy.md $XDG_CONFIG_HOME/opencode/agent/research-heavy.md
 sudo ln -sfn $HOME/dotfiles/opencode/skills $XDG_CONFIG_HOME/opencode/skills
 sudo ln -sf $HOME/dotfiles/antigravity/settings.json $HOME/.gemini/antigravity-cli/settings.json
 
