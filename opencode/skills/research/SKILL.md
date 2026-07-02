@@ -9,15 +9,19 @@ Use this skill for evidence-backed research on any topic.
 
 Rules:
 
-1. Use the OpenCode `question` tool for all user questions. Batch only independent clarifiers.
-2. Ask concise clarifiers for goal, scope, constraints, and output shape. Avoid redundant questions.
-3. Infer the right evidence source from context. For codebase questions, inspect the relevant codebase first. For web questions, prefer primary sources.
-4. Ask required depth mode: `quick` or `deep`.
-5. If `deep`, ask how many subagents to use. Recommend 3 unless scope says otherwise.
-6. Always use at least one relevant subagent.
-7. `quick`: use one relevant subagent.
-8. `deep`: use the requested number of relevant subagents in parallel, then aggregate and cross-check.
-9. Include URLs for factual web claims.
-10. Ground codebase claims in file paths and line numbers.
-11. Call out conflicts between sources plainly.
-12. If evidence is missing, say unknown. Do not guess.
+1. Ask concise clarifiers for goal, scope, constraints, and output shape. Avoid redundant questions.
+2. Ask required research mode unless the user already specified one: `auto`, `source-only`, `balanced`, `heavy`, or `adversarial`. Recommend `auto`.
+3. Infer the right evidence source from context. For codebase questions, inspect relevant files using multiple `explore` agents in batches until you have the necessary information, then pass only necessary excerpts, paths, line numbers, conflicts, and questions into research agents. Research agents are web-only and must not be used for filesystem/codebase discovery. For web questions, prefer primary sources.
+4. Always use at least one relevant subagent for research work.
+5. `auto`: choose the cheapest adequate mode and state the chosen mode in the final answer.
+6. `source-only`: run one or more `research-low` agents. Split independent facets across agents when useful. The main agent does the thinking from their source packs.
+7. `balanced`: run two or three `research-low` agents in parallel, then seed one `research-medium` agent with the source packs for synthesis.
+8. `heavy`: run three to five `research-low` agents in parallel, then seed one `research-heavy` agent. Use a second heavy pass only for high-stakes or strongly conflicting evidence.
+9. `adversarial`: run separate `research-medium` or `research-heavy` agents with explicitly different framings, then reconcile conflicts in the main answer.
+10. Ask agent count only when the user requests manual control or the scope makes the default count unsafe. Recommend 3 low agents for `balanced` and `heavy`.
+11. When seeding a later agent, include source packs, conflicts, gaps, and the exact question to resolve.
+12. Include URLs for factual web claims.
+13. Ground codebase claims in file paths and line numbers.
+14. Call out conflicts between sources plainly.
+15. If evidence is missing, say unknown. Do not guess.
+

@@ -21,7 +21,7 @@ if [ "$SHELL" != "$(readlink -f "$(which zsh)")" ]; then
 fi
 
 echo "[$(date '+%H:%M:%S')] ==> Creating configuration directories..."
-mkdir -p "$XDG_CONFIG_HOME"/{dunst,foot,opencode,opencode/commands,opencode/skills/grilling,opencode/skills/research,tmux,fontconfig/conf.d,hypr,swayidle,wofi,waybar,environment.d} \
+mkdir -p "$XDG_CONFIG_HOME"/{dunst,foot,opencode,opencode/agent,opencode/commands,opencode/skills/grilling,opencode/skills/research,tmux,fontconfig/conf.d,hypr,swayidle,wofi,waybar,environment.d} \
 	"$ZDOTDIR" \
 	"$XDG_CONFIG_HOME/tmux/plugins/" \
 	"$HOME/go" \
@@ -72,6 +72,10 @@ ln -sf "$DOTFILES_DIR/opencode/AGENTS.md" "$XDG_CONFIG_HOME/opencode/AGENTS.md"
 ln -sf "$DOTFILES_DIR/opencode/opencode.json" "$XDG_CONFIG_HOME/opencode/opencode.json"
 ln -sf "$DOTFILES_DIR/opencode/tui.json" "$XDG_CONFIG_HOME/opencode/tui.json"
 ln -sf "$DOTFILES_DIR/opencode/opencode-notifier.json" "$XDG_CONFIG_HOME/opencode/opencode-notifier.json"
+ln -sf "$DOTFILES_DIR/opencode/agent/implementation.md" "$XDG_CONFIG_HOME/opencode/agent/implementation.md"
+ln -sf "$DOTFILES_DIR/opencode/agent/research-low.md" "$XDG_CONFIG_HOME/opencode/agent/research-low.md"
+ln -sf "$DOTFILES_DIR/opencode/agent/research-medium.md" "$XDG_CONFIG_HOME/opencode/agent/research-medium.md"
+ln -sf "$DOTFILES_DIR/opencode/agent/research-heavy.md" "$XDG_CONFIG_HOME/opencode/agent/research-heavy.md"
 ln -sf "$DOTFILES_DIR/opencode/skills/grilling/SKILL.md" "$XDG_CONFIG_HOME/opencode/skills/grilling/SKILL.md"
 ln -sf "$DOTFILES_DIR/opencode/skills/research/SKILL.md" "$XDG_CONFIG_HOME/opencode/skills/research/SKILL.md"
 ln -sf "$DOTFILES_DIR/antigravity/settings.json" "$HOME/.gemini/antigravity-cli/settings.json"
