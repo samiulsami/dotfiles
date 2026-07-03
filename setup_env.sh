@@ -73,7 +73,7 @@ ln -sf "$DOTFILES_DIR/opencode/opencode.json" "$XDG_CONFIG_HOME/opencode/opencod
 ln -sf "$DOTFILES_DIR/opencode/tui.json" "$XDG_CONFIG_HOME/opencode/tui.json"
 ln -sf "$DOTFILES_DIR/opencode/opencode-notifier.json" "$XDG_CONFIG_HOME/opencode/opencode-notifier.json"
 ln -sf "$DOTFILES_DIR/opencode/agent/implementation.md" "$XDG_CONFIG_HOME/opencode/agent/implementation.md"
-ln -sf "$DOTFILES_DIR/opencode/agent/research-low.md" "$XDG_CONFIG_HOME/opencode/agent/research-low.md"
+ln -sf "$DOTFILES_DIR/opencode/agent/research-light.md" "$XDG_CONFIG_HOME/opencode/agent/research-light.md"
 ln -sf "$DOTFILES_DIR/opencode/agent/research-medium.md" "$XDG_CONFIG_HOME/opencode/agent/research-medium.md"
 ln -sf "$DOTFILES_DIR/opencode/agent/research-heavy.md" "$XDG_CONFIG_HOME/opencode/agent/research-heavy.md"
 ln -sf "$DOTFILES_DIR/opencode/skills/grilling/SKILL.md" "$XDG_CONFIG_HOME/opencode/skills/grilling/SKILL.md"
