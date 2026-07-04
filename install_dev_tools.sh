@@ -41,8 +41,5 @@ sudo make install
 cd "$DOTFILES_DIR"
 sudo rm -rf "$XDG_DATA_HOME/neovim"
 
-echo "[$(date '+%H:%M:%S')] ==> Installing Neovim plugins..."
-nvim --headless "+Lazy! sync" +qa
-
 echo ""
 echo "[$(date '+%H:%M:%S')] ==> Development tools installation complete!"
