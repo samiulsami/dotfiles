@@ -32,7 +32,7 @@ set -euo pipefail
 shell=(zsh starship tmux foot fzf fd bat ripgrep zoxide tree lsd tealdeer ouch jq socat)
 hypr=(hyprland hyprpaper swayidle swaylock hyprpolkitagent waybar wofi dunst libnotify grim slurp swappy satty wl-clipboard cliphist xdg-desktop-portal-wlr)
 gnome=(gdm gnome-shell gnome-control-center gnome-keyring gnome-shell-extension-dash-to-panel nautilus gvfs)
-system=(pipewire wireplumber pavucontrol bluez bluez-utils pass networkmanager brightnessctl tlp nvme-cli inetutils)
+system=(pipewire wireplumber pavucontrol bluez bluez-utils pass networkmanager brightnessctl tlp nvme-cli inetutils android-file-transfer)
 apps=(atop btop htop sysstat imv mpv obs-studio zathura zathura-pdf-mupdf)
 dev=(base-devel git b4 aerc patatt lei github-cli curl wget npm cmake gettext docker docker-buildx kubectl helm terraform tree-sitter-cli aws-cli-v2 eksctl opencode ast-grep)
 lang=(go jdk-openjdk maven rustup clang)
