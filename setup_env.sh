@@ -119,10 +119,11 @@ sudo systemctl start docker 2>/dev/null || true
 echo "[$(date '+%H:%M:%S')] ==> Configuring TLP battery charge threshold..."
 if command -v tlp >/dev/null 2>&1; then
 	sudo mkdir -p /etc/tlp.d
-	sudo cp "$DOTFILES_DIR/tlp/tlp.conf" /etc/tlp.d/01-battery.conf
+	sudo install -m 0644 "$DOTFILES_DIR/tlp/tlp.conf" /etc/tlp.d/01-battery.conf
 	sudo systemctl daemon-reload
 	sudo systemctl enable --now tlp.service
 	sudo tlp start
+	sudo tlp setcharge
 fi
 
 echo "[$(date '+%H:%M:%S')] ==> Configuring Sysstat (sar)..."
