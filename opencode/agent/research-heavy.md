@@ -1,7 +1,7 @@
 ---
 description: Deep research analyst for ambiguous, high-stakes, or contradictory topics. Audits source quality, stress-tests hypotheses, resolves conflicts, and returns evidence-weighted conclusions with references.
 mode: subagent
-model: openai/gpt-5.5
+model: openai/gpt-5.6-terra
 reasoningEffort: high
 textVerbosity: low
 permission:
