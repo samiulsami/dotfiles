@@ -1,5 +1,5 @@
 ---
-description: Synthesizes local and web evidence, conflicts, and cautious hypotheses with references.
+description: Read-only subagent with no bash access that synthesizes local and web evidence, conflicts, and cautious hypotheses with references.
 mode: subagent
 model: openai/gpt-5.6-luna
 variant: high
@@ -9,13 +9,12 @@ permission:
   glob: allow
   grep: allow
   list: allow
-  edit: ask
-  bash: deny
   lsp: allow
-  skill: deny
-  external_directory: deny
   webfetch: allow
   websearch: allow
+  edit: deny
+  bash: deny
+  skill: deny
   question: deny
   todowrite: deny
   task: deny

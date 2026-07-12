@@ -1,5 +1,5 @@
 ---
-description: Retrieves referenced evidence from codebases and the web without synthesizing or answering the question.
+description: Read-only subagent with no bash access that retrieves referenced evidence from codebases and the web without synthesizing or answering the question.
 mode: subagent
 model: opencode-go/deepseek-v4-flash
 variant: max
@@ -8,13 +8,12 @@ permission:
   glob: allow
   grep: allow
   list: allow
-  edit: ask
-  bash: deny
   lsp: allow
-  skill: deny
-  external_directory: deny
   webfetch: allow
   websearch: allow
+  edit: deny
+  bash: deny
+  skill: deny
   question: deny
   todowrite: deny
   task: deny

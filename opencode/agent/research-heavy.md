@@ -1,5 +1,5 @@
 ---
-description: Audits and stress-tests local and web evidence for ambiguous, high-stakes, or contradictory questions.
+description: Read-only subagent with no bash access that audits and stress-tests local and web evidence for ambiguous, high-stakes, or contradictory questions.
 mode: subagent
 model: openai/gpt-5.6-sol
 variant: high
@@ -10,12 +10,11 @@ permission:
   grep: allow
   list: allow
   edit: ask
-  bash: deny
-  lsp: allow
-  skill: deny
-  external_directory: deny
   webfetch: allow
   websearch: allow
+  edit: deny
+  bash: deny
+  skill: deny
   question: deny
   todowrite: deny
   task: deny

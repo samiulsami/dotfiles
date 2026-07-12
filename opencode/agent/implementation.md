@@ -5,7 +5,6 @@ model: opencode-go/deepseek-v4-pro
 variant: high
 permission:
   edit: ask
-  bash: deny
   webfetch: deny
   websearch: deny
 ---
