@@ -94,12 +94,12 @@ sudo ln -sfn $HOME/dotfiles/opencode/skills $XDG_CONFIG_HOME/opencode/skills
 sudo ln -sf $HOME/dotfiles/antigravity/settings.json $HOME/.gemini/antigravity-cli/settings.json
 
 # zsh plugins
-git clone --depth 1 https://github.com/jeffreytse/zsh-vi-mode.git $ZDOTDIR/.zsh/zsh-vi-mode
-git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions.git $ZDOTDIR/.zsh/zsh-autosuggestions
-git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git $ZDOTDIR/.zsh/zsh-syntax-highlighting
-git clone --depth 1 https://github.com/romkatv/powerlevel10k.git $ZDOTDIR/.zsh/powerlevel10k
-git clone --depth 1 https://github.com/Aloxaf/fzf-tab.git $ZDOTDIR/.zsh/fzf-tab
-git clone --depth 1 https://github.com/zsh-users/zsh-completions.git $ZDOTDIR/.zsh/zsh-completions
+git clone --depth 1 https://github.com/jeffreytse/zsh-vi-mode.git $ZDOTDIR/zsh-vi-mode
+git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions.git $ZDOTDIR/zsh-autosuggestions
+git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git $ZDOTDIR/zsh-syntax-highlighting
+git clone --depth 1 https://github.com/romkatv/powerlevel10k.git $ZDOTDIR/powerlevel10k
+git clone --depth 1 https://github.com/Aloxaf/fzf-tab.git $ZDOTDIR/fzf-tab
+git clone --depth 1 https://github.com/zsh-users/zsh-completions.git $ZDOTDIR/zsh-completions
 
 # tmux plugins
 git clone --depth 1 https://github.com/tmux-plugins/tmux-resurrect $XDG_CONFIG_HOME/tmux/plugins/tmux-resurrect
