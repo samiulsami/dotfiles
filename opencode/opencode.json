@@ -278,7 +278,6 @@
 		}
 	},
 	"plugin": [
-		"@mohak34/opencode-notifier@0.2.8",
-		"./opencode-codex-identity-plugin.ts"
+		"@mohak34/opencode-notifier@0.2.8"
 	]
 }
