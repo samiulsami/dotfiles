@@ -2,7 +2,6 @@
 	"$schema": "https://opencode.ai/config.json",
 	"autoupdate": false,
 	"snapshot": false,
-	"lsp": true,
 	"permission": {
 		"read": {
 			"*": "allow",
@@ -87,7 +86,6 @@
 		},
 		"webfetch": "allow",
 		"websearch": "allow",
-		"lsp": "allow",
 		"bash": {
 			"*": "ask",
 			"tldr*": "allow",
