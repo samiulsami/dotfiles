@@ -109,6 +109,10 @@
 			"git diff*": "allow",
 			"git log*": "allow",
 			"git show*": "allow",
+			"git branch*": "allow",
+			"git remote*": "allow",
+			"git config --get*": "allow",
+			"git config --list*": "allow",
 			"git blame*": "allow",
 			"git ls-files*": "allow",
 			"kubectl get*": "allow",
@@ -258,18 +262,26 @@
 		"general": {
 			"description": "READ ONLY Research agent for web searches and codebase exploration.",
 			"mode": "subagent",
-			"model": "openai/gpt-5.6-luna",
-			"variant": "low",
+			"model": "opencode-go/deepseek-v4-pro",
+			"variant": "max",
 			"prompt": "READ ONLY Research agent. Be concise and evidence-first.\n\nRules:\n- Use websearch for discovery. Use webfetch only for exact wording from a known page.\n- Prefer official docs, specs, and vendor sources.\n- Cite source URLs for factual claims.\n- If sources do not support a claim, say unknown. Do not guess.\n- Return compact findings for handoff; avoid broad background.",
 			"permission": {
 				"edit": "deny",
 				"bash": "deny",
+				"skill": "deny",
 				"webfetch": "allow",
 				"websearch": "allow"
 			}
 		},
 		"explore": {
 			"disable": true
+		}
+	},
+	"mcp": {
+		"wigolo": {
+			"type": "local",
+			"command": ["wigolo"],
+			"enabled": true
 		}
 	},
 	"plugin": [
