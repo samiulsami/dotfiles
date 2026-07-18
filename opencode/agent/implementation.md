@@ -1,10 +1,9 @@
 ---
 description: Implementation agent for one narrow code change. Delegate the exact spec, files, scope, non-goals, and style constraints.
 mode: subagent
-model: opencode-go/deepseek-v4-pro
-variant: high
+model: openai/gpt-5.6-luna
+variant: xhigh
 permission:
-  edit: ask
   webfetch: deny
   websearch: deny
 ---

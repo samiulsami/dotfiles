@@ -87,7 +87,7 @@ sudo ln -sf $HOME/dotfiles/opencode/AGENTS.md "$XDG_CONFIG_HOME/opencode/AGENTS.
 sudo ln -sf $HOME/dotfiles/opencode/opencode.json $XDG_CONFIG_HOME/opencode/opencode.json
 sudo ln -sf $HOME/dotfiles/opencode/tui.json $XDG_CONFIG_HOME/opencode/tui.json
 sudo ln -sf $HOME/dotfiles/opencode/agent/implementation.md $XDG_CONFIG_HOME/opencode/agent/implementation.md
-sudo ln -sf $HOME/dotfiles/opencode/agent/research-low.md $XDG_CONFIG_HOME/opencode/agent/research-low.md
+sudo ln -sf $HOME/dotfiles/opencode/agent/research-light.md $XDG_CONFIG_HOME/opencode/agent/research-light.md
 sudo ln -sf $HOME/dotfiles/opencode/agent/research-medium.md $XDG_CONFIG_HOME/opencode/agent/research-medium.md
 sudo ln -sf $HOME/dotfiles/opencode/agent/research-heavy.md $XDG_CONFIG_HOME/opencode/agent/research-heavy.md
 sudo ln -sfn $HOME/dotfiles/opencode/skills $XDG_CONFIG_HOME/opencode/skills
@@ -231,6 +231,16 @@ curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 |
 ```bash
 curl -fsSL https://opencode.ai/install | bash
 ```
+
+### Wigolo
+```bash
+npm install -g wigolo
+wigolo init
+wigolo doctor --fix
+wigolo verify
+```
+
+Restart OpenCode after installation to connect the Wigolo MCP server.
 
 ### Antigravity CLI
 ```bash
