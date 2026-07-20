@@ -237,11 +237,18 @@ curl -fsSL https://opencode.ai/install | bash
 ```bash
 npm install -g wigolo
 wigolo init
+wigolo warmup --searxng
 wigolo doctor --fix
 wigolo verify
 ```
 
-Restart OpenCode after installation to connect the Wigolo MCP server.
+```ini
+WIGOLO_LLM_PROVIDER=gemini
+WIGOLO_SEARCH=hybrid
+WIGOLO_TLS_TIER=auto
+GEMINI_API_KEY=...
+BRAVE_API_KEY=...
+```
 
 ### Antigravity CLI
 ```bash

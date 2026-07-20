@@ -2,7 +2,7 @@
 description: Read-only subagent that aggregates and stress-tests supplied evidence for ambiguous, high-stakes, or contradictory questions.
 mode: subagent
 model: openai/gpt-5.6-sol
-variant: high
+variant: low
 textVerbosity: low
 permission:
   webfetch: allow
