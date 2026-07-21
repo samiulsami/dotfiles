@@ -40,6 +40,7 @@ Global, project, and configured instructions combine. Follow the most specific r
 
 ## Research
 
+- Delegate to a research subagent before using any websearch, webfetch, crawl, extract, cache, or similar lookup tool. Never run a large burst of direct searches without a subagent; use only focused follow-ups after delegation.
 - Start with provided sources and local context. Prefer official docs, specifications, primary sources, and papers.
 - Use `webfetch` for known URLs and `websearch` for discovery or conflict resolution. Cite URLs for web claims.
 - Stop when evidence answers the question; otherwise say unknown.
