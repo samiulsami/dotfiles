@@ -3,19 +3,18 @@
 current=$1
 i=1
 
-tmux list-sessions -F '#{session_name}|#{session_alerts}' | while IFS='|' read -r s alerts; do
+tmux list-sessions -F '#{session_id}|#{session_name}|#{session_alerts}' | while IFS='|' read -r id s alerts; do
     if [ "$s" = "$current" ]; then
-        printf '#[fg=green,bold][%d]: %s #[default]' "$i" "$s"
+        printf '#[range=session|%s]#[fg=green,bold][%d]: %s#[norange]#[default] ' "$id" "$i" "$s"
     else
         case "$alerts" in
             *'!'*)
-                printf '#[fg=black,bg=grey,bold][%d]: %s! #[default]' "$i" "$s"
+                printf '#[range=session|%s]#[fg=black,bg=grey,bold][%d]: %s!#[norange]#[default] ' "$id" "$i" "$s"
                 ;;
             *)
-                printf '#[fg=colour242][%d]: %s #[default]' "$i" "$s"
+                printf '#[range=session|%s]#[fg=colour242][%d]: %s#[norange]#[default] ' "$id" "$i" "$s"
                 ;;
         esac
     fi
-    printf ' '
     i=$((i + 1))
 done
