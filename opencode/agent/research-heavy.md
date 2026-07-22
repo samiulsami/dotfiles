@@ -4,6 +4,9 @@ mode: subagent
 model: openai/gpt-5.6-sol
 variant: low
 textVerbosity: low
+tools:
+  wigolo_fetch: true
+  wigolo_search: true
 permission:
   webfetch: allow
   websearch: allow

@@ -4,6 +4,9 @@ mode: subagent
 model: opencode-go/deepseek-v4-pro
 variant: max
 textVerbosity: low
+tools:
+  wigolo_fetch: true
+  wigolo_search: true
 permission:
   webfetch: allow
   websearch: allow
