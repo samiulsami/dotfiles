@@ -260,22 +260,7 @@
 	},
 	"agent": {
 		"general": {
-			"description": "READ ONLY Research agent for web searches and codebase exploration.",
-			"mode": "subagent",
-			"model": "opencode-go/deepseek-v4-pro",
-			"variant": "max",
-			"prompt": "READ ONLY Research agent. Be concise and evidence-first.\n\nRules:\n- Use websearch for discovery. Use webfetch only for exact wording from a known page.\n- Prefer official docs, specs, and vendor sources.\n- Cite source URLs for factual claims.\n- If sources do not support a claim, say unknown. Do not guess.\n- Return compact findings for handoff; avoid broad background.",
-			"tools": {
-				"wigolo_fetch": true,
-				"wigolo_search": true
-			},
-			"permission": {
-				"edit": "deny",
-				"bash": "deny",
-				"skill": "deny",
-				"webfetch": "allow",
-				"websearch": "allow"
-			}
+			"disable": true
 		},
 		"explore": {
 			"disable": true
