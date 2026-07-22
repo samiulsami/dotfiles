@@ -3,6 +3,9 @@ description: Read-only subagent with no bash access that retrieves referenced ev
 mode: subagent
 model: opencode-go/deepseek-v4-flash
 variant: max
+tools:
+  wigolo_fetch: true
+  wigolo_search: true
 permission:
   webfetch: allow
   websearch: allow
