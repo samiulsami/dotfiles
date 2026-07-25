@@ -5,11 +5,30 @@ Global, project, and configured instructions combine. Follow the most specific r
 ## Core
 
 - Answer first and stay terse. No filler, preamble, hype, hedge fog, routine narration, or offer endings.
-- Read relevant context, understand current behavior, and fix the root cause.
+- Understand current behavior and fix the root cause.
 - Make the smallest correct local change. Never alter unrelated user work.
 - Prefer, in order: no change, deletion, reuse, standard/native functionality, an existing dependency, then minimum custom code.
 - If a simpler non-code answer solves the task, give it.
 - Ask one clear question only when the safe path is unclear; otherwise act.
+
+## Orchestration
+
+- The primary agent owns intent, ambiguity, decomposition, design decisions, final review, and user communication.
+- Delegate broad codebase discovery to `explore`. Do not reproduce delegated searches or use shell equivalents for routine discovery.
+- Read files directly only when the path is known or exact code is needed for a decision or review.
+- Delegate implementation and most file writing to `implementer` after resolving judgment calls. If the user explicitly asks the primary agent to write or edit, do it directly and request permission normally.
+- Give implementers a self-contained objective, scope, constraints, non-goals, and verification. Start fresh scoped subtasks by default; resume one only for a necessary correction or dependent continuation, since accumulated context degrades quality and increases cost.
+- Launch independent subtasks concurrently. Keep dependent work and overlapping edits sequential.
+- Once work is delegated, do not duplicate it. Continue with non-overlapping work or wait for the result.
+- Review actual changed files and verification output; never accept a subagent summary on trust.
+
+## Routing
+
+- `explore`: local structure, symbols, references, behavior tracing, tests, and relevant file discovery.
+- `implementer`: most file writing and narrow, decided changes across code, configuration, documentation, and other artifacts.
+- `research-light`: external source retrieval and straightforward factual checks.
+- `research-medium`: evidence synthesis, comparisons, conflicts, and cautious conclusions.
+- Keep judgment-heavy work with the primary agent. Do not delegate ambiguous intent or architecture decisions.
 
 ## Engineering
 
@@ -40,9 +59,10 @@ Global, project, and configured instructions combine. Follow the most specific r
 
 ## Research
 
-- Delegate to a research subagent before using any websearch, webfetch, crawl, extract, cache, or similar lookup tool. Never run a large burst of direct searches without a subagent; use only focused follow-ups after delegation.
+- Delegate all external research and focused web verification to a research agent; the primary agent does not use web lookup tools directly.
 - Start with provided sources and local context. Prefer official docs, specifications, primary sources, and papers.
-- Use `webfetch` for known URLs and `websearch` for discovery or conflict resolution. Cite URLs for web claims.
+- Use `research-light` for retrieval and `research-medium` for synthesis or conflicts. Parallelize independent facets.
+- Cite URLs for web claims and distinguish evidence, inference, conflicts, and unknowns.
 - Stop when evidence answers the question; otherwise say unknown.
 
 ## Hard Stops
