@@ -34,6 +34,8 @@
 			"*credentials*": "deny",
 			"**/*credentials*": "deny"
 		},
+		"glob": "deny",
+		"list": "deny",
 		"external_directory": {
 			"~/**": "allow",
 			"~/.ssh/**": "deny",
@@ -84,15 +86,29 @@
 			"*credentials*": "deny",
 			"**/*credentials*": "deny"
 		},
-		"webfetch": "allow",
-		"websearch": "allow",
+		"webfetch": "deny",
+		"websearch": "deny",
+		"wigolo_*": "deny",
+		"task": {
+			"*": "deny",
+			"explore": "allow",
+			"implementer": "allow",
+			"research-light": "allow",
+			"research-medium": "allow"
+		},
 		"bash": {
 			"*": "ask",
 			"tldr*": "allow",
 			"man*": "allow",
 			"* --help": "allow",
 			"help*": "allow",
-			"ls*": "allow",
+			"jq*": "allow",
+			"ls*": "deny",
+			"rg*": "deny",
+			"grep*": "deny",
+			"find*": "deny",
+			"fd*": "deny",
+			"tree*": "deny",
 			"which*": "allow",
 			"whereis*": "allow",
 			"pwd*": "allow",
@@ -114,7 +130,7 @@
 			"git config --get*": "allow",
 			"git config --list*": "allow",
 			"git blame*": "allow",
-			"git ls-files*": "allow",
+			"git ls-files*": "deny",
 			"kubectl get*": "allow",
 			"kubectl describe*": "allow",
 			"kubectl logs*": "allow",
@@ -151,18 +167,6 @@
 			"helm status*": "allow",
 			"helm history*": "allow",
 			"helm version*": "allow",
-			"git branch -D*": "ask",
-			"chmod -R *": "ask",
-			"chmod 000 *": "ask",
-			"chmod 0 *": "ask",
-			"chown *": "ask",
-			"killall *": "ask",
-			"pkill *": "ask",
-			"kill -9 *": "ask",
-			"git push --force*": "ask",
-			"git push -f*": "ask",
-			"git checkout -- *": "ask",
-			"git restore *": "ask",
 			"rm *": "deny",
 			"* rm *": "deny",
 			"*/rm *": "deny",
@@ -226,44 +230,17 @@
 			"* sudo *": "deny",
 			"*/sudo *": "deny"
 		},
-		"grep": {
-			"*": "allow",
-			"~/.ssh/**": "deny",
-			"~/.gnupg/**": "deny",
-			"~/.aws/**": "deny",
-			"~/.azure/**": "deny",
-			"~/.kube/**": "deny",
-			"~/.docker/**": "deny",
-			"~/.config/gcloud/**": "deny",
-			"~/.git-credentials": "deny",
-			"~/.netrc": "deny",
-			"~/.npmrc": "deny",
-			"~/.pypirc": "deny",
-			"~/.local/share/password-store/**": "deny",
-			"~/.password-store/**": "deny",
-			"~/.bash_history": "deny",
-			"~/.config/zsh/zsh_history": "deny",
-			"~/.zsh_history": "deny",
-			".env*": "deny",
-			"**/.env*": "deny",
-			"*.pem": "deny",
-			"**/*.pem": "deny",
-			"*.key": "deny",
-			"**/*.key": "deny",
-			"*.p12": "deny",
-			"**/*.p12": "deny",
-			"*.jks": "deny",
-			"**/*.jks": "deny",
-			"*credentials*": "deny",
-			"**/*credentials*": "deny"
-		}
+		"grep": "deny"
 	},
 	"agent": {
 		"general": {
 			"disable": true
 		},
-		"explore": {
+		"scout": {
 			"disable": true
+		},
+		"explore": {
+			"disable": false
 		}
 	},
 	"tools": {
