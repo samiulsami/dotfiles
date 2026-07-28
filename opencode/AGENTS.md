@@ -32,8 +32,10 @@ Global, project, and configured instructions combine. Follow the most specific r
 
 ## Engineering
 
-- Preserve existing style unless it is the problem. Prefer obvious code and keep it local until reuse exists.
-- Do not add speculative abstractions, layers, dependencies, configuration, caching, optimization, or compatibility behavior.
+- Simplicity is the default unless the user explicitly requests more structure. Prefer direct, readable code with the fewest useful functions and indirection.
+- Keep cohesive logic together. Do not split readable functions into one-off helpers or thin wrappers; extract only proven reuse or genuinely complex, independently meaningful behavior.
+- Preserve existing style unless it is the problem. Do not add speculative abstractions, layers, dependencies, configuration, caching, optimization, or compatibility behavior.
+- Never ignore errors. Handle, propagate, or clearly report every failure; do not swallow exceptions, rejections, exit statuses, or error results.
 - Validate trust boundaries and preserve security and accessibility.
 - Add comments only when non-obvious logic needs explanation.
 - Run the smallest relevant check that proves the result. Never claim unverified success; state skipped or impossible verification.
