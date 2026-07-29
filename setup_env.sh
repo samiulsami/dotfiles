@@ -21,7 +21,7 @@ if [ "$SHELL" != "$(readlink -f "$(which zsh)")" ]; then
 fi
 
 echo "[$(date '+%H:%M:%S')] ==> Creating configuration directories..."
-mkdir -p "$XDG_CONFIG_HOME"/{dunst,foot,opencode,opencode/agent,opencode/commands,opencode/skills/grilling,opencode/skills/research,tmux,fontconfig/conf.d,hypr,swayidle,wofi,waybar,environment.d} \
+mkdir -p "$XDG_CONFIG_HOME"/{dunst,foot,opencode,opencode/agent,opencode/commands,opencode/skills/grilling,tmux,fontconfig/conf.d,hypr,swayidle,wofi,waybar,environment.d} \
 	"$ZDOTDIR" \
 	"$XDG_CONFIG_HOME/tmux/plugins/" \
 	"$HOME/go" \
@@ -77,7 +77,6 @@ ln -sf "$DOTFILES_DIR/opencode/agent/implementer.md" "$XDG_CONFIG_HOME/opencode/
 ln -sf "$DOTFILES_DIR/opencode/agent/research-light.md" "$XDG_CONFIG_HOME/opencode/agent/research-light.md"
 ln -sf "$DOTFILES_DIR/opencode/agent/research-medium.md" "$XDG_CONFIG_HOME/opencode/agent/research-medium.md"
 ln -sf "$DOTFILES_DIR/opencode/skills/grilling/SKILL.md" "$XDG_CONFIG_HOME/opencode/skills/grilling/SKILL.md"
-ln -sf "$DOTFILES_DIR/opencode/skills/research/SKILL.md" "$XDG_CONFIG_HOME/opencode/skills/research/SKILL.md"
 ln -sf "$DOTFILES_DIR/antigravity/settings.json" "$HOME/.gemini/antigravity-cli/settings.json"
 ln -sf "$DOTFILES_DIR/fontconfig/01-emoji.conf" "$XDG_CONFIG_HOME/fontconfig/conf.d/01-emoji.conf"
 

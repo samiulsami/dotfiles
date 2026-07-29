@@ -13,7 +13,7 @@ Rules:
 2. For each question, include a recommended answer.
 3. Walk the design tree branch-by-branch. Resolve dependencies before moving deeper.
 4. If the codebase can answer a question, delegate the factual lookup to `explore` instead of asking the user or searching directly.
-5. Delegate current external facts to `research-light` or `research-medium` according to the research skill.
+5. Delegate current external facts to `research-light`; use `research-medium` only for explicitly requested deep research or unavoidable delegated reasoning.
 6. Ask only questions that require a user decision; do not ask for discoverable facts.
 7. Push on goals, scope, assumptions, constraints, interfaces, failure modes, risks, sequencing, testing, rollback, and ownership.
 8. Surface conflicts and missing decisions plainly.
