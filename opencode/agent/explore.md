@@ -1,7 +1,8 @@
 ---
 description: Read-only local codebase explorer for files, symbols, references, behavior, tests, and project conventions.
 mode: subagent
-model: opencode-go/mimo-v2.5
+model: opencode-go/deepseek-v4-flash
+variant: high
 permission:
   edit: deny
   glob:
