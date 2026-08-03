@@ -7,7 +7,7 @@ compinit -C
 zstyle ':completion:*:git-checkout:*' sort false
 zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' menu no
+zstyle ':completion:*' menu true
 
 setopt NO_CASE_GLOB
 setopt NO_CASE_MATCH
