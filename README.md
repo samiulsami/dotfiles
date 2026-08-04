@@ -1,31 +1,4 @@
-# dotfiles
-
-**Core**
-- <b>Display Manager</b>: gdm
-- <b>Window Manager</b>: hyprland
-- <b>Desktop Environment</b>: gnome
-- <b>Terminal</b>: foot
-- <b>Shell</b>: zsh + tmux
-- <b>Editor</b>: neovim
-
-**Desktop**
-- <b>Launcher</b>: wofi
-- <b>Notifications</b>: dunst
-- <b>Screenshots</b>: grim + slurp + swappy/satty
-- <b>Files</b>: nautilus
-
-**System**
-- <b>Audio</b>: pavucontrol
-- <b>Bluetooth</b>: bluez
-- <b>Network</b>: NetworkManager
-- <b>VPN</b>: Cloudflare Warp
-
-**Utilities**
-- fzf, fd, bat, ripgrep, zoxide, lsd, etc.
-
-## Package Installation
-
-### pacman and yay
+### Packages
 ```bash
 set -euo pipefail
 
@@ -35,7 +8,7 @@ gnome=(gdm gnome-shell gnome-control-center gnome-keyring gnome-shell-extension-
 system=(pipewire wireplumber pavucontrol bluez bluez-utils pass networkmanager brightnessctl tlp nvme-cli inetutils android-file-transfer)
 apps=(atop btop htop sysstat imv mpv obs-studio zathura zathura-pdf-mupdf)
 dev=(base-devel git b4 aerc patatt lei github-cli curl wget npm cmake gettext docker docker-buildx kubectl helm terraform tree-sitter-cli aws-cli-v2 eksctl opencode ast-grep)
-lang=(go jdk-openjdk maven rustup clang)
+lang=(go jdk-openjdk maven rustup rust-analyzer clang)
 lsp=(gopls bash-language-server yaml-language-server)
 linter=(golangci-lint shellcheck tflint)
 formatter=(gofumpt stylua shfmt)
