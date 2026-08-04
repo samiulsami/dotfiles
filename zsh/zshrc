@@ -95,6 +95,7 @@ bindkey '\er' fzf-history-widget
 source $ZDOTDIR/fzf-tab/fzf-tab.plugin.zsh
 # zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 zstyle ':fzf-tab:*' use-fzf-default-opts yes
+zstyle ':fzf-tab:*' query-string input
 
 bindkey '\eo' vi-forward-word
 bindkey '^O' autosuggest-accept
