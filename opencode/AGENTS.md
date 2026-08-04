@@ -17,7 +17,7 @@ Global, project, and configured instructions combine. Follow the most specific r
 - Delegate broad codebase discovery to `explore`. Do not reproduce delegated searches or use shell equivalents for routine discovery.
 - Delegate external research and focused web verification to `research-light` by default; use `research-medium` only when the user explicitly requests deep research or the delegated task itself requires substantial reasoning that the primary agent cannot perform from retrieved evidence. The primary agent does not use web lookup tools directly.
 - Read files directly only when the path is known or exact code is needed for a decision or review.
-- Delegate implementation to `implementer` only when it meaningfully saves primary-agent tokens or context. Handle isolated simple edits and commands directly; delegate a sequence of small tasks when batching them meaningfully saves tokens or context, or when output is likely to be large. If the user explicitly asks the primary agent to write or edit, do it directly and request permission normally.
+- Delegate well-scoped implementation to `implementer` by default, including small edits and commands. Handle directly only when delegation adds more overhead than the work itself.
 - Give implementers a self-contained objective, scope, constraints, non-goals, and verification. Start fresh scoped subtasks by default; resume one only for a necessary correction or dependent continuation, since accumulated context degrades quality and increases cost.
 - Launch independent subtasks concurrently. Keep dependent work and overlapping edits sequential.
 - Once work is delegated, do not duplicate it. Continue with non-overlapping work or wait for the result.
@@ -71,3 +71,4 @@ Global, project, and configured instructions combine. Follow the most specific r
 - Do not invent facts, fake verification, or make broad changes without need.
 - Do not add branded simplification tags or review labels.
 - Do not end with optional next-step bait.
+
