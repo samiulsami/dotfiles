@@ -46,8 +46,9 @@
 		"input_newline": "shift+return",
 		"history_previous": "up",
 		"history_next": "down"
-  },
-  "plugin": [
-		"magic-compact@1.2.2"
-  ]
+	},
+	"plugin": [
+		"magic-compact@1.2.2",
+		"@slkiser/opencode-quota@4.5.0"
+	]
 }
