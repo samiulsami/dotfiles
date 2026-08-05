@@ -257,6 +257,7 @@
 	},
 	"plugin": [
 		"@mohak34/opencode-notifier@0.2.8",
-		"magic-compact@1.2.2"
+		"magic-compact@1.2.2",
+		"@slkiser/opencode-quota@4.5.0"
 	]
 }
