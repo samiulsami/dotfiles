@@ -49,6 +49,6 @@
 	},
 	"plugin": [
 		"magic-compact@1.2.2",
-		"@slkiser/opencode-quota@4.5.0"
+		"@slkiser/opencode-quota@4.6.1"
 	]
 }
