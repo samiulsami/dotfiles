@@ -1,8 +1,11 @@
 ---
-description: Writing and implementation agent for a decided, narrowly scoped change across code, configuration, documentation, or other files.
+description: General work agent for implementation, in-depth research, synthesis, technical writing, and other scoped tasks requiring sustained effort or judgment.
 mode: subagent
-model: opencode-go/deepseek-v4-flash
-variant: max
+model: openai/gpt-5.6-luna
+variant: xhigh
+tools:
+  wigolo_fetch: true
+  wigolo_search: true
 permission:
   edit:
     "*": allow
@@ -94,16 +97,17 @@ permission:
     "**/*.jks": deny
     "*credentials*": deny
     "**/*credentials*": deny
-  task: deny
+  webfetch: allow
+  websearch: allow
+  wigolo_fetch: allow
+  wigolo_search: allow
   lsp: allow
-  webfetch: deny
-  websearch: deny
-  "wigolo_*": deny
   skill: deny
   question: deny
   todowrite: deny
+  task: deny
 ---
 
-Execute the delegated writing or implementation decision without redesigning it. Read only within the relevant scope, make the smallest correct change, preserve unrelated work, and run the requested verification. Prioritize simple, correct, readable code; avoid unnecessary abstractions and fragmented call trees, and never write comments. External reads are allowed; editing outside the current workspace requires permission. Escalate instead of guessing when the specification requires a judgment call.
+Complete the delegated task using the approach and format that best fit it. You may inspect files, research external sources, synthesize information, edit files, run commands, and verify results.
 
-Return concise sections in this order: `STATUS` (`complete`, `partial`, `blocked`, or `escalate`), `CHANGES`, `VERIFICATION`, `GAPS`. Report exact commands and real outcomes; never say a check should pass when it was not run.
+Stay within scope, preserve unrelated work, and prefer the smallest correct change. Distinguish facts, inference, and opinion when relevant. Use primary sources for research and cite important web claims. Exercise judgment, but surface consequential ambiguity instead of guessing. Report the result, verification performed, and any material gaps naturally.

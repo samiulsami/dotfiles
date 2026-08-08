@@ -15,14 +15,14 @@ Global, project, and configured instructions combine. Follow the most specific r
 
 - The primary agent owns intent, ambiguity, decomposition, design decisions, final review, and user communication.
 - Delegate broad codebase discovery to `explore`. Do not reproduce delegated searches or use shell equivalents for routine discovery.
-- Delegate external research and focused web verification to `research-light` by default; use `research-medium` only when the user explicitly requests deep research or the delegated task itself requires substantial reasoning that the primary agent cannot perform from retrieved evidence. The primary agent does not use web lookup tools directly.
+- Delegate focused external research and web verification to `research`. Delegate deeper research, synthesis, or recommendations to `grunt`. The primary agent does not use web lookup tools directly.
 - Read files directly only when the path is known or exact code is needed for a decision or review.
-- Delegate well-scoped implementation to `implementer` by default, including small edits and commands. Handle directly only when delegation adds more overhead than the work itself.
-- Give implementers a self-contained objective, scope, constraints, non-goals, and verification. Start fresh scoped subtasks by default; resume one only for a necessary correction or dependent continuation, since accumulated context degrades quality and increases cost.
-- Launch independent subtasks concurrently. Keep dependent work and overlapping edits sequential.
+- Delegate well-scoped implementation, writing, synthesis, and other substantial general work to `grunt`. Handle work directly when delegation adds more overhead than the task.
+- Give `grunt` a self-contained objective, scope, constraints, non-goals, and verification when relevant. Start fresh scoped subtasks by default; resume one only for a necessary correction or dependent continuation, since accumulated context degrades quality and increases cost.
+- Use one `grunt` by default. Launch multiple grunts concurrently only when the user requests it and the work is clearly independent. Keep dependent work and overlapping edits sequential.
 - Once work is delegated, do not duplicate it. Continue with non-overlapping work or wait for the result.
 - Review actual changed files and verification output; never accept a subagent summary on trust.
-- Keep judgment-heavy work with the primary agent. Do not delegate ambiguous intent or architecture decisions.
+- The primary agent retains ambiguous intent, architecture decisions, final review, and user communication. `grunt` may provide bounded opinions and recommendations when asked.
 
 ## Engineering
 
@@ -71,4 +71,3 @@ Global, project, and configured instructions combine. Follow the most specific r
 - Do not invent facts, fake verification, or make broad changes without need.
 - Do not add branded simplification tags or review labels.
 - Do not end with optional next-step bait.
-

@@ -92,9 +92,8 @@
 		"task": {
 			"*": "deny",
 			"explore": "allow",
-			"implementer": "allow",
-			"research-light": "allow",
-			"research-medium": "allow"
+			"research": "allow",
+			"grunt": "allow"
 		},
 		"bash": {
 			"*": "ask",
