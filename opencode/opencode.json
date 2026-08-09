@@ -92,9 +92,8 @@
 		"task": {
 			"*": "deny",
 			"explore": "allow",
-			"implementer": "allow",
-			"research-light": "allow",
-			"research-medium": "allow"
+			"research": "allow",
+			"grunt": "allow"
 		},
 		"bash": {
 			"*": "ask",
@@ -121,16 +120,7 @@
 			"uniq*": "allow",
 			"wc*": "allow",
 			"git *": "deny",
-			"git status*": "allow",
 			"git diff*": "allow",
-			"git log*": "allow",
-			"git show*": "allow",
-			"git branch*": "allow",
-			"git remote*": "allow",
-			"git config --get*": "allow",
-			"git config --list*": "allow",
-			"git blame*": "allow",
-			"git ls-files*": "deny",
 			"kubectl get*": "allow",
 			"kubectl describe*": "allow",
 			"kubectl logs*": "allow",
@@ -258,6 +248,6 @@
 	"plugin": [
 		"@mohak34/opencode-notifier@0.2.8",
 		"magic-compact@1.2.2",
-		"@slkiser/opencode-quota@4.5.0"
+		"@slkiser/opencode-quota@4.6.1"
 	]
 }

@@ -87,11 +87,8 @@ sudo ln -sf $HOME/dotfiles/opencode/AGENTS.md "$XDG_CONFIG_HOME/opencode/AGENTS.
 sudo ln -sf $HOME/dotfiles/opencode/opencode.json $XDG_CONFIG_HOME/opencode/opencode.json
 sudo ln -sf $HOME/dotfiles/opencode/opencode-notifier.json $XDG_CONFIG_HOME/opencode/opencode-notifier.json
 sudo ln -sf $HOME/dotfiles/opencode/tui.json $XDG_CONFIG_HOME/opencode/tui.json
-sudo ln -sf $HOME/dotfiles/opencode/agent/implementer.md $XDG_CONFIG_HOME/opencode/agent/implementer.md
-sudo ln -sf $HOME/dotfiles/opencode/agent/explore.md $XDG_CONFIG_HOME/opencode/agent/explore.md
-sudo ln -sf $HOME/dotfiles/opencode/agent/research-light.md $XDG_CONFIG_HOME/opencode/agent/research-light.md
-sudo ln -sf $HOME/dotfiles/opencode/agent/research-medium.md $XDG_CONFIG_HOME/opencode/agent/research-medium.md
-sudo ln -sfn $HOME/dotfiles/opencode/skills $XDG_CONFIG_HOME/opencode/skills
+sudo ln -sfnT $HOME/dotfiles/opencode/agent $XDG_CONFIG_HOME/opencode/agent
+sudo ln -sfnT $HOME/dotfiles/opencode/skills $XDG_CONFIG_HOME/opencode/skills
 sudo ln -sf $HOME/dotfiles/antigravity/settings.json $HOME/.gemini/antigravity-cli/settings.json
 
 # zsh plugins
