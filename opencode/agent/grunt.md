@@ -2,7 +2,7 @@
 description: Handles medium-complexity implementation, research, synthesis, and writing.
 mode: subagent
 model: openai/gpt-5.6-luna
-variant: max
+variant: xhigh
 tools:
   wigolo_fetch: true
   wigolo_search: true
@@ -116,6 +116,7 @@ Do not call `wigolo_search` alongside it or after it succeeds. Use
 `wigolo_search` only after `websearch` returns an actual tool or service error
 in the current task; poor, empty, slow, or incomplete results are not a
 failure. Use `wigolo_fetch` for every known URL and never use `webfetch`.
+For `wigolo_*` tool-calls, never use its cache.
 
 Stay within scope and preserve unrelated work. Prefer the smallest correct
 change. Distinguish facts, inference, and opinion when relevant.

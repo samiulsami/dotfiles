@@ -31,6 +31,7 @@ Do not call `wigolo_search` alongside it or after it succeeds. Use
 `wigolo_search` only after `websearch` returns an actual tool or service error
 in the current task; poor, empty, slow, or incomplete results are not a
 failure. Use `wigolo_fetch` for every known URL and never use `webfetch`.
+For `wigolo_*` tool-calls, never use its cache.
 
 Return concise evidence with URLs. Distinguish sourced facts from inference and
 note meaningful conflicts, limitations, and unknowns. Leave substantial
