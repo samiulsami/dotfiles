@@ -158,8 +158,8 @@ end
 -- Keybindings
 hl.bind(mod .. " + Return", exec(terminal))
 hl.bind(mod .. " + SHIFT + W", hl.dsp.window.close())
-hl.bind(mod .. " + D", exec("pidof wofi || wofi"))
-hl.bind(mod .. " + SHIFT + C", exec("cliphist list | wofi -S dmenu | cliphist decode | wl-copy"))
+hl.bind(mod .. " + D", exec("pidof wofi || wofi --matching=fuzzy --cache-file=/dev/null"))
+hl.bind(mod .. " + SHIFT + C", exec("cliphist list | wofi -S dmenu --cache-file=/dev/null --matching=fuzzy | cliphist decode | wl-copy"))
 hl.bind(mod .. " + F", hl.dsp.window.fullscreen({ action = "toggle" }))
 hl.bind(mod .. " + SHIFT + Space", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mod .. " + Space", hl.dsp.window.cycle_next({}))
