@@ -1,8 +1,8 @@
 ---
 description: Handles medium-complexity implementation, research, synthesis, and writing.
 mode: subagent
-model: openai/gpt-5.6-luna
-variant: max
+model: opencode-go/muse-spark-1.2-contributor
+variant: xhigh
 tools:
   wigolo_fetch: true
   wigolo_search: true

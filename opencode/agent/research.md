@@ -1,8 +1,8 @@
 ---
 description: Researches sources, verifies claims, and compares evidence.
 mode: subagent
-model: opencode-go/deepseek-v4-flash
-variant: max
+model: opencode-go/muse-spark-1.2-contributor
+variant: xhigh
 tools:
   wigolo_fetch: true
   wigolo_search: true
