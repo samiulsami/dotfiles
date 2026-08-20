@@ -1,7 +1,7 @@
 ---
 description: Finds codebase files, symbols, behavior, tests, and conventions.
 mode: subagent
-model: opencode-go/deepseek-v4-flash
+model: opencode-go/muse-spark-1.2-contributor
 variant: high
 permission:
   edit: deny
