@@ -24,8 +24,7 @@ echo "[$(date '+%H:%M:%S')] ==> Creating configuration directories..."
 mkdir -p "$XDG_CONFIG_HOME"/{dunst,foot,opencode,opencode/commands,tmux,fontconfig/conf.d,hypr,swayidle,wofi,waybar,environment.d} \
 	"$ZDOTDIR" \
 	"$XDG_CONFIG_HOME/tmux/plugins/" \
-	"$HOME/go" \
-	"$HOME/.gemini/antigravity-cli"
+	"$HOME/go"
 
 EXISTING_GLOBAL_GIT_EMAIL=$(git config --global --get user.email || true)
 if [ -n "$EXISTING_GLOBAL_GIT_EMAIL" ]; then
@@ -74,7 +73,6 @@ ln -sf "$DOTFILES_DIR/opencode/tui.json" "$XDG_CONFIG_HOME/opencode/tui.json"
 ln -sf "$DOTFILES_DIR/opencode/opencode-notifier.json" "$XDG_CONFIG_HOME/opencode/opencode-notifier.json"
 ln -sfnT "$DOTFILES_DIR/opencode/agent" "$XDG_CONFIG_HOME/opencode/agent"
 ln -sfnT "$DOTFILES_DIR/opencode/skills" "$XDG_CONFIG_HOME/opencode/skills"
-ln -sf "$DOTFILES_DIR/antigravity/settings.json" "$HOME/.gemini/antigravity-cli/settings.json"
 ln -sf "$DOTFILES_DIR/fontconfig/01-emoji.conf" "$XDG_CONFIG_HOME/fontconfig/conf.d/01-emoji.conf"
 
 echo "[$(date '+%H:%M:%S')] ==> Cloning zsh plugins..."
