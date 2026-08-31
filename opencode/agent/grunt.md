@@ -11,6 +11,8 @@ permission:
     "*": allow
     "/**": ask
     "../**": ask
+    ".opencode-shared-knowledge-*.md": deny
+    "**/.opencode-shared-knowledge-*.md": deny
     ".env*": deny
     "**/.env*": deny
     "*.pem": deny
@@ -23,6 +25,8 @@ permission:
     "**/*.jks": deny
     "*credentials*": deny
     "**/*credentials*": deny
+  bash:
+    "*.opencode-shared-knowledge-*": deny
   glob:
     "*": allow
     "~/.ssh/**": deny
