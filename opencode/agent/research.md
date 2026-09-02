@@ -4,11 +4,13 @@ mode: subagent
 model: opencode-go/muse-spark-1.2-contributor
 variant: xhigh
 tools:
+  "playwright_*": true
   wigolo_fetch: true
   wigolo_search: true
 permission:
   webfetch: allow
   websearch: allow
+  "playwright_*": allow
   wigolo_fetch: allow
   wigolo_search: allow
   edit: deny

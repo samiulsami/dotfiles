@@ -88,6 +88,7 @@
 		},
 		"webfetch": "deny",
 		"websearch": "deny",
+		"playwright_*": "deny",
 		"wigolo_*": "deny",
 		"task": {
 			"*": "deny",
@@ -231,9 +232,18 @@
 		}
 	},
 	"tools": {
+		"playwright_*": false,
 		"wigolo_*": false
 	},
 	"mcp": {
+		"playwright": {
+			"type": "local",
+			"command": [
+				"npx",
+				"@playwright/mcp@0.0.80"
+			],
+			"enabled": true
+		},
 		"wigolo": {
 			"type": "local",
 			"command": [
