@@ -33,6 +33,7 @@ coursier setup --env
 coursier install metals
 
 npm config set prefix "$HOME/.local"
+npm install --global @playwright/mcp@0.0.80
 
 # experimental fully local webfetch/websearch mcp
 npm install -g --allow-scripts=better-sqlite3 wigolo

@@ -239,10 +239,9 @@
 		"playwright": {
 			"type": "local",
 			"command": [
-				"npx",
-				"@playwright/mcp@0.0.80"
+				"playwright-mcp"
 			],
-			"enabled": true
+			"enabled": false
 		},
 		"wigolo": {
 			"type": "local",
