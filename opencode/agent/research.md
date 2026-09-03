@@ -1,7 +1,7 @@
 ---
 description: Researches sources, verifies claims, and compares evidence.
 mode: subagent
-model: opencode-go/muse-spark-1.2-contributor
+model: opencode-go/muse-spark-1.3-contributor
 variant: xhigh
 tools:
   "playwright_*": true

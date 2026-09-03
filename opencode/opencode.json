@@ -242,7 +242,7 @@
 				"npx",
 				"@playwright/mcp@0.0.80"
 			],
-			"enabled": true
+			"enabled": false
 		},
 		"wigolo": {
 			"type": "local",
