@@ -83,7 +83,6 @@ permission:
   task: deny
   webfetch: deny
   websearch: deny
-  "wigolo_*": deny
   lsp: allow
   skill: deny
   question: deny

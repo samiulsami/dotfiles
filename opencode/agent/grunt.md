@@ -5,8 +5,6 @@ model: opencode-go/muse-spark-1.3-contributor
 variant: xhigh
 tools:
   "playwright_*": true
-  wigolo_fetch: true
-  wigolo_search: true
 permission:
   edit:
     "*": allow
@@ -105,8 +103,6 @@ permission:
   webfetch: allow
   websearch: allow
   "playwright_*": allow
-  wigolo_fetch: allow
-  wigolo_search: allow
   lsp: allow
   skill: deny
   question: deny
@@ -118,11 +114,6 @@ Complete the bounded medium-complexity task. Inspect files, research sources,
 synthesize findings, edit files, run commands, and verify results as needed.
 
 Mandatory web-tool policy: call `websearch` first for every discovery query.
-Do not call `wigolo_search` alongside it or after it succeeds. Use
-`wigolo_search` only after `websearch` returns an actual tool or service error
-in the current task; poor, empty, slow, or incomplete results are not a
-failure. Use `wigolo_fetch` for every known URL and never use `webfetch`.
-For `wigolo_*` tool-calls, never use its cache.
 
 Stay within scope and preserve unrelated work. Prefer the smallest correct
 change. Distinguish facts, inference, and opinion when relevant.
