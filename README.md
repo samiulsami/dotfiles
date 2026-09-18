@@ -71,7 +71,7 @@ export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
 export ZDOTDIR=${ZDOTDIR:-$HOME/.config/zsh}
 
-mkdir -p $XDG_CONFIG_HOME/{wofi,zsh,dunst,sway,waybar,foot,opencode,opencode/agent,tmux} $XDG_CONFIG_HOME/tmux/plugins/ $HOME/.gemini/antigravity-cli/ $XDG_CONFIG_HOME/opencode/commands/
+mkdir -p $XDG_CONFIG_HOME/{wofi,zsh,dunst,sway,waybar,foot,opencode,tmux} $XDG_CONFIG_HOME/tmux/plugins/ $HOME/.gemini/antigravity-cli/
 
 # symlink config files for wofi, dunst, foot, tmux, zsh, starship, opencode
 sudo ln -sf $HOME/dotfiles/wofi/config $XDG_CONFIG_HOME/wofi/config
@@ -85,9 +85,8 @@ sudo ln -sf $HOME/dotfiles/starship/starship.toml $XDG_CONFIG_HOME/starship.toml
 sudo ln -sf $HOME/dotfiles/zsh/zsh_functions $ZDOTDIR/zsh_functions
 sudo ln -sf $HOME/dotfiles/opencode/AGENTS.md "$XDG_CONFIG_HOME/opencode/AGENTS.md"
 sudo ln -sf $HOME/dotfiles/opencode/opencode.json $XDG_CONFIG_HOME/opencode/opencode.json
-sudo ln -sf $HOME/dotfiles/opencode/opencode-notifier.json $XDG_CONFIG_HOME/opencode/opencode-notifier.json
-sudo ln -sf $HOME/dotfiles/opencode/tui.json $XDG_CONFIG_HOME/opencode/tui.json
-sudo ln -sfnT $HOME/dotfiles/opencode/agent $XDG_CONFIG_HOME/opencode/agent
+sudo ln -sf $HOME/dotfiles/opencode/cli.json $XDG_CONFIG_HOME/opencode/cli.json
+sudo ln -sfnT $HOME/dotfiles/opencode/agents $XDG_CONFIG_HOME/opencode/agents
 sudo ln -sfnT $HOME/dotfiles/opencode/skills $XDG_CONFIG_HOME/opencode/skills
 sudo ln -sf $HOME/dotfiles/antigravity/settings.json $HOME/.gemini/antigravity-cli/settings.json
 
@@ -228,23 +227,6 @@ curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 |
 ### OpenCode
 ```bash
 curl -fsSL https://opencode.ai/install | bash
-```
-
-### Wigolo
-```bash
-npm install -g wigolo
-wigolo init
-wigolo warmup --searxng
-wigolo doctor --fix
-wigolo verify
-```
-
-```ini
-WIGOLO_LLM_PROVIDER=gemini
-WIGOLO_SEARCH=hybrid
-WIGOLO_TLS_TIER=auto
-GEMINI_API_KEY=...
-BRAVE_API_KEY=...
 ```
 
 ### Antigravity CLI

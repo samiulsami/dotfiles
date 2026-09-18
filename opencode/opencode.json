@@ -1,7 +1,7 @@
 {
 	"$schema": "https://opencode.ai/config.json",
-	"autoupdate": false,
-	"snapshot": false,
+	"update": "disable",
+	"snapshots": false,
 	"permission": {
 		"read": {
 			"*": "allow",
@@ -35,7 +35,6 @@
 			"**/*credentials*": "deny"
 		},
 		"glob": "deny",
-		"list": "deny",
 		"external_directory": {
 			"~/**": "allow",
 			"~/.ssh/**": "deny",
@@ -89,7 +88,6 @@
 		"webfetch": "deny",
 		"websearch": "deny",
 		"playwright_*": "deny",
-		"wigolo_*": "deny",
 		"task": {
 			"*": "deny",
 			"explore": "allow",
@@ -220,41 +218,24 @@
 		},
 		"grep": "deny"
 	},
-	"agent": {
+	"agents": {
 		"general": {
-			"disable": true
-		},
-		"scout": {
-			"disable": true
+			"disabled": true
 		},
 		"explore": {
-			"disable": false
+			"disabled": false
 		}
-	},
-	"tools": {
-		"playwright_*": false,
-		"wigolo_*": false
 	},
 	"mcp": {
-		"playwright": {
-			"type": "local",
-			"command": [
-				"npx",
-				"@playwright/mcp@0.0.80"
-			],
-			"enabled": false
-		},
-		"wigolo": {
-			"type": "local",
-			"command": [
-				"wigolo"
-			],
-			"enabled": true
+		"servers": {
+			"playwright": {
+				"type": "local",
+				"command": [
+					"npx",
+					"@playwright/mcp@0.0.80"
+				],
+				"disabled": true
+			}
 		}
-	},
-	"plugin": [
-		"@mohak34/opencode-notifier@0.2.8",
-		"magic-compact@1.2.2",
-		"@slkiser/opencode-quota@4.6.1"
-	]
+	}
 }
