@@ -34,20 +34,6 @@ coursier install metals
 
 npm config set prefix "$HOME/.local"
 npm install --global @playwright/mcp@0.0.80
-
-# experimental fully local webfetch/websearch mcp
-npm install -g --allow-scripts=better-sqlite3 wigolo
-wigolo init
-wigolo warmup --searxng
-wigolo doctor
-wigolo verify
-
-#set these in $XDG_CONFIG_HOME/environment.d/wigolo.conf
-WIGOLO_LLM_PROVIDER=gemini
-WIGOLO_SEARCH=hybrid
-WIGOLO_TLS_TIER=auto
-GEMINI_API_KEY=...
-BRAVE_API_KEY=...
 ```
 
 ## Environment Setup

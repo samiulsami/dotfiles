@@ -43,10 +43,6 @@
     "prompt.history.previous": "up",
     "prompt.history.next": "down"
   },
-  "plugins": [
-    "magic-compact@1.2.2",
-    "@slkiser/opencode-quota@4.6.1"
-  ],
   "scroll": {
     "speed": 2,
     "acceleration": true

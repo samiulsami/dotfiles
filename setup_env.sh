@@ -21,7 +21,7 @@ if [ "$SHELL" != "$(readlink -f "$(which zsh)")" ]; then
 fi
 
 echo "[$(date '+%H:%M:%S')] ==> Creating configuration directories..."
-mkdir -p "$XDG_CONFIG_HOME"/{dunst,foot,opencode,opencode/commands,tmux,fontconfig/conf.d,hypr,swayidle,wofi,waybar,environment.d} \
+mkdir -p "$XDG_CONFIG_HOME"/{dunst,foot,opencode,tmux,fontconfig/conf.d,hypr,swayidle,wofi,waybar,environment.d} \
 	"$ZDOTDIR" \
 	"$XDG_CONFIG_HOME/tmux/plugins/" \
 	"$HOME/go"
@@ -69,9 +69,8 @@ ln -sf "$DOTFILES_DIR/zsh/zsh_functions" "$ZDOTDIR/zsh_functions"
 ln -sf "$DOTFILES_DIR/starship/starship.toml" "$XDG_CONFIG_HOME/starship.toml"
 ln -sf "$DOTFILES_DIR/opencode/AGENTS.md" "$XDG_CONFIG_HOME/opencode/AGENTS.md"
 ln -sf "$DOTFILES_DIR/opencode/opencode.json" "$XDG_CONFIG_HOME/opencode/opencode.json"
-ln -sf "$DOTFILES_DIR/opencode/tui.json" "$XDG_CONFIG_HOME/opencode/tui.json"
-ln -sf "$DOTFILES_DIR/opencode/opencode-notifier.json" "$XDG_CONFIG_HOME/opencode/opencode-notifier.json"
-ln -sfnT "$DOTFILES_DIR/opencode/agent" "$XDG_CONFIG_HOME/opencode/agent"
+ln -sf "$DOTFILES_DIR/opencode/cli.json" "$XDG_CONFIG_HOME/opencode/cli.json"
+ln -sfnT "$DOTFILES_DIR/opencode/agents" "$XDG_CONFIG_HOME/opencode/agents"
 ln -sfnT "$DOTFILES_DIR/opencode/skills" "$XDG_CONFIG_HOME/opencode/skills"
 ln -sf "$DOTFILES_DIR/fontconfig/01-emoji.conf" "$XDG_CONFIG_HOME/fontconfig/conf.d/01-emoji.conf"
 
