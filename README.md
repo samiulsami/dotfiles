@@ -86,6 +86,7 @@ sudo ln -sf $HOME/dotfiles/zsh/zsh_functions $ZDOTDIR/zsh_functions
 sudo ln -sf $HOME/dotfiles/opencode/AGENTS.md "$XDG_CONFIG_HOME/opencode/AGENTS.md"
 sudo ln -sf $HOME/dotfiles/opencode/opencode.json $XDG_CONFIG_HOME/opencode/opencode.json
 sudo ln -sf $HOME/dotfiles/opencode/cli.json $XDG_CONFIG_HOME/opencode/cli.json
+sudo ln -sf $HOME/dotfiles/opencode/opencode-notifier.json $XDG_CONFIG_HOME/opencode/opencode-notifier.json
 sudo ln -sfnT $HOME/dotfiles/opencode/agents $XDG_CONFIG_HOME/opencode/agents
 sudo ln -sfnT $HOME/dotfiles/opencode/skills $XDG_CONFIG_HOME/opencode/skills
 sudo ln -sf $HOME/dotfiles/antigravity/settings.json $HOME/.gemini/antigravity-cli/settings.json
