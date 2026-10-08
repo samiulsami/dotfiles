@@ -1,8 +1,8 @@
 ---
 description: Handles medium-complexity implementation, research, synthesis, and writing.
 mode: subagent
-model: opencode-go/muse-spark-1.3-contributor
-variant: xhigh
+model: openai/gpt-6-luna-fast
+variant: max
 permission:
   edit:
     '*': allow

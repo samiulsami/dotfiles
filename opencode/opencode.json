@@ -240,5 +240,11 @@
 				"disabled": true
 			}
 		}
-	}
+  },
+  "provider": {
+    "copilot": {},
+    "openai": {},
+    "deepseek": {},
+    "opencode-go": {}
+  }
 }
