@@ -24,6 +24,7 @@ echo "[$(date '+%H:%M:%S')] ==> Creating configuration directories..."
 mkdir -p "$XDG_CONFIG_HOME"/{dunst,foot,opencode,tmux,fontconfig/conf.d,hypr,swayidle,wofi,waybar,environment.d} \
 	"$ZDOTDIR" \
 	"$XDG_CONFIG_HOME/tmux/plugins/" \
+	"$HOME/random_projects" \
 	"$HOME/go"
 
 EXISTING_GLOBAL_GIT_EMAIL=$(git config --global --get user.email || true)
@@ -82,8 +83,15 @@ run_async "clone fzf-tab" git_clone --depth 1 https://github.com/Aloxaf/fzf-tab.
 run_async "clone zsh-completions" git_clone --depth 1 https://github.com/zsh-users/zsh-completions.git "$ZDOTDIR/zsh-completions"
 
 echo "[$(date '+%H:%M:%S')] ==> Cloning tmux plugins..."
-run_async "clone tmux-resurrect" git_clone --depth 1 https://github.com/tmux-plugins/tmux-resurrect "$XDG_CONFIG_HOME/tmux/plugins/tmux-resurrect"
-run_async "clone tmux-named-snapshot" git_clone --depth 1 git@github.com:spywhere/tmux-named-snapshot.git "$XDG_CONFIG_HOME/tmux/plugins/tmux-named-snapshot"
+RESURRECT_PLUGIN_DIR="$HOME/random_projects/tmux-resurrect"
+if [ -e "$RESURRECT_PLUGIN_DIR" ] || [ -L "$RESURRECT_PLUGIN_DIR" ]; then
+	if [ ! -f "$RESURRECT_PLUGIN_DIR/resurrect.tmux" ] || [ ! -r "$RESURRECT_PLUGIN_DIR/resurrect.tmux" ]; then
+		echo "ERROR: Existing tmux-resurrect checkout at '$RESURRECT_PLUGIN_DIR' is missing a readable resurrect.tmux; refusing to overwrite it." >&2
+		exit 1
+	fi
+else
+	run_async "clone tmux-resurrect fork" git_clone --depth 1 --branch master git@github.com:samiulsami/tmux-resurrect.git "$RESURRECT_PLUGIN_DIR"
+fi
 
 echo "[$(date '+%H:%M:%S')] ==> Setting up Hyprland configuration..."
 ln -sf "$DOTFILES_DIR/hyprland/hyprland.lua" "$XDG_CONFIG_HOME/hypr/hyprland.lua"
