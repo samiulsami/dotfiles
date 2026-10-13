@@ -1,7 +1,31 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 # Source shared utilities
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+setup_opencode() {
+	local config_dir="${XDG_CONFIG_HOME:-$HOME/.config}/opencode"
+	echo "[$(date '+%H:%M:%S')] ==> Setting up OpenCode configuration..."
+	mkdir -p "$config_dir/commands"
+	for file in AGENTS.md opencode.json cli.json opencode-notifier.json; do
+		ln -sfnT "$SCRIPT_DIR/opencode/$file" "$config_dir/$file"
+	done
+	ln -sfnT "$SCRIPT_DIR/opencode/agents" "$config_dir/agents"
+	ln -sfnT "$SCRIPT_DIR/opencode/skills" "$config_dir/skills"
+	ln -sfnT "$SCRIPT_DIR/opencode/commands/research.md" "$config_dir/commands/research.md"
+	if [[ -L "$config_dir/tui.json" && $(readlink "$config_dir/tui.json") == "$SCRIPT_DIR/opencode/tui.json" ]]; then
+		rm "$config_dir/tui.json"
+	fi
+}
+
+if [[ ${1:-} == --opencode-only ]]; then
+	setup_opencode
+	echo "Quit and restart OpenCode to load the configuration."
+	exit 0
+fi
+
 source "$SCRIPT_DIR/utils.sh"
 
 if [ -z "$XDG_CONFIG_HOME" ] || [ -z "$XDG_DATA_HOME" ]; then
@@ -20,7 +44,7 @@ if [ "$SHELL" != "$(readlink -f "$(which zsh)")" ]; then
 fi
 
 echo "[$(date '+%H:%M:%S')] ==> Creating configuration directories..."
-mkdir -p "$XDG_CONFIG_HOME"/{tmux,environment.d,opencode,opencode/commands} \
+mkdir -p "$XDG_CONFIG_HOME"/{tmux,environment.d} \
 	"$ZDOTDIR" \
 	"$XDG_CONFIG_HOME/tmux/plugins/" \
 	"$HOME/go" \
@@ -67,9 +91,7 @@ ln -sf "$DOTFILES_DIR/zsh/zsh_functions" "$ZDOTDIR/zsh_functions"
 ln -sf "$DOTFILES_DIR/starship/starship.toml" "$XDG_CONFIG_HOME/starship.toml"
 ln -sf "$DOTFILES_DIR/gemini/settings.json" "$HOME/.gemini/settings.json"
 ln -sf "$DOTFILES_DIR/gemini/gemini-rules.toml" "$HOME/.gemini/policies/gemini-rules.toml"
-ln -sf "$DOTFILES_DIR/opencode/opencode.json" "$XDG_CONFIG_HOME/opencode/opencode.json"
-ln -sf "$DOTFILES_DIR/opencode/tui.json" "$XDG_CONFIG_HOME/opencode/tui.json"
-ln -sf "$DOTFILES_DIR/opencode/commands/research.md" "$XDG_CONFIG_HOME/opencode/commands/research.md"
+setup_opencode
 
 echo "[$(date '+%H:%M:%S')] ==> Cloning zsh plugins..."
 run_async "clone zsh-autosuggestions" git_clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions.git "$ZDOTDIR/zsh-autosuggestions"

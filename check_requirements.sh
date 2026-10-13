@@ -4,7 +4,7 @@
 
 REQUIRED_CMDS=(
 	git wget curl tmux sed ln mkdir awk
-	make tar gzip cp rm grep chsh readlink which zsh
+	make tar gzip cp rm grep chsh readlink which zsh flock
 	jq fzf fd bat zoxide nvim termux-info proot-distro
 )
 

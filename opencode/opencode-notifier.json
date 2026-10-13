@@ -1,0 +1,36 @@
+{
+  "sound": false,
+  "notification": false,
+  "bell": false,
+  "suppressWhenFocused": false,
+  "showProjectName": true,
+  "command": {
+    "enabled": true,
+    "path": "termux-notification",
+    "args": [
+      "--id", "opencode-{sessionID}",
+      "--title", "OpenCode: {projectName}",
+      "--content", "{message}"
+    ],
+    "minDuration": 0
+  },
+  "events": {
+    "permission": { "bell": true },
+    "complete": { "bell": true },
+    "subagent_complete": false,
+    "question": { "bell": true },
+    "interrupted": false,
+    "user_cancelled": false,
+    "plan_exit": false,
+    "session_started": false,
+    "user_message": false,
+    "client_connected": false
+  },
+  "messages": {
+    "permission": "Needs permission",
+    "complete": "Has finished",
+    "subagent_complete": "Subagent task completed",
+    "error": "Encountered an error",
+    "question": "Has a question"
+  }
+}

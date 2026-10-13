@@ -60,17 +60,18 @@ mpvt() {
 	mpv -vo=sixel --vo-sixel-buffered --profile=sw-fast --really-quiet "$@"
 }
 
-# Run opencode-ai inside Arch Linux proot container for glibc compatibility
+# Run OpenCode v2 in PRoot with the Termux configuration.
 opencode() {
-	proot-distro login archlinux --termux-home --bind "$PWD:$PWD" --work-dir "$PWD" --env OPENCODE_ENABLE_EXA=true -- opencode "$@"
+	proot-distro login archlinux --termux-home --bind "$PWD:$PWD" --work-dir "$PWD" -- \
+		env "HOME=$HOME" \
+		"XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}" \
+		"XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}" \
+		"XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}" \
+		"OPENCODE_NOTIFIER_CONFIG_PATH=${XDG_CONFIG_HOME:-$HOME/.config}/opencode/opencode-notifier.json" \
+		opencode "$@"
 }
 
 # Run pdflatex inside Arch Linux proot container
 pdflatex() {
-	if [[ -f /etc/arch-release ]]; then
-		command pdflatex "$@"
-		return
-	fi
-
 	proot-distro login archlinux --termux-home --bind "$PWD:$PWD" --work-dir "$PWD" -- pdflatex "$@"
 }

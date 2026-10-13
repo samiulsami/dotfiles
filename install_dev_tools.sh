@@ -1,27 +1,37 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 # Install development tools
 
 # Source shared utilities
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$SCRIPT_DIR/utils.sh"
-
-if [ -z "$XDG_CONFIG_HOME" ] || [ -z "$XDG_DATA_HOME" ]; then
-	echo "XDG_CONFIG_HOME and/or XDG_DATA_HOME not set."
-	exit 1
+if [[ ${1:-} != --opencode-only ]]; then
+	source "$SCRIPT_DIR/utils.sh"
 fi
 
-echo "[$(date '+%H:%M:%S')] ==> Setting up Arch Linux Proot for opencode-ai and LaTeX..."
+echo "[$(date '+%H:%M:%S')] ==> Installing OpenCode v2 in PRoot..."
 
-if proot-distro login archlinux -- true >/dev/null 2>&1; then
-	echo "[$(date '+%H:%M:%S')] ==> Arch Linux Proot already installed. Skipping install."
-else
-	proot-distro install archlinux
+arch_packages=(opencode nodejs npm git ripgrep fd ast-grep)
+if [[ ${1:-} != --opencode-only ]]; then
+	arch_packages+=(texlive-basic texlive-latex texlive-latexrecommended texlive-latexextra texlive-fontsrecommended)
 fi
 
-if ! proot-distro login archlinux -- bash -lc "command -v opencode >/dev/null 2>&1 && command -v pdflatex >/dev/null 2>&1"; then
-	echo "[$(date '+%H:%M:%S')] ==> Provisioning Arch packages..."
-	proot-distro login archlinux -- bash -lc "set -euo pipefail; rm -f /var/lib/pacman/db.lck; pacman -Syu --noconfirm --needed npm texlive-basic texlive-latex texlive-latexrecommended texlive-latexextra texlive-fontsrecommended; if ! command -v opencode >/dev/null 2>&1; then npm install -g opencode-ai; fi"
+if [[ ! -d "$PREFIX/var/lib/proot-distro/containers/archlinux/rootfs" &&
+	! -d "$PREFIX/var/lib/proot-distro/installed-rootfs/archlinux" ]]; then
+	proot-distro install --name archlinux https://ca.us.mirror.archlinuxarm.org/os/ArchLinuxARM-aarch64-latest.tar.gz
+fi
+
+proot-distro login archlinux -- bash -c '
+set -euo pipefail
+pacman-key --init
+pacman-key --populate archlinuxarm
+pacman -Syu --noconfirm --needed "$@"
+opencode --version
+' bash "${arch_packages[@]}"
+
+if [[ ${1:-} == --opencode-only ]]; then
+	exit 0
 fi
 
 echo "[$(date '+%H:%M:%S')] ==> Installing Neovim plugins..."

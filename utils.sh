@@ -99,15 +99,19 @@ run_async() {
 
 # Wait for all async jobs, print summary, return 1 if any failed
 wait_all() {
-	local pid
+	local pid failed=0
 	for pid in "${ASYNC_PIDS[@]}"; do
-		wait "$pid" || true
+		wait "$pid" || failed=1
 	done
 	ASYNC_PIDS=()
 	echo "---" >&2
 	if [[ -s "$FAIL_LOG" ]]; then
 		printf '\033[31mFailed tasks:\033[0m\n' >&2
 		cat "$FAIL_LOG" >&2
+		return 1
+	fi
+	if ((failed)); then
+		echo "One or more tasks failed without a failure log." >&2
 		return 1
 	fi
 	printf '\033[32mAll tasks completed successfully\033[0m\n' >&2

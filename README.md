@@ -7,7 +7,7 @@
 
 **Utilities**
 - fzf, fd, bat, ripgrep, zoxide, lsd, jq, etc.
-- OpenCode
+- OpenCode v2 (Arch Linux PRoot)
 
 ## Package Installation
 
@@ -19,7 +19,7 @@ termux-change-repo
 pkg update -y
 pkg upgrade -y
 
-shell=(zsh starship tmux fzf fd bat ripgrep zoxide lsd tealdeer jq socat)
+shell=(zsh starship tmux fzf fd bat ripgrep zoxide lsd tealdeer jq socat util-linux)
 dev=(git curl wget nodejs npm neovim termux-api golang python rust build-essential cmake lua51 luajit lsof tree-sitter-parsers stylua proot-distro)
 
 pkg install -y ${shell[@]} ${dev[@]}
@@ -42,6 +42,15 @@ chmod +x ./setup_env.sh
 ```bash
 chmod +x ./install_dev_tools.sh
 ./install_dev_tools.sh
+```
+
+### OpenCode only
+```bash
+bash ./setup_env.sh --opencode-only
+bash ./install_dev_tools.sh --opencode-only
+source "$HOME/.config/zsh/zsh_functions"
+opencode --version
+opencode debug agents
 ```
 
 ### ssh keys
