@@ -141,7 +141,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("gnome-keyring-daemon --start --components=secrets")
     hl.exec_cmd("dunst")
     hl.exec_cmd("waybar")
-    hl.exec_cmd("swayidle -w")
+    hl.exec_cmd('flock -n -E 0 --close "$XDG_RUNTIME_DIR/swayidle.lock" swayidle -w')
     hl.exec_cmd("wl-paste --watch cliphist store")
 end)
 
@@ -213,7 +213,9 @@ hl.define_submap("resize", function()
 end)
 
 -- Screenshot (grim + slurp)
-hl.bind("Print", exec("grim -g \"$(slurp)\" - | swappy -f -"))
+for _, key in ipairs({ "Print", "XF86AudioMute" }) do
+    hl.bind(key, exec("grim -g \"$(slurp)\" - | swappy -f -"))
+end
 hl.bind(mod .. " + Print", exec("grim - | satty -f - --fullscreen --init-tool crop --copy-command \"wl-copy\""))
 
 -- Brightness (repeatable when held)
@@ -229,16 +231,20 @@ hl.bind(
 )
 
 -- Volume (repeatable when held) - capped at 200%
-hl.bind(
-    mod .. " + SHIFT + V",
-    exec("vol=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -Po '\\d+(?=%)' | head -1); [ \"$vol\" -lt 200 ] && pactl set-sink-volume @DEFAULT_SINK@ +5%; notify-send -h string:x-dunst-stack-tag:audio \"Volume: $(pactl get-sink-volume @DEFAULT_SINK@ | grep -Po '\\d+(?=%)' | head -1)%\""),
-    { repeating = true }
-)
-hl.bind(
-    mod .. " + V",
-    exec("pactl set-sink-volume @DEFAULT_SINK@ -5% && notify-send -h string:x-dunst-stack-tag:audio \"Volume: $(pactl get-sink-volume @DEFAULT_SINK@ | grep -Po '\\d+(?=%)' | head -1)%\""),
-    { repeating = true }
-)
+for _, key in ipairs({ mod .. " + SHIFT + V", "XF86AudioRaiseVolume" }) do
+    hl.bind(
+        key,
+        exec("vol=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -Po '\\d+(?=%)' | head -1); [ \"$vol\" -lt 200 ] && pactl set-sink-volume @DEFAULT_SINK@ +5%; notify-send -h string:x-dunst-stack-tag:audio \"Volume: $(pactl get-sink-volume @DEFAULT_SINK@ | grep -Po '\\d+(?=%)' | head -1)%\""),
+        { repeating = true }
+    )
+end
+for _, key in ipairs({ mod .. " + V", "XF86AudioLowerVolume" }) do
+    hl.bind(
+        key,
+        exec("pactl set-sink-volume @DEFAULT_SINK@ -5% && notify-send -h string:x-dunst-stack-tag:audio \"Volume: $(pactl get-sink-volume @DEFAULT_SINK@ | grep -Po '\\d+(?=%)' | head -1)%\""),
+        { repeating = true }
+    )
+end
 hl.bind(mod .. " + M", exec("pactl set-sink-mute @DEFAULT_SINK@ toggle && notify-send -h string:x-dunst-stack-tag:audio \"Audio Muted: $(pactl get-sink-mute @DEFAULT_SINK@ | awk '{print $2}')\""))
 hl.bind(mod .. " + SHIFT + M", exec("pactl set-source-mute @DEFAULT_SOURCE@ toggle && notify-send -h string:x-dunst-stack-tag:audio \"Mic Muted: $(pactl get-source-mute @DEFAULT_SOURCE@ | awk '{print $2}')\""))
 
@@ -260,9 +266,10 @@ hl.bind(mod .. " + P", exec("dunstctl close"))
 hl.bind(mod .. " + A", exec("dunstctl action"))
 hl.bind(mod .. " + C", exec("dunstctl close-all"))
 
--- Lock screen using the same flow as the working Sway setup.
+-- Manual lock uses swayidle's shared lock and resume flow.
+local lock_cmd = "pkill -USR1 -x swayidle || sh \"${XDG_CONFIG_HOME:-$HOME/.config}/swayidle/lock.sh\""
 for _, key in ipairs({ mod .. " + Escape", "Pause" }) do
-    hl.bind(key, exec("dunstctl set-paused true; hyprctl dispatch 'hl.dsp.dpms({ action = \"disable\" })'; swaylock -u --color 000000; hyprctl dispatch 'hl.dsp.dpms({ action = \"enable\" })'; dunstctl set-paused false"))
+    hl.bind(key, exec(lock_cmd))
 end
 
 -- Group/tabbed layout
