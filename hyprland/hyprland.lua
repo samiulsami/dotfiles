@@ -141,7 +141,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("gnome-keyring-daemon --start --components=secrets")
     hl.exec_cmd("dunst")
     hl.exec_cmd("waybar")
-    hl.exec_cmd('flock -n -E 0 --close "$XDG_RUNTIME_DIR/swayidle.lock" swayidle -w')
+    hl.exec_cmd("swayidle -w")
     hl.exec_cmd("wl-paste --watch cliphist store")
 end)
 
@@ -266,10 +266,9 @@ hl.bind(mod .. " + P", exec("dunstctl close"))
 hl.bind(mod .. " + A", exec("dunstctl action"))
 hl.bind(mod .. " + C", exec("dunstctl close-all"))
 
--- Manual lock uses swayidle's shared lock and resume flow.
-local lock_cmd = "pkill -USR1 -x swayidle || sh \"${XDG_CONFIG_HOME:-$HOME/.config}/swayidle/lock.sh\""
+-- Lock screen using the same flow as the working Sway setup.
 for _, key in ipairs({ mod .. " + Escape", "Pause" }) do
-    hl.bind(key, exec(lock_cmd))
+    hl.bind(key, exec("dunstctl set-paused true; hyprctl dispatch 'hl.dsp.dpms({ action = \"disable\" })'; swaylock -u --color 000000; hyprctl dispatch 'hl.dsp.dpms({ action = \"enable\" })'; dunstctl set-paused false"))
 end
 
 -- Group/tabbed layout
