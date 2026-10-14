@@ -8,7 +8,7 @@ permission:
   websearch: allow
   playwright_*: allow
   edit: deny
-  bash: deny
+  bash: ask
   glob: deny
   grep: deny
   skill: deny

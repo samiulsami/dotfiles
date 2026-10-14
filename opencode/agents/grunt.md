@@ -22,8 +22,6 @@ permission:
     '**/*.jks': deny
     '*credentials*': deny
     '**/*credentials*': deny
-  bash:
-    '*.opencode-shared-knowledge-*': deny
   glob:
     '*': allow
     ~/.ssh/**: deny

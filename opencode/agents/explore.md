@@ -49,7 +49,7 @@ permission:
     '**/*.jks': deny
     '*credentials*': deny
     '**/*credentials*': deny
-  bash: deny
+  bash: ask
   task: deny
   webfetch: deny
   websearch: deny
