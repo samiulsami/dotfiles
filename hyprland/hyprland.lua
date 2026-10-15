@@ -156,6 +156,7 @@ for _, event in ipairs({
 end
 
 -- Keybindings
+hl.bind("SHIFT + Escape", hl.dsp.send_shortcut({ mods = "SHIFT", key = "grave" }), { repeating = true })
 hl.bind(mod .. " + Return", exec(terminal))
 hl.bind(mod .. " + SHIFT + W", hl.dsp.window.close())
 hl.bind(mod .. " + D", exec("pidof wofi || wofi --matching=fuzzy --cache-file=/dev/null"))
