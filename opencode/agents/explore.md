@@ -2,7 +2,7 @@
 description: Finds codebase files, symbols, behavior, tests, and conventions.
 mode: subagent
 model: opencode-go/muse-spark-1.3-contributor
-variant: high
+variant: xhigh
 permission:
   edit: deny
   glob:

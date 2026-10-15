@@ -16,7 +16,7 @@ Rules:
 4. Resolve dependencies before descending the design tree branch by branch.
 5. Use `explore` for discoverable codebase facts before asking the user.
 6. Delegate current external facts to `research`.
-7. Use `grunt` only for requested deep research or essential synthesis.
+7. Use `grunt` for substantive synthesis when task depth warrants it.
 8. Ask only for user decisions, not facts agents can discover.
 9. Challenge goals, scope, assumptions, constraints, interfaces, and risks.
 10. Challenge failure modes, sequencing, testing, rollback, and ownership.
