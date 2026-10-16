@@ -46,21 +46,22 @@ consequential ambiguity prevents correct action; otherwise act.
 
 ## Continuity
 
-- For substantial multi-phase, long-running, expanding, or already-tracked work,
-  the primary must load `handover` and persist the canonical record before
-  substantial research, delegation, or implementation. Reuse project
-  conventions and existing records; keep one-step work lightweight.
-- Once a handover is required, checkpoint before each substantial batch; after
-  launch, record returned worker/run IDs; and update after accepted worker or
-  research results and completed verification. Also update whenever decisions,
+- Use `handover` only when the user explicitly requests a handover, checkpoint,
+  or handoff workflow; asks to resume from a handover; or asks for continuity
+  across explicitly requested long multi-session work. Complexity, scope growth,
+  costly reconstruction, or an existing handover alone do not activate it.
+  Requests to edit or discuss the skill do not activate it.
+- Within that user-activated workflow, checkpoint before each substantial batch;
+  after launch, record returned worker/run IDs; and update after accepted worker
+  or research results and completed verification. Also update whenever decisions,
   scope, blockers, or deferred requests change, and before starting another
   batch, a planned pause, final response, or handoff. Do not start the next
   batch or claim completion with stale checkpoint state.
-- Checkpoints must distinguish implemented from verified work and record
+- Its checkpoints must distinguish implemented from verified work and record
   owners, evidence, remaining or deferred work, and the next action. If writes
   are read-only or unavailable, report the checkpoint as unsaved; do not claim
   persistence or override permissions.
-- Keep checkpoint updates at meaningful boundaries, not every tool call.
+- Keep its checkpoint updates at meaningful boundaries, not every tool call.
 
 ## Communication
 

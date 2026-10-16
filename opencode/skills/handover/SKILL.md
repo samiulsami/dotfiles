@@ -1,24 +1,26 @@
 ---
 name: handover
-description: Use proactively when work is likely to span sessions or growing scope makes decisions, dependencies, evidence, or active work costly to reconstruct. Start midway when needed without waiting for a user request. Also use for requested checkpoints and resuming tasks with existing handovers.
+description: Use only when the user explicitly requests a handover, checkpoint, or handoff workflow; asks to resume from a handover; or asks for continuity across explicitly requested long multi-session work. Complexity, scope growth, costly reconstruction, or an existing handover alone do not trigger use. Requests to edit or discuss this skill do not trigger use.
 ---
 
 # Handover
 
-Start when dependent phases, expensive investigation or verification, or ongoing
-work make recovery from chat alone costly. Reassess as scope grows; start midway
-without waiting for a user request or context limit. Genuinely simple,
-self-contained tasks stay lightweight; do not create a record ceremony for them.
+Invoke only after an explicit user request for a handover, checkpoint, or handoff
+workflow; resumption from a handover; or continuity for explicitly requested
+long multi-session work. Inferred complexity, scope growth, costly reconstruction,
+or the mere presence of a handover is not a request. Requests to edit or discuss
+this skill do not activate it.
 
 ## Establish the record
 
-For qualifying work, create or locate the single canonical handover, read it,
-and save a current initial checkpoint before substantive research, delegation,
-or implementation. If no path is given, search project task records, including
-`.opencode/tasks`, before creating one. Reuse the task identity and path; ask if
-multiple records could match. Follow project conventions, including for first
-creation. Otherwise use `.opencode/tasks/<short-task-slug>/handover.md`. Do not
-create parallel records or overwrite unrelated content.
+For explicitly requested handover work, create or locate the single canonical
+handover, read it, and save a current initial checkpoint before substantive
+research, delegation, or implementation. If no path is given, search project task
+records, including `.opencode/tasks`, before creating one. Reuse the task
+identity and path; ask if multiple records could match. Follow project
+conventions, including for first creation. Otherwise use
+`.opencode/tasks/<short-task-slug>/handover.md`; do not create parallel records
+or overwrite unrelated content.
 
 The primary owns the record; delegates return findings rather than editing it.
 Respect scope and read-only restrictions. If writes are unavailable, provide an
