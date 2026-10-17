@@ -157,6 +157,9 @@ end
 
 -- Keybindings
 hl.bind("SHIFT + Escape", hl.dsp.send_shortcut({ mods = "SHIFT", key = "grave" }), { repeating = true })
+hl.bind("Delete", hl.dsp.send_shortcut({ mods = "", key = "Home" }), { repeating = true })
+hl.bind("Page_Up", hl.dsp.send_shortcut({ mods = "", key = "End" }), { repeating = true })
+hl.bind("Page_Down", hl.dsp.send_shortcut({ mods = "", key = "Delete" }), { repeating = true })
 hl.bind(mod .. " + Return", exec(terminal))
 hl.bind(mod .. " + SHIFT + W", hl.dsp.window.close())
 hl.bind(mod .. " + D", exec("pidof wofi || wofi --matching=fuzzy --cache-file=/dev/null"))
