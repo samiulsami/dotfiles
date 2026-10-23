@@ -3,8 +3,8 @@
 	"update": "disable",
 	"snapshots": false,
 	"plugins": [
-		"@mohak34/opencode-notifier@0.7.0",
-		"@slkiser/opencode-quota@5.0.1"
+		"@mohak34/opencode-notifier@01.1.0",
+		"@slkiser/opencode-quota@5.0.3"
 	],
 	"permission": {
 		"read": {
