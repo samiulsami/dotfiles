@@ -62,6 +62,17 @@ consequential ambiguity prevents correct action; otherwise act.
   are read-only or unavailable, report the checkpoint as unsaved; do not claim
   persistence or override permissions.
 - Keep its checkpoint updates at meaningful boundaries, not every tool call.
+- After compaction or handoff, load only the current goal, essential constraints,
+  decisions, blockers, active owners/jobs, verification state and exact next action.
+  Link detailed context by path and section; read it only when a concrete pending
+  decision requires it. Do not eagerly reread transcripts, entire evidence files,
+  broad source trees or completed investigations to reconstruct the old session.
+- Apply the same information budget to worker prompts and returns: send only the
+  scoped contract and relevant facts, with pointers for optional detail; request
+  concise findings and evidence locations rather than full file maps or transcripts.
+  Read source in targeted sections for actual review, expanding only as needed.
+  Core instructions, safety boundaries and critical resume facts are exceptions;
+  minimal context must not hide blockers or substitute summaries for verification.
 
 ## Communication
 
