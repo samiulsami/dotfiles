@@ -3,8 +3,7 @@
 	"update": "disable",
 	"snapshots": false,
 	"plugins": [
-		"@mohak34/opencode-notifier@01.1.0",
-		"@slkiser/opencode-quota@5.0.3"
+		"@mohak34/opencode-notifier@01.1.0"
 	],
 	"permission": {
 		"read": {
@@ -240,12 +239,12 @@
 				"disabled": true
 			}
 		}
-  },
-  "provider": {
-    "copilot": {},
-    "openai": {},
-    "deepseek": {},
-    "opencode-go": {},
-    "opencode": {}
-  }
+	},
+	"provider": {
+		"copilot": {},
+		"openai": {},
+		"deepseek": {},
+		"opencode-go": {},
+		"opencode": {}
+	}
 }
