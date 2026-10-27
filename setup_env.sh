@@ -83,15 +83,8 @@ run_async "clone fzf-tab" git_clone --depth 1 https://github.com/Aloxaf/fzf-tab.
 run_async "clone zsh-completions" git_clone --depth 1 https://github.com/zsh-users/zsh-completions.git "$ZDOTDIR/zsh-completions"
 
 echo "[$(date '+%H:%M:%S')] ==> Cloning tmux plugins..."
-RESURRECT_PLUGIN_DIR="$HOME/random_projects/tmux-resurrect"
-if [ -e "$RESURRECT_PLUGIN_DIR" ] || [ -L "$RESURRECT_PLUGIN_DIR" ]; then
-	if [ ! -f "$RESURRECT_PLUGIN_DIR/resurrect.tmux" ] || [ ! -r "$RESURRECT_PLUGIN_DIR/resurrect.tmux" ]; then
-		echo "ERROR: Existing tmux-resurrect checkout at '$RESURRECT_PLUGIN_DIR' is missing a readable resurrect.tmux; refusing to overwrite it." >&2
-		exit 1
-	fi
-else
-	run_async "clone tmux-resurrect fork" git_clone --depth 1 --branch master git@github.com:samiulsami/tmux-resurrect.git "$RESURRECT_PLUGIN_DIR"
-fi
+RESURRECT_PLUGIN_DIR="$XDG_CONFIG_HOME/tmux/plugins/tmux-resurrect"
+run_async "clone tmux-resurrect fork" git_clone --depth 1 --branch master https://github.com/samiulsami/tmux-resurrect.git "$RESURRECT_PLUGIN_DIR"
 
 echo "[$(date '+%H:%M:%S')] ==> Setting up Hyprland configuration..."
 ln -sf "$DOTFILES_DIR/hyprland/hyprland.lua" "$XDG_CONFIG_HOME/hypr/hyprland.lua"
