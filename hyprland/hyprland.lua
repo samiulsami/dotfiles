@@ -63,6 +63,9 @@ hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1 })
 hl.workspace_rule({ workspace = "1", monitor = mon1, default = true })
 hl.workspace_rule({ workspace = "4", monitor = mon2, default = true })
 
+-- Keep the cursor inside fullscreen windows, including Steam/Proton games.
+hl.window_rule({ match = { fullscreen = true }, confine_pointer = true })
+
 -- Nvidia specific (remove if not on Nvidia)
 hl.env("LIBVA_DRIVER_NAME", "nvidia")
 hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
