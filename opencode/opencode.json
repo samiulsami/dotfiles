@@ -240,11 +240,20 @@
 			}
 		}
 	},
-	"provider": {
-		"copilot": {},
-		"openai": {},
-		"deepseek": {},
-		"opencode-go": {},
-		"opencode": {}
+	"providers": {
+		"openai": {
+			"models": {
+				"gpt-6.1-sol": { "limit": { "input": 300000 } },
+				"gpt-6.1-sol-fast": { "limit": { "input": 300000 } },
+				"gpt-6.1-sol-ultrafast": { "limit": { "input": 300000 } },
+				"gpt-6-astra": { "limit": { "input": 300000 } },
+				"gpt-6-astra-fast": { "limit": { "input": 300000 } },
+				"gpt-6-astra-ultrafast": { "limit": { "input": 300000 } },
+				"gpt-6-luna": { "limit": { "input": 300000 } },
+				"gpt-6-luna-fast": { "limit": { "input": 300000 } },
+				"gpt-5.6-luna": { "limit": { "input": 300000 } },
+				"gpt-5.6-luna-fast": { "limit": { "input": 300000 } }
+			}
+		}
 	}
 }
